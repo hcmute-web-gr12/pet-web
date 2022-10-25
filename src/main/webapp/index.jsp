@@ -7,5 +7,7 @@
 </head>
 <body>
     <%@ include file="templates/Header.jsp" %>
+    <div class="h-screen"></div>
+    <%@ include file="templates/Footer.jsp" %>
 </body>
 </html>
