@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page %>
 <header>
     <nav class="max-w-5xl rounded mx-auto flex items-center justify-between p-4">
         <div class="flex items-center gap-2 bg-brand hover:bg-grand-600 rounded">
@@ -35,5 +35,5 @@
             <a href="/signup" class="rounded bg-blue-600 px-3 py-2 text-stone-100 transition hover:bg-brand">Sign Up</a>
         </nav>
     </nav>
+    <hr class="border-stone-300" />
 </header>
-<hr />
