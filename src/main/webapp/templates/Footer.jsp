@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <hr />
-<footer class="mx-auto max-w-7xl space-y-8 px-4 pt-16 font-medium text-stone-500">
+<footer class="mx-auto max-w-7xl space-y-8 px-4 pt-16 font-medium text-stone-500 leading-loose">
     <div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
         <nav class="flex flex-col items-start space-y-2.5 md:space-y-1.5">
             <h3 class="mb-2 font-bold uppercase tracking-wide text-stone-800">Liên hệ Brand</h3>
