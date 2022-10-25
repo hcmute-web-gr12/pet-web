@@ -9,7 +9,7 @@
             </a>
         </div>
         <nav class="flex items-center space-x-1 text-sm font-medium">
-            <button class="flex appearance-none p-1 text-blue-500">
+            <button class="flex appearance-none p-1 text-brand-500">
                 <svg class="h-6 w-6" fill="currentcolor" viewBox="0 0 256 256">
                     <line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentcolor" stroke-linecap="round"
                           stroke-linejoin="round" stroke-width="24"></line>
@@ -29,10 +29,10 @@
                 </svg>
                 <label for="search-basic" class="sr-only">Search for pets...</label>
                 <input id="search-basic" type="search" placeholder="Search for pets..."
-                       class="block w-full rounded-md border-gray-200 pl-10 text-sm transition focus:border-blue-600 focus:ring-blue-600 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:opacity-75">
+                       class="block w-full rounded-md border-gray-200 pl-10 text-sm transition focus:border-brand-600 focus:ring-brand-600 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:opacity-75">
             </div>
             <a href="/login" class="hidden rounded px-3 py-2 transition hover:text-brand sm:inline">Login</a>
-            <a href="/signup" class="rounded bg-blue-600 px-3 py-2 text-stone-100 transition hover:bg-brand">Sign Up</a>
+            <a href="/signup" class="rounded bg-brand-600 px-3 py-2 text-stone-100 transition hover:bg-brand">Sign Up</a>
         </nav>
     </nav>
 </header>
