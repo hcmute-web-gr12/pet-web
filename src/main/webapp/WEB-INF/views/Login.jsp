@@ -131,6 +131,11 @@
                                         <span class="ml-4"> Log in with Google</span>
                                     </div>
                                 </button>
+                                <p class="mt-2 text-stone-600 text-bold text-sm text-right">
+                                    Chưa có tài khoản?
+                                    <a href="<c:url value="/signup" />" class="font-medium text-alternate hover:text-alternate-300">đăng ký</a>
+                                    ngay!
+                                </p>
                             </div>
                         </div>
                     </div>
