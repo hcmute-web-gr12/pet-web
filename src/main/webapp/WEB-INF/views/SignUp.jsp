@@ -46,7 +46,7 @@
             <div class="relative flex-auto min-w-96 flex-col justify-center lg:flex-none">
                 <div class="">
                     <div>
-                        <a href="<c:url value="/"/>" class="text-brand text-medium font-bold uppercase">Brand</a>
+                        <a href="<c:url value="/"/>" class="text-stone-500 text-medium font-bold uppercase">Brand</a>
                         <h2 class="mt-6 text-3xl font-extrabold text-alternate">Sign up.</h2>
                     </div>
                     <p class="mt-8">

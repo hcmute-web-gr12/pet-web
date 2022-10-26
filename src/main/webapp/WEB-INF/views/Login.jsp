@@ -46,8 +46,8 @@
             <div class="relative flex-auto min-w-96 flex-col justify-center lg:flex-none">
                 <div class="">
                     <div>
-                        <a href="<c:url value="/"/>" class="text-brand text-medium font-bold uppercase">Brand</a>
-                        <h2 class="mt-6 text-3xl font-extrabold text-blue-700">Log in.</h2>
+                        <a href="<c:url value="/"/>" class="text-stone-500 text-medium font-bold uppercase">Brand</a>
+                        <h2 class="mt-6 text-3xl font-extrabold text-brand">Log in.</h2>
                     </div>
                     <div class="mt-8">
                         <div class="mt-6">
