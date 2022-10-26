@@ -8,6 +8,8 @@
 </head>
 <body>
   <c:import url="../templates/Header.jsp" />
+  <c:import url="../templates/Hero.jsp" />
+  <c:import url="../templates/Dogs.jsp" />
   <div class="h-screen"></div>
   <c:import url="../templates/Footer.jsp" />
 </body>
