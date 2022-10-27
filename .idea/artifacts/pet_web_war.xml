@@ -1,14 +1,14 @@
 <component name="ArtifactManager">
-  <artifact type="war" name="petweb:war">
+  <artifact type="war" name="pet-web:war">
     <output-path>$PROJECT_DIR$/target</output-path>
     <properties id="maven-jee-properties">
       <options>
-        <module>petweb</module>
+        <module>pet-web</module>
         <packaging>war</packaging>
       </options>
     </properties>
     <root id="archive" name="petweb-1.0-SNAPSHOT.war">
-      <element id="artifact" artifact-name="petweb:war exploded" />
+      <element id="artifact" artifact-name="pet-web:war exploded" />
     </root>
   </artifact>
 </component>
