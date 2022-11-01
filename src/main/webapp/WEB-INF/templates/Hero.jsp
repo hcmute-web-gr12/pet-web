@@ -7,7 +7,7 @@
                     <div class="absolute top-0 rounded-full bg-brand-300 -left-4 w-72 h-72 mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
                     <div class="absolute rounded-full bg-alternate-300 -bottom-24 right-20 w-72 h-72 mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
                     <div class="relative">
-                        <img class="object-cover object-center aspect-square rounded-lg shadow-2xl" alt="hero" src="https://thedogman.net/wp-content/uploads/2020/10/49068634038_31d19cd6a6_k-1.jpg">
+                        <img class="object-cover object-center aspect-square rounded-lg shadow-2xl" alt="hero" src="https://images.unsplash.com/photo-1525253013412-55c1a69a5738?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80">
                     </div>
                 </div>
             </div>
