@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <section>
-  <div class="mx-auto max-w-screen px-4 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-screen px-4 sm:px-6 lg:px-8 text-xs md:text-base">
     <div
             class="flex flex-col lg:flex-row gap-8 justify-center items-center h-fit"
     >
@@ -27,7 +27,7 @@
           <img
                   alt="Alaska"
                   src="https://i0.wp.com/petsidi.com/wp-content/uploads/2018/06/alaskan-husky-dogs.jpg?w=680"
-                  class="aspect-square w-full rounded object-cover"
+                  class="aspect-square w-full rounded object-cover bg-stone-200 border border-w-1 border-stone-300""
           />
 
           <div class="mt-2">
@@ -39,7 +39,7 @@
           <img
                   alt="Corgi"
                   src="https://images.unsplash.com/photo-1589965716319-4a041b58fa8a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
-                  class="aspect-square w-full rounded object-cover"
+                  class="aspect-square w-full rounded object-cover bg-stone-200 border border-w-1 border-stone-300""
           />
 
           <div class="mt-2">
@@ -51,7 +51,7 @@
           <img
                   alt="Pug"
                   src="https://images.unsplash.com/photo-1512723185835-0700e5069a9a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80"
-                  class="aspect-square w-full rounded object-cover"
+                  class="aspect-square w-full rounded object-cover bg-stone-200 border border-w-1 border-stone-300""
           />
 
           <div class="mt-2">
@@ -62,8 +62,8 @@
         <a href="#" class="block">
           <img
                   alt="Pug"
-                  src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1598&q=80"
-                  class="aspect-square w-full rounded object-cover"
+                  src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D"
+                  class="aspect-square w-full rounded object-cover bg-stone-200 border border-w-1 border-stone-300""
           />
 
           <div class="mt-2">
@@ -74,8 +74,8 @@
         <a href="#" class="block">
           <img
                   alt="Pug"
-                  src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1598&q=80"
-                  class="aspect-square w-full rounded object-cover"
+                  src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D"
+                  class="aspect-square w-full rounded object-cover bg-stone-200 border border-w-1 border-stone-300""
           />
 
           <div class="mt-2">
