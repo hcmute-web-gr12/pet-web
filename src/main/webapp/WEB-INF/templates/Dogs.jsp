@@ -1,32 +1,32 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <section>
-  <div class="mx-auto max-w-screen px-4 py-12 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-screen px-4 sm:px-6 lg:px-8">
     <div
-            class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:items-stretch"
+            class="flex flex-col lg:flex-row gap-8 justify-center items-center h-fit"
     >
-      <div class="flex items-center rounded p-8">
-        <div class="mx-auto text-center lg:text-left">
+      <div class="flex items-center">
+        <div class="text-center lg:text-left prose prose:lg prose-a:no-underline">
           <h2 class="text-2xl font-bold text-brand">Giống chó cảnh</h2>
 
-          <p class="mt-4 max-w-[45ch] text-sm text-gray-700">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos,
-            cupiditate mollitia saepe vitae libero nobis.
+          <p class="max-w-[45ch] text-sm text-gray-700">
+            <span class="text-brand font-bold uppercase">Brand</span>
+            có sẵn 20+ giống chó cảnh đa dạng dành cho bạn.
           </p>
 
           <a
                   href="#"
-                  class="mt-6 inline-block rounded bg-brand px-6 py-3 text-sm text-stone-100"
+                  class="inline-block rounded bg-brand px-6 py-3 text-sm text-stone-100"
           >
             Đến cửa hàng
           </a>
         </div>
       </div>
 
-      <div class="grid grid-cols-5 grid-flow-col gap-4 lg:py-12">
+      <div class="w-full lg:w-2/3 grid grid-cols-5 grid-flow-col gap-4">
         <a href="#" class="block aspect-square">
           <img
                   alt="Alaska"
-                  src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1598&q=80"
+                  src="https://i0.wp.com/petsidi.com/wp-content/uploads/2018/06/alaskan-husky-dogs.jpg?w=680"
                   class="aspect-square w-full rounded object-cover"
           />
 
@@ -38,7 +38,7 @@
         <a href="#" class="block">
           <img
                   alt="Corgi"
-                  src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1598&q=80"
+                  src="https://images.unsplash.com/photo-1589965716319-4a041b58fa8a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
                   class="aspect-square w-full rounded object-cover"
           />
 
@@ -50,7 +50,7 @@
         <a href="#" class="block">
           <img
                   alt="Pug"
-                  src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1598&q=80"
+                  src="https://images.unsplash.com/photo-1512723185835-0700e5069a9a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80"
                   class="aspect-square w-full rounded object-cover"
           />
 
