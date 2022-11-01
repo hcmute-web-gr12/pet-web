@@ -12,6 +12,8 @@
     <c:import url="../templates/Hero.jsp" />
     <c:import url="../templates/Dogs.jsp" />
     <div></div>
+    <c:import url="../templates/Cats.jsp" />
+    <div></div>
   </main>
   <c:import url="../templates/Footer.jsp" />
 </body>
