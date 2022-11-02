@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <section>
   <div class="mx-auto max-w-screen px-4 sm:px-6 lg:px-8 text-xs md:text-base">
     <div
@@ -14,7 +15,7 @@
           </p>
 
           <a
-                  href="#"
+                  href="<c:url value="/products?type=cat" />"
                   class="inline-block rounded bg-brand px-6 py-3 text-sm text-stone-100"
           >
             Đến cửa hàng mèo
