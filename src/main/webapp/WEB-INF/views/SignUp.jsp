@@ -47,17 +47,17 @@
                 <div class="">
                     <div>
                         <a href="<c:url value="/"/>" class="text-stone-500 text-medium font-bold uppercase">Brand</a>
-                        <h2 class="mt-6 text-3xl font-extrabold text-alternate">Sign up.</h2>
+                        <h2 class="mt-6 text-3xl font-extrabold text-alternate">Đăng ký.</h2>
                     </div>
                     <p class="mt-8">
                         <div class="mt-6">
                             <form action="#" method="POST" class="space-y-6">
                                 <div>
-                                    <label for="username" class="block text-sm font-medium text-stone-600"> Username </label>
+                                    <label for="username" class="block text-sm font-medium text-stone-600"> Tên tài khoản </label>
                                     <div class="mt-1">
                                         <input id="username" name="username" type="email" required=""
                                                autofocus
-                                               placeholder="Username..."
+                                               placeholder="Nhập tên tài khoản..."
                                                class="block w-full px-5 py-3 text-base placeholder-stone-400 transition
                                                duration-200 ease-in-out transform border border-stone-200 rounded-lg
                                                disabled:cursor-not-allowed disabled:bg-stone-200 disabled:opacity-75
@@ -66,10 +66,10 @@
                                 </div>
 
                                 <div>
-                                    <label for="email" class="block text-sm font-medium text-stone-600"> Email address </label>
+                                    <label for="email" class="block text-sm font-medium text-stone-600"> Địa chỉ Email </label>
                                     <div class="mt-1">
                                         <input id="email" name="email" type="email" autocomplete="email" required=""
-                                               placeholder="Email..."
+                                               placeholder="Nhập Email..."
                                                class="block w-full px-5 py-3 text-base placeholder-stone-400 transition
                                                duration-200 ease-in-out transform border border-stone-200 rounded-lg
                                                disabled:cursor-not-allowed disabled:bg-stone-200 disabled:opacity-75
@@ -79,10 +79,10 @@
 
                                 <div class="space-y-1">
                                     <label for="password" class="block text-sm font-medium text-stone-600">
-                                        Password </label>
+                                        Mật khẩu </label>
                                     <div class="mt-1">
                                         <input id="password" name="password" type="password" autocomplete="current-password"
-                                               required placeholder="Password..."
+                                               required placeholder="Nhập mật khẩu..."
                                                class="block w-full px-5 py-3 text-base placeholder-stone-400 transition
                                                duration-200 ease-in-out transform border border-stone-200 rounded-lg
                                                disabled:cursor-not-allowed disabled:bg-stone-200 disabled:opacity-75
@@ -92,10 +92,10 @@
 
                                 <div class="space-y-1">
                                     <label for="password-confirm" class="block text-sm font-medium text-stone-600">
-                                        Confirm your password </label>
+                                        Xác nhận mật khẩu </label>
                                     <div class="mt-1">
                                         <input id="password-confirm" name="password-confirm" type="password" autocomplete="current-password"
-                                               required placeholder="Confirm your password..."
+                                               required placeholder="Xác nhận mật khẩu..."
                                                class="block w-full px-5 py-3 text-base placeholder-stone-400 transition
                                                duration-200 ease-in-out transform border border-stone-200 rounded-lg
                                                disabled:cursor-not-allowed disabled:bg-stone-200 disabled:opacity-75
@@ -105,7 +105,7 @@
                                 <div>
                                     <button type="submit"
                                             class="flex items-center justify-center w-full px-10 py-4 text-base font-medium text-center text-stone-100 transition duration-200 ease-in-out transform bg-alternate rounded-xl hover:bg-alternate-400 focus:outline-none focus:ring-2 focus:ring-alternate-400">
-                                        Sign up
+                                        Đăng ký
                                     </button>
                                 </div>
                             </form>
@@ -114,7 +114,7 @@
                                     <div class="w-full border-t border-stone-300"></div>
                                 </div>
                                 <div class="relative flex justify-center text-sm">
-                                    <span class="px-2 bg-stone-100 text-stone-600"> Or continue with </span>
+                                    <span class="px-2 bg-stone-100 text-stone-600"> Hoặc </span>
                                 </div>
                             </div>
                                 <button type="submit"
@@ -136,7 +136,7 @@
                                                   d="M0 37l30-23 7.9 1L48 0v48H0z"></path>
                                             <path clip-path="url(#b)" fill="#4285F4" d="M48 48L17 24l-4-3 35-10z"></path>
                                         </svg>
-                                        <span class="ml-4">Sign up with Google</span>
+                                        <span class="ml-4">Đăng ký với Google</span>
                                     </div>
                                 </button>
                                 <p class="mt-2 text-stone-600 text-bold text-sm text-right">
