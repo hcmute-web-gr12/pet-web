@@ -27,7 +27,7 @@
           <img
                   alt="Alaska"
                   src="https://i0.wp.com/petsidi.com/wp-content/uploads/2018/06/alaskan-husky-dogs.jpg?w=680"
-                  class="aspect-square w-full rounded object-cover bg-stone-200 border border-w-1 border-stone-300""
+                  class="aspect-square w-full rounded object-cover bg-stone-200 border border-w-1 border-stone-300"
           />
 
           <div class="mt-2">
