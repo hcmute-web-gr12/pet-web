@@ -14,7 +14,7 @@ import java.util.Optional;
 public class ProductsController extends HttpServlet {
     @Override()
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String type = request.getParameter("type");
+        final String type = request.getParameter("type");
         if (type == null) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
