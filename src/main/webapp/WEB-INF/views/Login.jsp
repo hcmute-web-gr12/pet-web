@@ -8,8 +8,8 @@
 </head>
 <body>
     <c:import url="../templates/Header.jsp" />
-    <section class="p-4 lg:py-20 xl:pr-60 lg:pr-42 md:pr-20">
-        <div class="flex justify-end overflow gap-20">
+    <section class="p-4 md:py-20 lg:pr-20">
+        <div class="flex justify-end overflow gap-4 lg:gap-20">
             <section
                     class="hidden md:block w-full relative bg-[url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fanimalcarecentersmyrna.com%2Fwp-content%2Fuploads%2F2020%2F07%2FPet-hygiene-Animal-Care-Center.jpeg&f=1&nofb=1&ipt=7cc3697cd8583c429d3e483f84eb78c682fed62cddf6174c8dc0fd52a5ae35f0&ipo=images)] bg-cover bg-center bg-repeat"
             >
@@ -18,7 +18,7 @@
                 ></div>
 
                 <div
-                    class="relative p-4 lg:p-16 lg:flex lg:flex-col lg:h-full lg:justify-between"
+                    class="relative py-8 px-4 lg:px-16 flex flex-col h-full justify-between"
                 >
                     <div>
                         <h1 class="text-3xl font-extrabold sm:text-5xl uppercase">
