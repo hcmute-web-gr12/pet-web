@@ -51,11 +51,12 @@
                     </div>
                     <div class="mt-8">
                         <div class="mt-6">
-                            <form action="#" method="POST" class="space-y-6">
+                            <form action="login" method="POST" class="space-y-6">
                                 <div>
                                     <label for="email" class="block text-sm font-medium text-stone-600"> Địa chỉ Email </label>
                                     <div class="mt-1">
                                         <input id="email" name="email" type="email" autocomplete="email" required=""
+                                               value="${requestScope.getOrDefault("email", "")}"
                                                autofocus
                                                placeholder="Nhập Email..."
                                                class="block w-full px-5 py-3 text-base placeholder-stone-400 transition
@@ -79,10 +80,20 @@
 
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center">
-                                        <input id="remember-me" name="remember-me" type="checkbox"
-                                               placeholder="Remember me"
-                                               class="w-4 h-4 text-brand-600 border-stone-200 rounded focus:ring-brand-500">
-                                        <label for="remember-me" class="block ml-2 text-sm text-stone-600"> Ghi nhớ đăng nhập </label>
+                                        <c:choose>
+                                            <c:when test="${requestScope.containsKey(\"rememberMe\")}">
+                                                <input id="rememberMe" name="rememberMe" type="checkbox"
+                                                       checked
+                                                       placeholder="Remember me"
+                                                       class="w-4 h-4 text-brand-600 border-stone-200 rounded focus:ring-brand-500">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <input id="rememberMe" name="rememberMe" type="checkbox"
+                                                       placeholder="Remember me"
+                                                       class="w-4 h-4 text-brand-600 border-stone-200 rounded focus:ring-brand-500">
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <label for="rememberMe" class="block ml-2 text-sm text-stone-600"> Ghi nhớ đăng nhập </label>
                                     </div>
 
                                     <div class="text-sm">
@@ -140,6 +151,7 @@
             </div>
         </div>
     </section>
+
     <c:import url="../templates/Footer.jsp" />
 </body>
 </html>
