@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.rmi.server.ExportException;
 import java.util.Optional;
 
-@WebServlet(name = "productsServlet", value = "/products")
 public class ProductsController extends HttpServlet {
     @Override()
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
