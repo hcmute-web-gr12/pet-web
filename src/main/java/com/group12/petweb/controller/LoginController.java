@@ -1,7 +1,6 @@
 package com.group12.petweb.controller;
 
-import com.group12.petweb.service.HibernateSessionFactory;
-
+import jakarta.persistence.EntityManagerFactory;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,9 +10,9 @@ import java.io.IOException;
 import java.util.Map;
 
 public class LoginController extends HttpServlet {
-    private final HibernateSessionFactory sessionFactory;
-    public LoginController(HibernateSessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    private final EntityManagerFactory factory;
+    public LoginController(EntityManagerFactory sessionFactory) {
+        this.factory = sessionFactory;
     }
     @Override()
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

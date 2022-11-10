@@ -2,8 +2,9 @@ import com.group12.petweb.controller.HomeController;
 import com.group12.petweb.controller.LoginController;
 import com.group12.petweb.controller.ProductsController;
 import com.group12.petweb.controller.SignUpController;
-import com.group12.petweb.service.HibernateSessionFactory;
-import com.group12.petweb.service.HibernateSessionFactoryImpl;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import org.hibernate.cfg.Environment;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -13,19 +14,22 @@ import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
+import java.util.Properties;
 
 @WebListener
 public class Application implements ServletContextListener, HttpSessionListener, HttpSessionAttributeListener {
-    private final HibernateSessionFactory hibernateSessionFactory;
+    private final EntityManagerFactory factory;
     public Application() {
-        hibernateSessionFactory = new HibernateSessionFactoryImpl();
+        final Properties properties = new Properties();
+        properties.put(Environment.PASS, System.getenv("CONNECTION_PASSWORD"));
+        factory = Persistence.createEntityManagerFactory("default", properties);
     }
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext context = sce.getServletContext();
         context.addServlet("homeServlet", new HomeController()).addMapping("/home");
-        context.addServlet("loginServlet", new LoginController(hibernateSessionFactory)).addMapping("/login");
+        context.addServlet("loginServlet", new LoginController(factory)).addMapping("/login");
         context.addServlet("signUpServlet", new SignUpController()).addMapping("/signup");
         context.addServlet("productsServlet", new ProductsController()).addMapping("/products");
     }
