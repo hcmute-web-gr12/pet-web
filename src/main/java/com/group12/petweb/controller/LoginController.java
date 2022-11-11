@@ -54,7 +54,7 @@ public class LoginController extends HttpServlet {
                 .verify(request.getParameter("password").toCharArray(), user.get().getPassword());
         if (!result.verified) {
             request.setAttribute("error", new LoginValidationError() {{
-                setEmail("Mật khẩu không chính xác.");
+                setPassword("Mật khẩu không chính xác.");
             }});
             dispatcher.forward(request, response);
             return;
