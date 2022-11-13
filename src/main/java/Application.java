@@ -26,7 +26,6 @@ public class Application implements ServletContextListener, HttpSessionListener,
         final Properties properties = new Properties();
         properties.put(Environment.PASS, System.getenv("CONNECTION_PASSWORD"));
         factory = Persistence.createEntityManagerFactory("default", properties);
-
         userDao = new UserDaoImpl(factory);
     }
 
@@ -35,7 +34,7 @@ public class Application implements ServletContextListener, HttpSessionListener,
         ServletContext context = sce.getServletContext();
         context.addServlet("homeServlet", new HomeController()).addMapping("/home");
         context.addServlet("loginServlet", new LoginController(userDao)).addMapping("/login");
-        context.addServlet("signUpServlet", new SignUpController()).addMapping("/signup");
+        context.addServlet("signUpServlet", new SignUpController(userDao)).addMapping("/signup");
         context.addServlet("productsServlet", new ProductsController()).addMapping("/products");
     }
 

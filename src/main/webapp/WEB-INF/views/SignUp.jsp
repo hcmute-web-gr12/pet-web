@@ -1,3 +1,4 @@
+<%@ page import="com.group12.petweb.model.SignUpValidationError" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -8,6 +9,7 @@
 </head>
 <body>
     <c:import url="../templates/Header.jsp" />
+    <c:set var="error" scope="request" value="${requestScope.get('error')}" />
     <section class="p-4 md:py-20 lg:pr-20">
         <div class="flex justify-end overflow gap-4 lg:gap-20">
             <section
@@ -52,9 +54,9 @@
                     <p class="mt-8">
                         <div class="mt-6">
                             <form action="#" method="POST" class="space-y-6">
-                                <div>
+                                <div class="space-y-2">
                                     <label for="username" class="block text-sm font-medium text-stone-600"> Tên tài khoản </label>
-                                    <div class="mt-1">
+                                    <div>
                                         <input id="username" name="username" type="text" required=""
                                                autofocus
                                                placeholder="Nhập tên tài khoản..."
@@ -63,11 +65,14 @@
                                                disabled:cursor-not-allowed disabled:bg-stone-200 disabled:opacity-75
                                                text-stone-600 bg-stone-50 focus:border-stone-600 focus:ring-stone-600">
                                     </div>
+                                    <c:if test='${error != null && error.getUsername() != null}'>
+                                        <p class="text-red-600 text-sm text-semibold">${error.getUsername()}</p>
+                                    </c:if>
                                 </div>
 
-                                <div>
+                                <div class="space-y-2">
                                     <label for="email" class="block text-sm font-medium text-stone-600"> Địa chỉ Email </label>
-                                    <div class="mt-1">
+                                    <div>
                                         <input id="email" name="email" type="email" autocomplete="email" required=""
                                                placeholder="Nhập Email..."
                                                class="block w-full px-5 py-3 text-base placeholder-stone-400 transition
@@ -75,12 +80,15 @@
                                                disabled:cursor-not-allowed disabled:bg-stone-200 disabled:opacity-75
                                                text-stone-600 bg-stone-50 focus:border-stone-600 focus:ring-stone-600">
                                     </div>
+                                    <c:if test='${error != null && error.getEmail() != null}'>
+                                        <p class="text-red-600 text-sm text-semibold">${error.getEmail()}</p>
+                                    </c:if>
                                 </div>
 
-                                <div class="space-y-1">
+                                <div class="space-y-2">
                                     <label for="password" class="block text-sm font-medium text-stone-600">
                                         Mật khẩu </label>
-                                    <div class="mt-1">
+                                    <div>
                                         <input id="password" name="password" type="password" autocomplete="current-password"
                                                required placeholder="Nhập mật khẩu..."
                                                class="block w-full px-5 py-3 text-base placeholder-stone-400 transition
@@ -88,12 +96,15 @@
                                                disabled:cursor-not-allowed disabled:bg-stone-200 disabled:opacity-75
                                                text-stone-600 bg-stone-50 focus:border-stone-600 focus:ring-stone-600">
                                     </div>
+                                    <c:if test='${error != null && error.getPassword() != null}'>
+                                        <p class="text-red-600 text-sm text-semibold">${error.getPassword()}</p>
+                                    </c:if>
                                 </div>
 
-                                <div class="space-y-1">
+                                <div class="space-y-2">
                                     <label for="passwordVerify" class="block text-sm font-medium text-stone-600">
                                         Xác nhận mật khẩu </label>
-                                    <div class="mt-1">
+                                    <div>
                                         <input id="passwordVerify" name="passwordVerify" type="password" autocomplete="current-password"
                                                required placeholder="Xác nhận mật khẩu..."
                                                class="block w-full px-5 py-3 text-base placeholder-stone-400 transition
@@ -101,6 +112,9 @@
                                                disabled:cursor-not-allowed disabled:bg-stone-200 disabled:opacity-75
                                                text-stone-600 bg-stone-50 focus:border-stone-600 focus:ring-stone-600">
                                     </div>
+                                    <c:if test='${error != null && error.getPasswordVerify() != null}'>
+                                        <p class="text-red-600 text-sm text-semibold">${error.getPasswordVerify()}</p>
+                                    </c:if>
                                 </div>
                                 <div>
                                     <button type="submit"
