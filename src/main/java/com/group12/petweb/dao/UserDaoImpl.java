@@ -3,6 +3,7 @@ package com.group12.petweb.dao;
 import com.group12.petweb.model.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.PersistenceException;
 
 import java.util.Optional;
 
@@ -28,16 +29,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean create(User model) {
-        try {
-            final EntityManager manager = factory.createEntityManager();
-            manager.getTransaction().begin();
-            manager.persist(model);
-            manager.flush();
-            manager.getTransaction().commit();
-            return true;
-        } catch (Exception ex) {
-            throw ex;
-        }
+    public void create(User user) throws PersistenceException {
+        final EntityManager manager = factory.createEntityManager();
+        manager.getTransaction().begin();
+        manager.persist(user);
+        manager.flush();
+        manager.getTransaction().commit();
     }
 }
