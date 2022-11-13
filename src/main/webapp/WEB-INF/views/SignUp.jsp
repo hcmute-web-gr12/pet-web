@@ -55,7 +55,7 @@
                                 <div>
                                     <label for="username" class="block text-sm font-medium text-stone-600"> Tên tài khoản </label>
                                     <div class="mt-1">
-                                        <input id="username" name="username" type="email" required=""
+                                        <input id="username" name="username" type="text" required=""
                                                autofocus
                                                placeholder="Nhập tên tài khoản..."
                                                class="block w-full px-5 py-3 text-base placeholder-stone-400 transition
@@ -91,10 +91,10 @@
                                 </div>
 
                                 <div class="space-y-1">
-                                    <label for="password-confirm" class="block text-sm font-medium text-stone-600">
+                                    <label for="passwordVerify" class="block text-sm font-medium text-stone-600">
                                         Xác nhận mật khẩu </label>
                                     <div class="mt-1">
-                                        <input id="password-confirm" name="password-confirm" type="password" autocomplete="current-password"
+                                        <input id="passwordVerify" name="passwordVerify" type="password" autocomplete="current-password"
                                                required placeholder="Xác nhận mật khẩu..."
                                                class="block w-full px-5 py-3 text-base placeholder-stone-400 transition
                                                duration-200 ease-in-out transform border border-stone-200 rounded-lg
