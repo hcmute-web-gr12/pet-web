@@ -70,7 +70,7 @@ public class LoginController extends HttpServlet {
 			userSession.setId(user.get().getId());
 		}
 		request.getSession(true).setAttribute("user", userSession);
-		request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
+		response.sendRedirect(request.getContextPath());
 	}
 
 	private Optional<LoginValidationError> validatePost(HttpServletRequest request) {
