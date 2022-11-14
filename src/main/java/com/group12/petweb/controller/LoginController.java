@@ -15,6 +15,7 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.group12.petweb.model.UserSession;
 
 public class LoginController extends HttpServlet {
     private final UserDao userDao;
@@ -31,11 +32,10 @@ public class LoginController extends HttpServlet {
 
     @Override()
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        final RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/Login.jsp");
         final Optional<LoginValidationError> error = validatePost(request);
         if (error.isPresent()) {
             request.setAttribute("error", error.get());
-            dispatcher.forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/Login.jsp").forward(request, response);
             return;
         }
 
@@ -45,7 +45,7 @@ public class LoginController extends HttpServlet {
             request.setAttribute("error", new LoginValidationError() {{
                 setEmail("Địa chỉ Email không tồn tại.");
             }});
-            dispatcher.forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/Login.jsp").forward(request, response);
             return;
         }
 
@@ -56,9 +56,14 @@ public class LoginController extends HttpServlet {
             request.setAttribute("error", new LoginValidationError() {{
                 setPassword("Mật khẩu không chính xác.");
             }});
-            dispatcher.forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/Login.jsp").forward(request, response);
             return;
         }
+        final var userSession = new UserSession(); {
+            userSession.setId(user.get().getId());
+        }
+        request.getSession(true).setAttribute("user", userSession);
+        request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
     }
 
     private Optional<LoginValidationError> validatePost(HttpServletRequest request) {
