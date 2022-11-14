@@ -24,7 +24,9 @@ public class Application implements ServletContextListener, HttpSessionListener,
     private final UserDao userDao;
     public Application() {
         final Properties properties = new Properties();
+        properties.put(Environment.USER, System.getenv("CONNECTION_USER"));
         properties.put(Environment.PASS, System.getenv("CONNECTION_PASSWORD"));
+        properties.put(Environment.URL, System.getenv("CONNECTION_URL"));
         factory = Persistence.createEntityManagerFactory("default", properties);
         userDao = new UserDaoImpl(factory);
     }
