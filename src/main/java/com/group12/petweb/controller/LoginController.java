@@ -16,12 +16,15 @@ import java.util.regex.Pattern;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.group12.petweb.model.UserSession;
+import com.group12.petweb.service.Redirector;
 
 public class LoginController extends HttpServlet {
 	private final UserDao userDao;
+	private final Redirector redirector;
 
-	public LoginController(UserDao userDao) {
+	public LoginController(UserDao userDao, Redirector redirector) {
 		this.userDao = userDao;
+		this.redirector = redirector;
 	}
 
 	@Override()
@@ -70,7 +73,7 @@ public class LoginController extends HttpServlet {
 			userSession.setId(user.get().getId());
 		}
 		request.getSession(true).setAttribute("user", userSession);
-		response.sendRedirect(request.getContextPath());
+		redirector.redirect(request, response, "/", "Đăng nhập thành công!", 1);
 	}
 
 	private Optional<LoginValidationError> validatePost(HttpServletRequest request) {

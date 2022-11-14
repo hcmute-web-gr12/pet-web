@@ -4,6 +4,9 @@ import com.group12.petweb.controller.ProductsController;
 import com.group12.petweb.controller.SignUpController;
 import com.group12.petweb.dao.UserDao;
 import com.group12.petweb.dao.UserDaoImpl;
+import com.group12.petweb.service.ContextRedirector;
+import com.group12.petweb.service.Redirector;
+
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import org.hibernate.cfg.Environment;
@@ -22,6 +25,7 @@ import java.util.Properties;
 public class Application implements ServletContextListener, HttpSessionListener, HttpSessionAttributeListener {
 	private final EntityManagerFactory factory;
 	private final UserDao userDao;
+	private final Redirector redirector;
 
 	public Application() {
 		final Properties properties = new Properties();
@@ -30,14 +34,15 @@ public class Application implements ServletContextListener, HttpSessionListener,
 		properties.put(Environment.URL, System.getenv("CONNECTION_URL"));
 		factory = Persistence.createEntityManagerFactory("default", properties);
 		userDao = new UserDaoImpl(factory);
+		redirector = new ContextRedirector();
 	}
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		ServletContext context = sce.getServletContext();
 		context.addServlet("homeServlet", new HomeController()).addMapping("/home");
-		context.addServlet("loginServlet", new LoginController(userDao)).addMapping("/login");
-		context.addServlet("signUpServlet", new SignUpController(userDao)).addMapping("/signup");
+		context.addServlet("loginServlet", new LoginController(userDao, redirector)).addMapping("/login");
+		context.addServlet("signUpServlet", new SignUpController(userDao, redirector)).addMapping("/signup");
 		context.addServlet("productsServlet", new ProductsController()).addMapping("/products");
 	}
 

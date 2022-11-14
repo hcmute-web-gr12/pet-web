@@ -3,6 +3,7 @@ package com.group12.petweb.controller;
 import com.group12.petweb.dao.UserDao;
 import com.group12.petweb.model.SignUpValidationError;
 import com.group12.petweb.model.User;
+import com.group12.petweb.service.Redirector;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,9 +19,11 @@ import jakarta.persistence.PersistenceException;
 
 public class SignUpController extends HttpServlet {
 	private final UserDao userDao;
+	private final Redirector redirector;
 
-	public SignUpController(UserDao userDao) {
+	public SignUpController(UserDao userDao, Redirector redirector) {
 		this.userDao = userDao;
+		this.redirector = redirector;
 	}
 
 	@Override()
@@ -56,7 +59,7 @@ public class SignUpController extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/views/SignUp.jsp").forward(request, response);
 			return;
 		}
-		response.sendRedirect(request.getContextPath());
+		redirector.redirect(request, response, "/login", "Đăng ký thành công!", 1);
 	}
 
 	public final Optional<SignUpValidationError> validatePost(HttpServletRequest request) {
