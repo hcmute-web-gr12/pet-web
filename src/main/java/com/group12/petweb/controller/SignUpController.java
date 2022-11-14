@@ -56,7 +56,7 @@ public class SignUpController extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/views/SignUp.jsp").forward(request, response);
 			return;
 		}
-		request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
+		response.sendRedirect(request.getContextPath());
 	}
 
 	public final Optional<SignUpValidationError> validatePost(HttpServletRequest request) {
