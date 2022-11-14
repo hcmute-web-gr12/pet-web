@@ -18,72 +18,80 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.group12.petweb.model.UserSession;
 
 public class LoginController extends HttpServlet {
-    private final UserDao userDao;
+	private final UserDao userDao;
 
-    public LoginController(UserDao userDao) {
-        this.userDao = userDao ;
-    }
+	public LoginController(UserDao userDao) {
+		this.userDao = userDao;
+	}
 
-    @Override()
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/Login.jsp");
-        dispatcher.forward(request, response);
-    }
+	@Override()
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/Login.jsp");
+		dispatcher.forward(request, response);
+	}
 
-    @Override()
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        final Optional<LoginValidationError> error = validatePost(request);
-        if (error.isPresent()) {
-            request.setAttribute("error", error.get());
-            request.getRequestDispatcher("/WEB-INF/views/Login.jsp").forward(request, response);
-            return;
-        }
+	@Override()
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		final Optional<LoginValidationError> error = validatePost(request);
+		if (error.isPresent()) {
+			request.setAttribute("error", error.get());
+			request.getRequestDispatcher("/WEB-INF/views/Login.jsp").forward(request, response);
+			return;
+		}
 
-        Optional<User> user = userDao.findByEmail(request.getParameter("email"));
+		Optional<User> user = userDao.findByEmail(request.getParameter("email"));
 
-        if (user.isEmpty()) {
-            request.setAttribute("error", new LoginValidationError() {{
-                setEmail("Địa chỉ Email không tồn tại.");
-            }});
-            request.getRequestDispatcher("/WEB-INF/views/Login.jsp").forward(request, response);
-            return;
-        }
+		if (user.isEmpty()) {
+			request.setAttribute("error", new LoginValidationError() {
+				{
+					setEmail("Địa chỉ Email không tồn tại.");
+				}
+			});
+			request.getRequestDispatcher("/WEB-INF/views/Login.jsp").forward(request, response);
+			return;
+		}
 
-        BCrypt.Result result = BCrypt
-                .verifyer()
-                .verify(request.getParameter("password").toCharArray(), user.get().getPassword());
-        if (!result.verified) {
-            request.setAttribute("error", new LoginValidationError() {{
-                setPassword("Mật khẩu không chính xác.");
-            }});
-            request.getRequestDispatcher("/WEB-INF/views/Login.jsp").forward(request, response);
-            return;
-        }
-        final var userSession = new UserSession(); {
-            userSession.setId(user.get().getId());
-        }
-        request.getSession(true).setAttribute("user", userSession);
-        request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
-    }
+		BCrypt.Result result = BCrypt
+				.verifyer()
+				.verify(request.getParameter("password").toCharArray(), user.get().getPassword());
+		if (!result.verified) {
+			request.setAttribute("error", new LoginValidationError() {
+				{
+					setPassword("Mật khẩu không chính xác.");
+				}
+			});
+			request.getRequestDispatcher("/WEB-INF/views/Login.jsp").forward(request, response);
+			return;
+		}
+		final var userSession = new UserSession();
+		{
+			userSession.setId(user.get().getId());
+		}
+		request.getSession(true).setAttribute("user", userSession);
+		request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
+	}
 
-    private Optional<LoginValidationError> validatePost(HttpServletRequest request) {
-        final LoginValidationError error = new LoginValidationError();
-        final Map<String, String[]> parameterMap = request.getParameterMap();
-        if (!parameterMap.containsKey("email")) {
-            error.setEmail("Địa chỉ Email là bắt buộc.");
-        } else {
-            Pattern pattern = Pattern.compile("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
-            if (!pattern.matcher(parameterMap.get("email")[0]).matches()) {
-                error.setEmail("Địa chỉ Email không hợp lệ.");
-            }
-        }
+	private Optional<LoginValidationError> validatePost(HttpServletRequest request) {
+		final LoginValidationError error = new LoginValidationError();
+		final Map<String, String[]> parameterMap = request.getParameterMap();
+		if (!parameterMap.containsKey("email")) {
+			error.setEmail("Địa chỉ Email là bắt buộc.");
+		} else {
+			Pattern pattern = Pattern.compile(
+					"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
+			if (!pattern.matcher(parameterMap.get("email")[0]).matches()) {
+				error.setEmail("Địa chỉ Email không hợp lệ.");
+			}
+		}
 
-        if (!parameterMap.containsKey("password")) {
-            error.setPassword("Mật khẩu là bắt buộc.");
-        }
+		if (!parameterMap.containsKey("password")) {
+			error.setPassword("Mật khẩu là bắt buộc.");
+		}
 
-        return (error.getEmail() == null && error.getPassword() == null)
-                ? Optional.empty()
-                : Optional.of(error);
-    }
+		return (error.getEmail() == null && error.getPassword() == null)
+				? Optional.empty()
+				: Optional.of(error);
+	}
 }

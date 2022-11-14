@@ -6,6 +6,7 @@ import jakarta.persistence.PersistenceException;
 import java.util.Optional;
 
 public interface UserDao {
-    Optional<User> findByEmail(String email);
-    void create(User model) throws PersistenceException;
+	Optional<User> findByEmail(String email);
+
+	void create(User model) throws PersistenceException;
 }

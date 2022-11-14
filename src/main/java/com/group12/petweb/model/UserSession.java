@@ -3,18 +3,23 @@ package com.group12.petweb.model;
 import java.util.UUID;
 
 public class UserSession {
-    private UUID id;
-    public UserSession() {
-    }
+	private UUID id;
 
-    public UUID getId() { return id; }
+	public UserSession() {
+	}
 
-    public void setId(UUID id) { this.id = id; }
+	public UUID getId() {
+		return id;
+	}
 
-    @Override
-    public String toString() {
-        return "UserSession{" +
-                "id=" + id +
-                '}';
-    }
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "UserSession{" +
+				"id=" + id +
+				'}';
+	}
 }

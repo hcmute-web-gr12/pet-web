@@ -8,45 +8,60 @@ import java.util.UUID;
 @Entity
 @Table(name = "USERS")
 public class User {
-    private UUID id;
-    private String name;
-    private String email;
-    private String password;
+	private UUID id;
+	private String name;
+	private String email;
+	private String password;
 
-    public User() {
-    }
+	public User() {
+	}
 
-    @Id
-    @Column(name = "ID")
-    @GeneratedValue(generator = "UUID", strategy = GenerationType.AUTO)
-    public UUID getId() { return id; }
+	@Id
+	@Column(name = "ID")
+	@GeneratedValue(generator = "UUID", strategy = GenerationType.AUTO)
+	public UUID getId() {
+		return id;
+	}
 
-    @Column(name = "NAME")
-    public String getName() { return name; }
+	@Column(name = "NAME")
+	public String getName() {
+		return name;
+	}
 
-    @NotNull
-    @Column(name = "EMAIL", unique = true, nullable = false)
-    public String getEmail() { return email; }
+	@NotNull
+	@Column(name = "EMAIL", unique = true, nullable = false)
+	public String getEmail() {
+		return email;
+	}
 
-    @Column(name = "PASSWORD", columnDefinition = "varchar(72)")
-    public String getPassword() {
-        return password;
-    }
+	@Column(name = "PASSWORD", columnDefinition = "varchar(72)")
+	public String getPassword() {
+		return password;
+	}
 
-    public void setId(UUID id) { this.id = id; }
-    public void setName(String name) { this.name = name; }
-    public void setEmail(String email) { this.email = email; }
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setId(UUID id) {
+		this.id = id;
+	}
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", email='" + email + '\'' +
+				", password='" + password + '\'' +
+				'}';
+	}
 }
