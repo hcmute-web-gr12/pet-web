@@ -14,8 +14,10 @@ public class ContextRedirector implements Redirector {
 
 	public void redirect(HttpServletRequest request, HttpServletResponse response, String url, String title,
 			int seconds) throws ServletException, IOException {
-		final var completeUrl = request.getRequestURL().toString().replace(request.getRequestURI(), "")
-				+ request.getContextPath() + url;
+		final var urlBuffer = request.getRequestURL();
+		final var uri = request.getRequestURI();
+		final var index = urlBuffer.indexOf(uri, urlBuffer.length() - uri.length());
+		final var completeUrl = urlBuffer.delete(index, index + uri.length()) + request.getContextPath() + url;
 		request.setAttribute("title", title);
 		request.setAttribute("url", completeUrl);
 		request.setAttribute("timeout", seconds);
