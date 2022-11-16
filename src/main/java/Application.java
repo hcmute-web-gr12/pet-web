@@ -48,6 +48,7 @@ public class Application implements ServletContextListener, HttpSessionListener,
 
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
+		factory.close();
 	}
 
 	@Override
