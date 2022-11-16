@@ -6,6 +6,7 @@ import com.group12.petweb.controller.ProductsController;
 import com.group12.petweb.controller.SignUpController;
 import com.group12.petweb.dao.UserDao;
 import com.group12.petweb.dao.UserDaoImpl;
+import com.group12.petweb.filter.AuthorizationFilter;
 import com.group12.petweb.service.ContextRedirector;
 import com.group12.petweb.service.Redirector;
 
@@ -13,6 +14,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import org.hibernate.cfg.Environment;
 
+import javax.servlet.DispatcherType;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -21,6 +23,8 @@ import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
+
+import java.util.EnumSet;
 import java.util.Properties;
 
 @WebListener
@@ -46,6 +50,9 @@ public class Application implements ServletContextListener, HttpSessionListener,
 		context.addServlet("loginServlet", new LoginController(userDao, redirector)).addMapping("/login");
 		context.addServlet("signUpServlet", new SignUpController(userDao, redirector)).addMapping("/signup");
 		context.addServlet("productsServlet", new ProductsController()).addMapping("/products");
+
+		context.addFilter("authorizationFilter", new AuthorizationFilter(redirector))
+				.addMappingForServletNames(EnumSet.allOf(DispatcherType.class), false, "<todo>");
 	}
 
 	@Override
