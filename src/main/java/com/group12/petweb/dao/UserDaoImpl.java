@@ -16,24 +16,26 @@ public class UserDaoImpl implements UserDao {
 
 	@Override()
 	public Optional<User> findByEmail(String email) {
-		final EntityManager manager = factory.createEntityManager();
-		manager.getTransaction().begin();
-		final Optional<User> user = manager
-				.createQuery("SELECT u FROM User u WHERE email = :email", User.class)
-				.setParameter("email", email)
-				.setMaxResults(1)
-				.getResultStream()
-				.findFirst();
-		manager.getTransaction().commit();
-		return user;
+		try (final EntityManager manager = factory.createEntityManager()) {
+			manager.getTransaction().begin();
+			final Optional<User> user = manager
+					.createQuery("SELECT u FROM User u WHERE email = :email", User.class)
+					.setParameter("email", email)
+					.setMaxResults(1)
+					.getResultStream()
+					.findFirst();
+			manager.getTransaction().commit();
+			return user;
+		}
 	}
 
 	@Override
 	public void create(User user) throws PersistenceException {
-		final EntityManager manager = factory.createEntityManager();
-		manager.getTransaction().begin();
-		manager.persist(user);
-		manager.flush();
-		manager.getTransaction().commit();
+		try (final EntityManager manager = factory.createEntityManager()) {
+			manager.getTransaction().begin();
+			manager.persist(user);
+			manager.flush();
+			manager.getTransaction().commit();
+		}
 	}
 }
