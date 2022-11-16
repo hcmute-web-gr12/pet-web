@@ -32,8 +32,10 @@
                 <input id="search-basic" type="search" placeholder="Tìm thú cưng..."
                        class="block w-full rounded-md border-stone-200 pl-10 text-sm transition focus:border-brand-600 focus:ring-brand-600 disabled:cursor-not-allowed disabled:bg-stone-200 disabled:opacity-75">
             </div>
-            <a href="<c:url value="/login"/>" class="hidden rounded px-3 py-2 transition hover:text-brand sm:inline">Đăng nhập</a>
-            <a href="<c:url value="/signup"/>" class="rounded bg-brand-600 px-3 py-2 text-stone-100 transition hover:bg-brand">Đăng ký</a>
+			<c:if test="${!sessionScope.containsKey('user')}">
+				<a href="<c:url value="/login"/>" class="hidden rounded px-3 py-2 transition hover:text-brand sm:inline">Đăng nhập</a>
+				<a href="<c:url value="/signup"/>" class="rounded bg-brand-600 px-3 py-2 text-stone-100 transition hover:bg-brand">Đăng ký</a>
+			</c:if>
         </nav>
     </nav>
 </header>
