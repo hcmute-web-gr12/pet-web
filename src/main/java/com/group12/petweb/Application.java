@@ -1,3 +1,5 @@
+package com.group12.petweb;
+
 import com.group12.petweb.controller.HomeController;
 import com.group12.petweb.controller.LoginController;
 import com.group12.petweb.controller.ProductsController;
