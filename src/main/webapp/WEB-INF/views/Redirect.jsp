@@ -4,7 +4,7 @@
 <html>
 <head>
   <title>Brand</title>
-  <c:import url="../templates/head.html" />
+  <c:import url="../templates/Head.jsp" />
   <meta http-equiv="refresh" content="${requestScope.get('timeout')};URL=${requestScope.get('url')}"
 </head>
 <body>

@@ -5,7 +5,7 @@
 <html>
 <head>
     <title>Brand - Sign Up</title>
-    <c:import url="../templates/head.html" />
+    <c:import url="../templates/Head.jsp" />
 </head>
 <body>
     <c:import url="../templates/Header.jsp" />
