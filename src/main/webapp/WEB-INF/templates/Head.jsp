@@ -10,8 +10,6 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
-	<script preload src="${pageContext.request.contextPath}/scripts/tailwind.js"></script>
-	<script preload src="${pageContext.request.contextPath}/scripts/tailwind.plugins.js"></script>
-    <script defer src="${pageContext.request.contextPath}/scripts/tailwind.config.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/tailwind.css">
 </head>
 </html>
