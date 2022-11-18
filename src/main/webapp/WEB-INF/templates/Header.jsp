@@ -9,7 +9,7 @@
 				</h1>
 			" />
 			<c:param name="href" value="/" />
-			<c:param name="rounded" value="md" />
+			<c:param name="rounded" value="rounded-md" />
 		</c:import>
 		<nav>
 			<ul class="list-none flex items-stretch gap-x-2 text-sm font-medium ">
@@ -22,13 +22,11 @@
 							stroke-linejoin="round" stroke-width="16"></line>
 					</svg>
 					<label for="search-basic" class="sr-only">Tìm thú cưng...</label>
-					<input id="search-basic" type="search" placeholder="Tìm thú cưng..." class="block pl-10 text-sm
-						w-full md:max-w-48 focus:w-full
+					<input id="search-basic" spellcheck="false" type="search" placeholder="Tìm thú cưng..." class="block pl-10 text-sm
+						h-full w-full md:max-w-48 focus:w-full
 						rounded-full
-						border border-1 border-stone-300
-						transition-all duration-300
-						hover:border-stone-400
-						focus:border-alternate focus:ring-alternate
+						transition-all duration-100
+						focus:border-transparent focus:ring focus:ring-brand/60
 						disabled:cursor-not-allowed disabled:bg-stone-200 disabled:opacity-75">
 				</li>
 				<c:choose>
