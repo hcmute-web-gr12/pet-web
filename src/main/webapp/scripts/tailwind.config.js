@@ -28,7 +28,10 @@ tailwind.config = {
                     900: '#0026b0',
                     DEFAULT: '#1d4ed8'
                 }
-            }
+            },
+			ringColor: (theme) => ({
+				DEFAULT: theme('colors.brand.DEFAULT')
+			}),
         }
     }
 }
