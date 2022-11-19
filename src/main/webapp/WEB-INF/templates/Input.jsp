@@ -9,6 +9,7 @@
 	value="${param.value}"
 	autofocus="${param.getOrDefault('autofocus', 'false')}"
 	placeholder="${param.placeholder}"
+	spellcheck="${param.getOrDefault('spellcheck', 'false')}"
 	class="block w-full h-full px-5 py-3
 		bg-stone-50 placeholder-stone-500
 		transition duration-100 ease-in-out
