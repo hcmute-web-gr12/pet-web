@@ -65,6 +65,7 @@
 										<c:param name="required" value="${true}" />
 										<c:param name="placeholder" value="Nhập tên tài khoản..." />
 										<c:param name="ring" value="ring-alternate" />
+										<c:param name="value" value="${param.username}" />
 									</c:import>
                                     <c:if test='${error != null && error.getUsername() != null}'>
                                         <p class="text-red-600 font-medium">${error.getUsername()}</p>
@@ -80,6 +81,7 @@
 										<c:param name="required" value="${true}" />
 										<c:param name="placeholder" value="Nhập Email..." />
 										<c:param name="ring" value="ring-alternate" />
+										<c:param name="value" value="${param.email}" />
 									</c:import>
                                     <c:if test='${error != null && error.getEmail() != null}'>
                                         <p class="text-red-600 font-medium">${error.getEmail()}</p>
@@ -96,6 +98,7 @@
 										<c:param name="required" value="${true}" />
 										<c:param name="placeholder" value="Nhập mật khẩu..." />
 										<c:param name="ring" value="ring-alternate" />
+										<c:param name="value" value="${param.password}" />
 									</c:import>
                                     <c:if test='${error != null && error.getPassword() != null}'>
                                         <p class="text-red-600 font-medium">${error.getPassword()}</p>
@@ -112,6 +115,7 @@
 										<c:param name="required" value="${true}" />
 										<c:param name="placeholder" value="Nhập lại mật khẩu..." />
 										<c:param name="ring" value="ring-alternate" />
+										<c:param name="value" value="${param.passwordVerify}" />
 									</c:import>
                                     <c:if test='${error != null && error.getPasswordVerify() != null}'>
                                         <p class="text-red-600 font-medium">${error.getPasswordVerify()}</p>

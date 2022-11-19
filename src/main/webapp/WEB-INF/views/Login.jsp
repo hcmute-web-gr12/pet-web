@@ -59,9 +59,9 @@
 									<c:param name="id" value="email" />
 									<c:param name="type" value="email" />
 									<c:param name="autocomplete" value="email" />
-									<c:param name="value" value="${requestScope.email}" />
 									<c:param name="autofocus" value="${true}" />
 									<c:param name="placeholder" value="Nhập Email..." />
+									<c:param name="value" value="${param.email}" />
 								</c:import>
                                 <c:if test='${requestScope.containsKey("error") != null && requestScope.get("error").email != null}'>
                                     <p class="text-red-600 font-medium">
