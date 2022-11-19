@@ -67,7 +67,7 @@
 										<c:param name="ring" value="ring-alternate" />
 									</c:import>
                                     <c:if test='${error != null && error.getUsername() != null}'>
-                                        <p class="text-red-600 text-sm text-semibold">${error.getUsername()}</p>
+                                        <p class="text-red-600 font-medium">${error.getUsername()}</p>
                                     </c:if>
                                 </div>
 
@@ -82,7 +82,7 @@
 										<c:param name="ring" value="ring-alternate" />
 									</c:import>
                                     <c:if test='${error != null && error.getEmail() != null}'>
-                                        <p class="text-red-600 text-sm text-semibold">${error.getEmail()}</p>
+                                        <p class="text-red-600 font-medium">${error.getEmail()}</p>
                                     </c:if>
                                 </div>
 
@@ -98,7 +98,7 @@
 										<c:param name="ring" value="ring-alternate" />
 									</c:import>
                                     <c:if test='${error != null && error.getPassword() != null}'>
-                                        <p class="text-red-600 text-sm text-semibold">${error.getPassword()}</p>
+                                        <p class="text-red-600 font-medium">${error.getPassword()}</p>
                                     </c:if>
                                 </div>
 
@@ -114,7 +114,7 @@
 										<c:param name="ring" value="ring-alternate" />
 									</c:import>
                                     <c:if test='${error != null && error.getPasswordVerify() != null}'>
-                                        <p class="text-red-600 text-sm text-semibold">${error.getPasswordVerify()}</p>
+                                        <p class="text-red-600 font-medium">${error.getPasswordVerify()}</p>
                                     </c:if>
                                 </div>
                                 <div>

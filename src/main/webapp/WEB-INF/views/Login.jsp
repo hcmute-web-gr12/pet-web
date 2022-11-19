@@ -33,12 +33,12 @@
                     <p class="sm:text-xl sm:leading-relaxed">
                         Đúng vậy, bạn không nghe nhầm đâu!
                     </p>
-                    <a
-                            href="#"
-                            class="block w-fit rounded bg-brand px-4 py-3 font-medium text-stone-100 shadow hover:bg-brand-700 active:bg-brand"
-                    >
-                        Tìm hiểu thêm
-                    </a>
+					<div class="w-fit">
+						<c:import url="/WEB-INF/templates/Link.jsp">
+							<c:param name="href" value="#" />
+							<c:param name="slot" value="Tìm hiểu thêm" />
+						</c:import>
+					</div>
                 </div>
             </div>
         </section>
@@ -64,7 +64,7 @@
 									<c:param name="placeholder" value="Nhập Email..." />
 								</c:import>
                                 <c:if test='${requestScope.containsKey("error") != null && requestScope.get("error").email != null}'>
-                                    <p class="text-red-600 font-semibold">
+                                    <p class="text-red-600 font-medium">
                                             ${requestScope.get("error").email}
                                     </p>
                                 </c:if>
@@ -82,7 +82,7 @@
 									<c:param name="placeholder" value="Nhập mật khẩu..." />
 								</c:import>
                                 <c:if test='${requestScope.containsKey("error") != null && requestScope.get("error").password != null}'>
-                                    <p class="text-red-600 font-semibold">
+                                    <p class="text-red-600 font-medium">
                                             ${requestScope.get("error").password}
                                     </p>
                                 </c:if>
