@@ -35,12 +35,15 @@
                         <p class="sm:text-xl sm:leading-relaxed">
                             Đúng vậy, bạn không nghe nhầm đâu!
                         </p>
-                        <a
-                                href="#"
-                                class="block w-fit rounded bg-alternate px-4 py-3 font-medium text-stone-100 shadow hover:bg-alternate-900 active:bg-alternate"
-                        >
-                            Tìm hiểu thêm
-                        </a>
+						<div class="w-fit">
+							<c:import url="/WEB-INF/templates/Link.jsp">
+								<c:param name="href" value="#" />
+								<c:param name="slot" value="Tìm hiểu thêm" />
+								<c:param name="bg" value="bg-alternate" />
+								<c:param name="border" value="border-alternate-800" />
+								<c:param name="ring" value="ring-alternate" />
+							</c:import>
+						</div>
                     </div>
                 </div>
             </section>
@@ -56,15 +59,13 @@
                             <form action="#" method="POST" class="space-y-6">
                                 <div class="space-y-2">
                                     <label for="username" class="block text-sm font-medium text-stone-600"> Tên tài khoản </label>
-                                    <div>
-                                        <input id="username" name="username" type="text" required=""
-                                               autofocus
-                                               placeholder="Nhập tên tài khoản..."
-                                               class="block w-full px-5 py-3 text-base placeholder-stone-400 transition
-                                               duration-200 ease-in-out transform border border-stone-200 rounded-lg
-                                               disabled:cursor-not-allowed disabled:bg-stone-200 disabled:opacity-75
-                                               text-stone-600 bg-stone-50 focus:border-stone-600 focus:ring-stone-600">
-                                    </div>
+									<c:import url="/WEB-INF/templates/Input.jsp">
+										<c:param name="id" value="username" />
+										<c:param name="type" value="text" />
+										<c:param name="required" value="${true}" />
+										<c:param name="placeholder" value="Nhập tên tài khoản..." />
+										<c:param name="ring" value="ring-alternate" />
+									</c:import>
                                     <c:if test='${error != null && error.getUsername() != null}'>
                                         <p class="text-red-600 text-sm text-semibold">${error.getUsername()}</p>
                                     </c:if>
@@ -72,14 +73,14 @@
 
                                 <div class="space-y-2">
                                     <label for="email" class="block text-sm font-medium text-stone-600"> Địa chỉ Email </label>
-                                    <div>
-                                        <input id="email" name="email" type="email" autocomplete="email" required=""
-                                               placeholder="Nhập Email..."
-                                               class="block w-full px-5 py-3 text-base placeholder-stone-400 transition
-                                               duration-200 ease-in-out transform border border-stone-200 rounded-lg
-                                               disabled:cursor-not-allowed disabled:bg-stone-200 disabled:opacity-75
-                                               text-stone-600 bg-stone-50 focus:border-stone-600 focus:ring-stone-600">
-                                    </div>
+									<c:import url="/WEB-INF/templates/Input.jsp">
+										<c:param name="id" value="email" />
+										<c:param name="type" value="email" />
+										<c:param name="autocomplete" value="email" />
+										<c:param name="required" value="${true}" />
+										<c:param name="placeholder" value="Nhập Email..." />
+										<c:param name="ring" value="ring-alternate" />
+									</c:import>
                                     <c:if test='${error != null && error.getEmail() != null}'>
                                         <p class="text-red-600 text-sm text-semibold">${error.getEmail()}</p>
                                     </c:if>
@@ -88,14 +89,14 @@
                                 <div class="space-y-2">
                                     <label for="password" class="block text-sm font-medium text-stone-600">
                                         Mật khẩu </label>
-                                    <div>
-                                        <input id="password" name="password" type="password" autocomplete="current-password"
-                                               required placeholder="Nhập mật khẩu..."
-                                               class="block w-full px-5 py-3 text-base placeholder-stone-400 transition
-                                               duration-200 ease-in-out transform border border-stone-200 rounded-lg
-                                               disabled:cursor-not-allowed disabled:bg-stone-200 disabled:opacity-75
-                                               text-stone-600 bg-stone-50 focus:border-stone-600 focus:ring-stone-600">
-                                    </div>
+									<c:import url="/WEB-INF/templates/Input.jsp">
+										<c:param name="id" value="password" />
+										<c:param name="type" value="password" />
+										<c:param name="autocomplete" value="current-password" />
+										<c:param name="required" value="${true}" />
+										<c:param name="placeholder" value="Nhập mật khẩu..." />
+										<c:param name="ring" value="ring-alternate" />
+									</c:import>
                                     <c:if test='${error != null && error.getPassword() != null}'>
                                         <p class="text-red-600 text-sm text-semibold">${error.getPassword()}</p>
                                     </c:if>
@@ -104,14 +105,14 @@
                                 <div class="space-y-2">
                                     <label for="passwordVerify" class="block text-sm font-medium text-stone-600">
                                         Xác nhận mật khẩu </label>
-                                    <div>
-                                        <input id="passwordVerify" name="passwordVerify" type="password" autocomplete="current-password"
-                                               required placeholder="Xác nhận mật khẩu..."
-                                               class="block w-full px-5 py-3 text-base placeholder-stone-400 transition
-                                               duration-200 ease-in-out transform border border-stone-200 rounded-lg
-                                               disabled:cursor-not-allowed disabled:bg-stone-200 disabled:opacity-75
-                                               text-stone-600 bg-stone-50 focus:border-stone-600 focus:ring-stone-600">
-                                    </div>
+									<c:import url="/WEB-INF/templates/Input.jsp">
+										<c:param name="id" value="passwordVerify" />
+										<c:param name="type" value="password" />
+										<c:param name="autocomplete" value="current-password" />
+										<c:param name="required" value="${true}" />
+										<c:param name="placeholder" value="Nhập lại mật khẩu..." />
+										<c:param name="ring" value="ring-alternate" />
+									</c:import>
                                     <c:if test='${error != null && error.getPasswordVerify() != null}'>
                                         <p class="text-red-600 text-sm text-semibold">${error.getPasswordVerify()}</p>
                                     </c:if>

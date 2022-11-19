@@ -55,16 +55,16 @@
                             <div class="space-y-2">
                                 <label for="email" class="block text-sm font-medium text-stone-600"> Địa chỉ
                                     Email </label>
-                                <input id="email" name="email" type="email" autocomplete="email" required=""
-                                       value="${requestScope.getOrDefault("email", "")}"
-                                       autofocus
-                                       placeholder="Nhập Email..."
-                                       class="block w-full px-5 py-3 text-base placeholder-stone-400 transition
-                                           duration-200 ease-in-out transform border border-stone-200 rounded-lg
-                                           disabled:cursor-not-allowed disabled:bg-stone-200 disabled:opacity-75
-                                           text-stone-600 bg-stone-50 focus:border-brand-600 focus:ring-brand-600">
+								<c:import url="/WEB-INF/templates/Input.jsp">
+									<c:param name="id" value="email" />
+									<c:param name="type" value="email" />
+									<c:param name="autocomplete" value="email" />
+									<c:param name="value" value="${requestScope.email}" />
+									<c:param name="autofocus" value="${true}" />
+									<c:param name="placeholder" value="Nhập Email..." />
+								</c:import>
                                 <c:if test='${requestScope.containsKey("error") != null && requestScope.get("error").email != null}'>
-                                    <p class="text-red-600 text-base text-semibold">
+                                    <p class="text-red-600 font-semibold">
                                             ${requestScope.get("error").email}
                                     </p>
                                 </c:if>
@@ -73,14 +73,16 @@
                             <div class="space-y-2">
                                 <label for="password" class="block text-sm font-medium text-stone-600"> Mật
                                     khẩu </label>
-                                <input id="password" name="password" type="password" autocomplete="current-password"
-                                       required="" placeholder="Nhập mật khẩu..."
-                                       class="block w-full px-5 py-3 text-base placeholder-stone-400 transition
-                                           duration-200 ease-in-out transform border border-stone-200 rounded-lg
-                                           disabled:cursor-not-allowed disabled:bg-stone-200 disabled:opacity-75
-                                           text-stone-600 bg-stone-50 focus:border-brand-600 focus:ring-brand-600">
+								<c:import url="/WEB-INF/templates/Input.jsp">
+									<c:param name="id" value="password" />
+									<c:param name="type" value="password" />
+									<c:param name="autocomplete" value="current-password" />
+									<c:param name="required" value="${true}" />
+									<c:param name="autofocus" value="${false}" />
+									<c:param name="placeholder" value="Nhập mật khẩu..." />
+								</c:import>
                                 <c:if test='${requestScope.containsKey("error") != null && requestScope.get("error").password != null}'>
-                                    <p class="text-red-600 text-base text-semibold">
+                                    <p class="text-red-600 font-semibold">
                                             ${requestScope.get("error").password}
                                     </p>
                                 </c:if>
