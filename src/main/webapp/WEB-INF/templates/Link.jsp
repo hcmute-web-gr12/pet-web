@@ -4,7 +4,7 @@
 <c:set var="bg" scope="page" value="${param.getOrDefault('bg', 'bg-brand')}" />
 <c:set var="text" scope="page" value="${param.getOrDefault('text', 'text-stone-100')}" />
 <c:set var="border" scope="page" value="${param.getOrDefault('text', 'border-brand-800')}" />
-<c:set var="rounded" scope="page" value="${param.getOrDefault('rounded', 'rounded-full')}" />
+<c:set var="rounded" scope="page" value="${param.getOrDefault('rounded', 'rounded-lg')}" />
 
 <a href="<c:url value="${param.href}" />"
 class="flex h-full items-center px-3 py-2
