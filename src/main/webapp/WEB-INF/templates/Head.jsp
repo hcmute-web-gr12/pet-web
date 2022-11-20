@@ -11,5 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/tailwind.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/cash/8.1.2/cash.min.js" integrity="sha384-pDvPZiwWwI1Hq92oHdxo5ls17LrxxiLghbf/Qu7gk7JM/TketUJwH7JQ0hWbfNvS" crossorigin="anonymous"></script>
 </head>
 </html>
