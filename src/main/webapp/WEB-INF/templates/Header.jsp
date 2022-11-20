@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<header>
-	<nav class="max-w-5xl rounded mx-auto flex items-center justify-between p-4 gap-x-2">
+<header class="mx-4">
+	<nav class="max-w-5xl rounded mx-auto flex items-center justify-between py-4 gap-x-2">
 		<c:import url="/WEB-INF/templates/Link.jsp">
 			<c:param name="slot" value="
 				<h1 class='text-2xl font-semibold text-stone-100'>
