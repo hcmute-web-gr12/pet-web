@@ -6,12 +6,28 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.PersistenceException;
 
 import java.util.Optional;
+import java.util.UUID;
 
 public class UserDaoImpl implements UserDao {
 	private final EntityManagerFactory factory;
 
 	public UserDaoImpl(EntityManagerFactory factory) {
 		this.factory = factory;
+	}
+
+	@Override()
+	public Optional<User> findById(UUID id) {
+		try (final EntityManager manager = factory.createEntityManager()) {
+			manager.getTransaction().begin();
+			final Optional<User> user = manager
+					.createQuery("SELECT u FROM User u WHERE id = :id", User.class)
+					.setParameter("id", id)
+					.setMaxResults(1)
+					.getResultStream()
+					.findFirst();
+			manager.getTransaction().commit();
+			return user;
+		}
 	}
 
 	@Override()
