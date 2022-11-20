@@ -5,6 +5,7 @@ import com.group12.petweb.controller.LoginController;
 import com.group12.petweb.controller.ProductsController;
 import com.group12.petweb.controller.SignUpController;
 import com.group12.petweb.controller.UserProfileController;
+import com.group12.petweb.controller.api.UserProfileApiController;
 import com.group12.petweb.dao.UserDao;
 import com.group12.petweb.dao.UserDaoImpl;
 import com.group12.petweb.filter.AuthorizationFilter;
@@ -51,10 +52,17 @@ public class Application implements ServletContextListener, HttpSessionListener,
 		context.addServlet("loginServlet", new LoginController(userDao, redirector)).addMapping("/login");
 		context.addServlet("signUpServlet", new SignUpController(userDao, redirector)).addMapping("/signup");
 		context.addServlet("productsServlet", new ProductsController()).addMapping("/products");
-		context.addServlet("userProfileServlet", new UserProfileController(userDao, redirector)).addMapping("/user/profile");
 
-		context.addFilter("authorizationFilter", new AuthorizationFilter(redirector))
-				.addMappingForServletNames(EnumSet.allOf(DispatcherType.class), false, "userProfileServlet");
+		context.addServlet("userProfileServlet", new UserProfileController(userDao, redirector))
+				.addMapping("/user/profile");
+		context.addServlet("userProfileApiServlet", new UserProfileApiController(userDao, redirector))
+				.addMapping("/api/user/profile");
+
+		context.addFilter("authorizationFilter", new AuthorizationFilter(redirector)).addMappingForServletNames(
+				EnumSet.allOf(DispatcherType.class),
+				false,
+				"userProfileServlet",
+				"userProfileApiServlet");
 	}
 
 	@Override
