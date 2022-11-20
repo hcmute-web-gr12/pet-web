@@ -34,7 +34,7 @@
 						<li>
 							<c:import url="/WEB-INF/templates/Link.jsp">
 								<c:param name="slot" value="<p class='material-symbols-rounded'>person</p>" />
-								<c:param name="href" value="/profile" />
+								<c:param name="href" value="/user/profile" />
 							</c:import>
 						</li>
 					</c:when>
