@@ -39,4 +39,3 @@ build/
 
 .env
 justfile
-src/main/webapp/css/tailwind.css
