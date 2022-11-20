@@ -1,3 +1,6 @@
 [submodule "src/main/tailwindcss"]
 	path = src/tailwindcss
 	url = https://github.com/hcmute-web-gr12/tailwindcss.git
+[submodule "src/js-script"]
+	path = src/js-script
+	url = https://github.com/hcmute-web-gr12/js-script.git
