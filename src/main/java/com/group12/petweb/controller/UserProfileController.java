@@ -22,12 +22,12 @@ public class UserProfileController extends HttpServlet {
 		final var userSession = (UserSession) request.getSession(false).getAttribute("user");
 		final var user = userDao.findById(userSession.getId());
 		if (user.isEmpty()) {
-			redirector.redirect(request, response, "/login", "Phiên làm việc đã hết hạn.", 1);
+			redirector.redirect(request, response, "/login", "Xin vui lòng đăng nhập lại.", 1);
 			return;
 		}
 
 		request.setAttribute("username", user.get().getName());
-		final var dispatcher = request.getRequestDispatcher("/WEB-INF/views/user/Profile.jsp");
+		final var dispatcher = request.getRequestDispatcher("/WEB-INF/views/User.jsp");
 		dispatcher.forward(request, response);
 	}
 }
