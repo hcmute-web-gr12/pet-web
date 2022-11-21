@@ -27,7 +27,7 @@ public class UserProfileController extends HttpServlet {
 		}
 
 		request.setAttribute("username", user.get().getName());
-		final var dispatcher = request.getRequestDispatcher("/WEB-INF/views/UserProfile.jsp");
+		final var dispatcher = request.getRequestDispatcher("/WEB-INF/views/user/Profile.jsp");
 		dispatcher.forward(request, response);
 	}
 }

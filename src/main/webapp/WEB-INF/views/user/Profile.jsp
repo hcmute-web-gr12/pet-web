@@ -5,11 +5,11 @@
 
 <head>
 	<title>Profile</title>
-	<c:import url="../templates/Head.jsp" />
+	<c:import url="/WEB-INF/templates/Head.jsp" />
 </head>
 
 <body>
-	<c:import url="../templates/Header.jsp" />
+	<c:import url="/WEB-INF/templates/Header.jsp" />
 	<main class="my-8 mx-4 flex flex-col gap-8">
 		<section class="w-full max-w-5xl mx-auto flex gap-x-8 items-center">
 			<img src="/assets/images/user-profile-photo.svg" alt="User profile photo."
@@ -29,7 +29,7 @@
 			</div>
 		</section>
 	</main>
-	<c:import url="../templates/Footer.jsp" />
+	<c:import url="/WEB-INF/templates/Footer.jsp" />
 </body>
 
 </html>
