@@ -7,6 +7,7 @@
 <c:set var="rounded" scope="page" value="${param.getOrDefault('rounded', 'rounded-lg')}" />
 
 <a
+	id="${param.id}"
 	href="<c:url value="${param.href}" />"
 	class="flex h-full items-center px-3 py-2
 		${rounded} ${bg} ${text}

@@ -30,7 +30,7 @@
 		</section>
 		<hr class="w-full max-w-5xl mx-auto" />
 		<section class="w-full max-w-5xl mx-auto flex gap-x-8 items-center">
-			<c:import url="/WEB-INF/templates/user/profile/Tabs.jsp">
+			<c:import url="/WEB-INF/templates/user/Tabs.jsp">
 				<c:param name="tabs" value="Public profile,Account,Orders" />
 				<c:param name="active" value="0" />
 				<c:param name="props" value="${requestScope.get('props')}" />

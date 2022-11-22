@@ -6,13 +6,20 @@
 			<c:choose>
 				<c:when test="${status.getIndex() == param.active}">
 					<c:import url="/WEB-INF/templates/Link.jsp">
+						<c:param name="id" value="active" />
 						<c:param name="slot" value="${tab}" />
 						<c:param name="href" value="#" />
 					</c:import>
 				</c:when>
 				<c:otherwise>
-					<a href="#"
-						class="inline-block py-3 px-4 rounded-lg hover:text-stone-900 hover:bg-stone-100">${tab}</a>
+					<c:import url="/WEB-INF/templates/Link.jsp">
+						<c:param name="id" value="tab-${status.getIndex()}" />
+						<c:param name="slot" value="${tab}" />
+						<c:param name="href" value="#" />
+						<c:param name="text" value="text-stone-600" />
+						<c:param name="bg" value="bg-transparent" />
+						<c:param name="border" value="border-stone-300" />
+					</c:import>
 				</c:otherwise>
 			</c:choose>
 		</li>
