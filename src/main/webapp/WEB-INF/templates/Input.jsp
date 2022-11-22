@@ -3,7 +3,7 @@
 
 <input id="${param.id}"
 	name="${param.id}"
-	type="${param.type}"
+	type="${param.getOrDefault('type', 'text')}"
 	autocomplete="${param.getOrDefault('autocomplete', 'off')}"
 	required="${param.getOrDefault('required', 'false')}"
 	value="${param.value}"
