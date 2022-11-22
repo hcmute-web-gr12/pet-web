@@ -6,6 +6,7 @@
 <head>
 	<title>Profile</title>
 	<c:import url="/WEB-INF/templates/Head.jsp" />
+	<script type="module" src="/scripts/user.js" defer></script>
 </head>
 
 <body>
@@ -31,7 +32,9 @@
 		<hr class="w-full max-w-5xl mx-auto" />
 		<section class="w-full max-w-5xl mx-auto flex gap-x-8 items-center">
 			<c:import url="/WEB-INF/templates/user/Tabs.jsp">
+				<c:param name="id" value="tab" />
 				<c:param name="tabs" value="Public profile,Account,Orders" />
+				<c:param name="hrefs" value="/user/profile,/user/account,/user/orders" />
 				<c:param name="active" value="0" />
 				<c:param name="props" value="${requestScope.get('props')}" />
 			</c:import>
