@@ -11,7 +11,7 @@
 
 <body>
 	<c:import url="/WEB-INF/templates/Header.jsp" />
-	<main class="my-8 mx-4 flex flex-col gap-8">
+	<main class="my-8 mx-4 flex flex-col gap-4">
 		<section class="w-full max-w-5xl mx-auto flex gap-x-8 items-center">
 			<img src="/assets/images/user-profile-photo.svg" alt="User profile photo."
 				class="w-40 aspect-square object-cover rounded-lg bg-stone-400 border border-stone-600" />
@@ -29,15 +29,17 @@
 				</ul>
 			</div>
 		</section>
-		<hr class="w-full max-w-5xl mx-auto" />
-		<section class="w-full max-w-5xl mx-auto flex gap-x-8 items-center">
+		<hr class="w-full max-w-5xl mx-auto m-0" />
+		<section class="w-full max-w-5xl mx-auto">
 			<c:import url="/WEB-INF/templates/user/Tabs.jsp">
 				<c:param name="id" value="tab" />
 				<c:param name="tabs" value="Public profile,Account,Orders" />
 				<c:param name="hrefs" value="/user/profile,/user/account,/user/orders" />
 				<c:param name="active" value="0" />
-				<c:param name="props" value="${requestScope.get('props')}" />
 			</c:import>
+			<article id="tab-slot" class="mt-4">
+				<c:import url="${requestScope.get('props').url}" />
+			</article>
 		</section>
 	</main>
 	<c:import url="/WEB-INF/templates/Footer.jsp" />
