@@ -1,6 +1,8 @@
 package com.group12.petweb.controller;
 
 import java.io.*;
+import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
@@ -27,6 +29,10 @@ public class UserProfileController extends HttpServlet {
 		}
 
 		request.setAttribute("username", user.get().getName());
+		request.setAttribute("props", new HashMap<String, Object>() {{
+			put("url", "/WEB-INF/templates/user/Profile.jsp");
+			put("user", user.get());
+		}});
 		final var dispatcher = request.getRequestDispatcher("/WEB-INF/views/User.jsp");
 		dispatcher.forward(request, response);
 	}
