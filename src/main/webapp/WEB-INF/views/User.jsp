@@ -7,6 +7,16 @@
 	<title>Profile</title>
 	<c:import url="/WEB-INF/templates/Head.jsp" />
 	<script type="module" src="/scripts/user.js" defer></script>
+	<style>
+		#tab-slot {
+			transition-property: max-height, opacity;
+			transition-timing-function: ease-out;
+			transition-duration: 300ms;
+			overflow-y: hidden;
+			opacity: var(--opacity);
+			max-height: var(--max-height);
+		}
+	</style>
 </head>
 
 <body>
@@ -37,7 +47,7 @@
 				<c:param name="hrefs" value="/user/profile,/user/account,/user/orders" />
 				<c:param name="active" value="0" />
 			</c:import>
-			<article id="tab-slot" class="mt-4">
+			<article id="tab-slot" class="mt-4" style="">
 				<c:import url="${requestScope.get('props').url}" />
 			</article>
 		</section>
