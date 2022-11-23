@@ -55,7 +55,7 @@ public class Application implements ServletContextListener, HttpSessionListener,
 
 		context.addServlet("userProfileServlet", new UserProfileController(userDao, redirector))
 				.addMapping("/user", "/user/profile");
-		context.addServlet("userProfileApiServlet", new UserProfileApiController(userDao, redirector))
+		context.addServlet("userProfileApiServlet", new UserProfileApiController(userDao))
 				.addMapping("/api/user/profile");
 
 		context.addFilter("authorizationFilter", new AuthorizationFilter(redirector)).addMappingForServletNames(
