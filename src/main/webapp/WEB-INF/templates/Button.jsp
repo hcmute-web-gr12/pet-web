@@ -3,13 +3,14 @@
 
 <c:set var="bg" scope="page" value="${param.getOrDefault('bg', 'bg-primary')}" />
 <c:set var="text" scope="page" value="${param.getOrDefault('text', 'text-stone-100')}" />
-<c:set var="border" scope="page" value="${param.getOrDefault('border', 'border-primary-600')}" />
+<c:set var="border" scope="page" value="${param.getOrDefault('border', 'border-primary-700')}" />
 <c:set var="rounded" scope="page" value="${param.getOrDefault('rounded', 'rounded')}" />
+<c:set var="fontSize" scope="page" value="${param.getOrDefault('font-size', 'font-medium')}" />
 
 <button
 	id="${param.id}"
 	type="${param.type}"
-	class="flex h-full items-center px-3 py-1.5 ${param.fontSize} font-medium
+	class="flex h-full items-center px-3 py-1.5 ${fontSize}
 		${rounded} ${bg} ${text}
 		border ${border}
 		transition duration-100
