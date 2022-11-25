@@ -12,7 +12,6 @@
 			transition-property: max-height, opacity;
 			transition-timing-function: ease-out;
 			transition-duration: 300ms;
-			overflow-y: hidden;
 			opacity: var(--opacity);
 			max-height: var(--max-height);
 		}
