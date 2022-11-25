@@ -1,8 +1,8 @@
 package com.group12.petweb.controller;
 
-import com.group12.petweb.dao.UserDao;
+import com.group12.petweb.dao.UserCredentialsDao;
 import com.group12.petweb.model.SignUpValidationError;
-import com.group12.petweb.model.User;
+import com.group12.petweb.model.UserCredentials;
 import com.group12.petweb.service.Redirector;
 
 import javax.servlet.RequestDispatcher;
@@ -18,11 +18,11 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import jakarta.persistence.PersistenceException;
 
 public class SignUpController extends HttpServlet {
-	private final UserDao userDao;
+	private final UserCredentialsDao userCredentialsDao;
 	private final Redirector redirector;
 
-	public SignUpController(UserDao userDao, Redirector redirector) {
-		this.userDao = userDao;
+	public SignUpController(UserCredentialsDao userCredentialsDao, Redirector redirector) {
+		this.userCredentialsDao = userCredentialsDao;
 		this.redirector = redirector;
 	}
 
@@ -42,14 +42,14 @@ public class SignUpController extends HttpServlet {
 		}
 
 		try {
-			final User user = new User();
+			final var credentials = new UserCredentials();
 			{
-				user.setEmail(request.getParameter("email"));
-				user.setPassword(
+				credentials.setEmail(request.getParameter("email"));
+				credentials.setPassword(
 						BCrypt.withDefaults().hashToString(12, request.getParameter("password").toCharArray()));
-				user.setName(request.getParameter("username"));
+				credentials.setName(request.getParameter("username"));
 			}
-			userDao.create(user);
+			userCredentialsDao.create(credentials);
 		} catch (PersistenceException ex) {
 			request.setAttribute("error", new SignUpValidationError() {
 				{

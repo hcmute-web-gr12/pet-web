@@ -6,8 +6,8 @@ import com.group12.petweb.controller.ProductsController;
 import com.group12.petweb.controller.SignUpController;
 import com.group12.petweb.controller.UserProfileController;
 import com.group12.petweb.controller.api.UserProfileApiController;
-import com.group12.petweb.dao.UserDao;
-import com.group12.petweb.dao.UserDaoImpl;
+import com.group12.petweb.dao.UserCredentialsDao;
+import com.group12.petweb.dao.UserCredentialsDaoImpl;
 import com.group12.petweb.filter.AuthorizationFilter;
 import com.group12.petweb.service.ContextRedirector;
 import com.group12.petweb.service.Redirector;
@@ -32,7 +32,7 @@ import java.util.Properties;
 @WebListener
 public class Application implements ServletContextListener, HttpSessionListener, HttpSessionAttributeListener {
 	private final EntityManagerFactory factory;
-	private final UserDao userDao;
+	private final UserCredentialsDao userCredentialsDao;
 	private final Redirector redirector;
 
 	public Application() {
@@ -41,7 +41,7 @@ public class Application implements ServletContextListener, HttpSessionListener,
 		properties.put(Environment.PASS, System.getenv("CONNECTION_PASSWORD"));
 		properties.put(Environment.URL, System.getenv("CONNECTION_URL"));
 		factory = Persistence.createEntityManagerFactory("default", properties);
-		userDao = new UserDaoImpl(factory);
+		userCredentialsDao = new UserCredentialsDaoImpl(factory);
 		redirector = new ContextRedirector();
 	}
 
@@ -49,13 +49,13 @@ public class Application implements ServletContextListener, HttpSessionListener,
 	public void contextInitialized(ServletContextEvent sce) {
 		ServletContext context = sce.getServletContext();
 		context.addServlet("homeServlet", new HomeController()).addMapping("/home");
-		context.addServlet("loginServlet", new LoginController(userDao, redirector)).addMapping("/login");
-		context.addServlet("signUpServlet", new SignUpController(userDao, redirector)).addMapping("/signup");
+		context.addServlet("loginServlet", new LoginController(userCredentialsDao, redirector)).addMapping("/login");
+		context.addServlet("signUpServlet", new SignUpController(userCredentialsDao, redirector)).addMapping("/signup");
 		context.addServlet("productsServlet", new ProductsController()).addMapping("/products");
 
-		context.addServlet("userProfileServlet", new UserProfileController(userDao, redirector))
+		context.addServlet("userProfileServlet", new UserProfileController(userCredentialsDao, redirector))
 				.addMapping("/user", "/user/profile");
-		context.addServlet("userProfileApiServlet", new UserProfileApiController(userDao))
+		context.addServlet("userProfileApiServlet", new UserProfileApiController(userCredentialsDao))
 				.addMapping("/api/user/profile");
 
 		context.addFilter("authorizationFilter", new AuthorizationFilter(redirector)).addMappingForServletNames(

@@ -1,8 +1,8 @@
 package com.group12.petweb.controller;
 
-import com.group12.petweb.dao.UserDao;
+import com.group12.petweb.dao.UserCredentialsDao;
 import com.group12.petweb.model.LoginValidationError;
-import com.group12.petweb.model.User;
+import com.group12.petweb.model.UserCredentials;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,11 +19,11 @@ import com.group12.petweb.model.UserSession;
 import com.group12.petweb.service.Redirector;
 
 public class LoginController extends HttpServlet {
-	private final UserDao userDao;
+	private final UserCredentialsDao userCredentialsDao;
 	private final Redirector redirector;
 
-	public LoginController(UserDao userDao, Redirector redirector) {
-		this.userDao = userDao;
+	public LoginController(UserCredentialsDao userCredentialsDao, Redirector redirector) {
+		this.userCredentialsDao = userCredentialsDao;
 		this.redirector = redirector;
 	}
 
@@ -44,9 +44,9 @@ public class LoginController extends HttpServlet {
 			return;
 		}
 
-		Optional<User> user = userDao.findByEmail(request.getParameter("email"));
+		Optional<UserCredentials> credentials = userCredentialsDao.findByEmail(request.getParameter("email"));
 
-		if (user.isEmpty()) {
+		if (credentials.isEmpty()) {
 			request.setAttribute("error", new LoginValidationError() {
 				{
 					setEmail("Địa chỉ Email không tồn tại.");
@@ -58,7 +58,7 @@ public class LoginController extends HttpServlet {
 
 		BCrypt.Result result = BCrypt
 				.verifyer()
-				.verify(request.getParameter("password").toCharArray(), user.get().getPassword());
+				.verify(request.getParameter("password").toCharArray(), credentials.get().getPassword());
 		if (!result.verified) {
 			request.setAttribute("error", new LoginValidationError() {
 				{
@@ -70,7 +70,7 @@ public class LoginController extends HttpServlet {
 		}
 		final var userSession = new UserSession();
 		{
-			userSession.setId(user.get().getId());
+			userSession.setId(credentials.get().getId());
 		}
 		request.getSession(true).setAttribute("user", userSession);
 		redirector.redirect(request, response, "/", "Đăng nhập thành công!", 1);

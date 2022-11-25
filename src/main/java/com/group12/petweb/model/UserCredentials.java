@@ -6,14 +6,14 @@ import org.jetbrains.annotations.NotNull;
 import java.util.UUID;
 
 @Entity
-@Table(name = "USERS")
-public class User {
+@Table(name = "USER_CREDENTIALS")
+public class UserCredentials {
 	private UUID id;
 	private String name;
 	private String email;
 	private String password;
 
-	public User() {
+	public UserCredentials() {
 	}
 
 	@Id
@@ -57,7 +57,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User{" +
+		return "UserCredentials{" +
 				"id=" + id +
 				", name='" + name + '\'' +
 				", email='" + email + '\'' +
