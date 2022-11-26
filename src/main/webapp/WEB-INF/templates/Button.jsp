@@ -10,8 +10,7 @@
 <button
 	id="${param.id}"
 	type="${param.type}"
-	class="flex h-full items-center px-4 py-1.5 ${fontSize}
-		font-semibold
+	class="flex h-full items-center px-4 py-2 ${fontSize}
 		${rounded} ${bg} ${text}
 		border ${border}
 		transition duration-100
