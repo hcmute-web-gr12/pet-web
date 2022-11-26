@@ -1,6 +1,11 @@
+html {
+	font-size: 18px;
+}
+
 body {
     background-color: #f5f5f4;
     color: #282523;
-    font-size: 16px;
+    font-size: 18px;
     font-family: Inter, 'ui-sans-serif', sans-serif;
 }
+
