@@ -1,7 +1,44 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<div id="pet-slot">
+<div class="flex justify-between gap-x-2">
+	<input
+		id="search-pet-input"
+		name="search-pet-input"
+		type="search"
+		value="${param.get('search-pet-input')}"
+		placeholder="Tìm thú nuôi"
+		spellcheck="false"
+		class="block w-48 px-4 py-2
+		bg-stone-50 placeholder-stone-500
+		transition duration-100 ease-in-out
+		border border-stone-200 rounded-lg
+		focus:border-transparent focus:ring focus:ring-brand/60">
+	<ul class="flex justify-end gap-x-2">
+		<li>
+			<c:import url="/WEB-INF/templates/Button.jsp">
+				<c:param name="id" value="add-pet-button" />
+				<c:param name="type" value="button" />
+				<c:param name="slot" value="<span class='material-symbols-rounded'>add</span>" />
+				<c:param name="padding" value="p-2" />
+				<c:param name="rounded" value="rounded-lg" />
+			</c:import>
+		</li>
+		<li>
+			<c:import url="/WEB-INF/templates/Button.jsp">
+				<c:param name="id" value="delete-pet-button" />
+				<c:param name="type" value="button" />
+				<c:param name="slot" value="<span class='material-symbols-rounded'>delete</span>" />
+				<c:param name="padding" value="p-2" />
+				<c:param name="rounded" value="rounded-lg" />
+				<c:param name="bg" value="bg-red-500" />
+				<c:param name="border" value="border-red-600" />
+				<c:param name="ring" value="ring-red-500" />
+			</c:import>
+		</li>
+	</ul>
+</div>
+<div class="mt-2">
 	<table class="w-full min-h-full text-left h-2 table-auto">
 		<thead class="uppercase bg-stone-200">
 			<tr>
@@ -26,7 +63,7 @@
 				</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody id="pet-tbody-slot">
 			<c:forEach var="pet" varStatus="status" items="${props.pets}">
 				<tr class="border-b">
 					<td scope="col" class="px-4 py-3">
@@ -48,8 +85,27 @@
 					</td>
 					<td scope="col" class="px-4 py-3">
 						<div class="flex items-center space-x-2">
-							<button type="button" class="material-symbols-rounded text-primary">edit</button>
-							<button type="button" class="material-symbols-rounded text-red-500">delete</button>
+							<c:import url="/WEB-INF/templates/Button.jsp">
+								<c:param name="id" value="add-pet-button" />
+								<c:param name="type" value="button" />
+								<c:param name="slot" value="<span class='material-symbols-rounded'>edit</span>" />
+								<c:param name="text" value="text-stone-700" />
+								<c:param name="padding" value="p-2" />
+								<c:param name="rounded" value="rounded-lg" />
+								<c:param name="bg" value="bg-yellow-500" />
+								<c:param name="border" value="border-yellow-600" />
+								<c:param name="ring" value="ring-yellow-500" />
+							</c:import>
+							<c:import url="/WEB-INF/templates/Button.jsp">
+								<c:param name="id" value="add-pet-button" />
+								<c:param name="type" value="button" />
+								<c:param name="slot" value="<span class='material-symbols-rounded'>delete</span>" />
+								<c:param name="padding" value="p-2" />
+								<c:param name="rounded" value="rounded-lg" />
+								<c:param name="bg" value="bg-red-500" />
+								<c:param name="border" value="border-red-600" />
+								<c:param name="ring" value="ring-red-500" />
+							</c:import>
 						</div>
 					</td>
 				</tr>
@@ -64,3 +120,100 @@
 		</tfoot>
 	</table>
 </div>
+
+<dialog id="add-pet-dialog" loading modal-mode="mega" class="bg-stone-50 rounded-lg shadow-lg border">
+	<div class="relative flex-auto min-w-96 flex-col justify-center lg:flex-none">
+		<header>
+			<h2 class="mt-6 text-3xl font-extrabold text-brand">Thêm thú cưng.</h2>
+		</header>
+		<form method="dialog" class="flex flex-col flex-1 gap-y-6 mt-6">
+			<div class="flex flex-col gap-y-6
+				sm:flex-row sm:gap-x-4 sm:items-center sm:justify-between">
+				<div class="space-y-2">
+					<c:import url="/WEB-INF/templates/Label.jsp">
+						<c:param name="slot" value="Tên thú cưng" />
+						<c:param name="of" value="name" />
+					</c:import>
+					<c:import url="/WEB-INF/templates/Input.jsp">
+						<c:param name="id" value="name" />
+						<c:param name="type" value="text" />
+						<c:param name="required" value="${true}" />
+						<c:param name="placeholder" value="Nhập tên thú cưng..." />
+						<c:param name="value" value="${param.username}" />
+					</c:import>
+					<c:if test='${error != null && error.getUsername() != null}'>
+						<p class="text-red-600 font-medium">${error.getUsername()}</p>
+					</c:if>
+				</div>
+
+				<div class="space-y-2">
+					<c:import url="/WEB-INF/templates/Label.jsp">
+						<c:param name="slot" value="Giá tiền" />
+						<c:param name="of" value="price" />
+					</c:import>
+					<c:import url="/WEB-INF/templates/Input.jsp">
+						<c:param name="id" value="price" />
+						<c:param name="type" value="number" />
+						<c:param name="min" value="0" />
+						<c:param name="required" value="${true}" />
+						<c:param name="placeholder" value="Nhập giá tiền..." />
+						<c:param name="value" value="${param.price}" />
+					</c:import>
+					<c:if test='${error != null && error.getEmail() != null}'>
+						<p class="text-red-600 font-medium">${error.getEmail()}</p>
+					</c:if>
+				</div>
+
+				<div class="space-y-2">
+					<c:import url="/WEB-INF/templates/Label.jsp">
+						<c:param name="slot" value="Số lượng" />
+						<c:param name="of" value="stock" />
+					</c:import>
+					<c:import url="/WEB-INF/templates/Input.jsp">
+						<c:param name="id" value="stock" />
+						<c:param name="min" value="0" />
+						<c:param name="type" value="number" />
+						<c:param name="required" value="${true}" />
+						<c:param name="placeholder" value="Nhập số lượng..." />
+						<c:param name="value" value="${param.stock}" />
+					</c:import>
+					<c:if test='${error != null && error.getPassword() != null}'>
+						<p class="text-red-600 font-medium">${error.getPassword()}</p>
+					</c:if>
+				</div>
+			</div>
+
+			<div class="space-y-2">
+				<c:import url="/WEB-INF/templates/Label.jsp">
+					<c:param name="slot" value="Mô tả <span class='text-xs font-bold text-stone-400'># Markdown</span>" />
+					<c:param name="of" value="description" />
+				</c:import>
+				<textarea
+					id="description"
+					name="description"
+					placeholder="Nhập mô tả..."
+					rows="10"
+					cols="80"
+					spellcheck="false"
+					class="block w-full h-full px-5 py-3
+						bg-stone-50 placeholder-stone-500
+						transition duration-100 ease-in-out
+						border border-stone-200 rounded-lg
+						focus:border-transparent focus:ring focus:ring-brand/60"></textarea>
+			</div>
+			<div class="w-fit place-self-end flex gap-x-4">
+				<c:import url="/WEB-INF/templates/Button.jsp">
+					<c:param name="type" value="button" />
+					<c:param name="slot" value="Trở về" />
+					<c:param name="bg" value="bg-stone-500" />
+					<c:param name="border" value="border-stone-600" />
+					<c:param name="ring" value="ring-stone-500" />
+				</c:import>
+				<c:import url="/WEB-INF/templates/Button.jsp">
+					<c:param name="type" value="submit" />
+					<c:param name="slot" value="Thêm" />
+				</c:import>
+			</div>
+		</form>
+	</div>
+</dialog>
