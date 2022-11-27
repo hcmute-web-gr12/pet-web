@@ -6,7 +6,7 @@
 <head>
 	<title>Profile</title>
 	<c:import url="/WEB-INF/templates/Head.jsp" />
-	<script type="module" src="/scripts/user.js" defer></script>
+	<script src="/scripts/user.js" defer></script>
 	<style>
 		#tab-slot {
 			transition-property: max-height, opacity;

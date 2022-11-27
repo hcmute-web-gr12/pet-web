@@ -1,6 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<head>
+	<script src="/scripts/admin/pet.js" defer></script>
+</head>
 <div class="flex justify-between gap-x-2">
 	<input
 		id="search-pet-input"
@@ -126,7 +129,7 @@
 		<header>
 			<h2 class="mt-6 text-3xl font-extrabold text-brand">Thêm thú cưng.</h2>
 		</header>
-		<form method="dialog" class="flex flex-col flex-1 gap-y-6 mt-6">
+		<form id="add-pet-form" action="/api/admin/pet" method="dialog" class="flex flex-col flex-1 gap-y-6 mt-6">
 			<div class="flex flex-col gap-y-6
 				sm:flex-row sm:gap-x-4 sm:items-center sm:justify-between">
 				<div class="space-y-2">
@@ -203,6 +206,7 @@
 			</div>
 			<div class="w-fit place-self-end flex gap-x-4">
 				<c:import url="/WEB-INF/templates/Button.jsp">
+					<c:param name="id" value="pet-add-cancel" />
 					<c:param name="type" value="button" />
 					<c:param name="slot" value="Trở về" />
 					<c:param name="bg" value="bg-stone-500" />
