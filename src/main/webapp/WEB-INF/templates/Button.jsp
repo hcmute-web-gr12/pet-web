@@ -1,20 +1,22 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:set var="bg" scope="page" value="${param.getOrDefault('bg', 'bg-primary')}" />
-<c:set var="text" scope="page" value="${param.getOrDefault('text', 'text-stone-100')}" />
-<c:set var="border" scope="page" value="${param.getOrDefault('border', 'border-primary-600')}" />
-<c:set var="rounded" scope="page" value="${param.getOrDefault('rounded', 'rounded')}" />
-<c:set var="fontSize" scope="page" value="${param.getOrDefault('font-size', 'text-base')}" />
+<c:set var="bg" value="${param.getOrDefault('bg', 'bg-primary')}" />
+<c:set var="text" value="${param.getOrDefault('text', 'text-stone-100')}" />
+<c:set var="border" value="${param.getOrDefault('border', 'border-primary-600')}" />
+<c:set var="rounded" value="${param.getOrDefault('rounded', 'rounded')}" />
+<c:set var="fontSize" value="${param.getOrDefault('font-size', 'text-base')}" />
+<c:set var="ring" value="${param.getOrDefault('ring', 'ring-primary')}" />
+<c:set var="padding" value="${param.getOrDefault('padding', 'px-4 py-2')}" />
 
 <button
 	id="${param.id}"
 	type="${param.type}"
-	class="flex h-full items-center px-4 py-2 ${fontSize}
+	class="text-center flex h-full items-center ${padding} ${fontSize}
 		${rounded} ${bg} ${text}
 		border ${border}
 		transition duration-100
-		focus:outline-none focus:border-transparent focus:ring focus:${param.getOrDefault('ring', 'ring-primary')}/60"
+		focus:outline-none focus:border-transparent focus:ring focus:${ring}/60"
 >
 	${param.slot}
 </button>
