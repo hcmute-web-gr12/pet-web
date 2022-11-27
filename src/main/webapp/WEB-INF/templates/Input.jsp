@@ -18,6 +18,7 @@
 			name="${param.id}"
 			type="${param.getOrDefault('type', 'text')}"
 			value="${param.value}"
+			min="${param.min}"
 			placeholder="${param.placeholder}"
 			spellcheck="${param.getOrDefault('spellcheck', 'false')}"
 			class="${defaultClass}">
@@ -28,6 +29,7 @@
 			id="${param.id}"
 			name="${param.id}"
 			type="${param.getOrDefault('type', 'text')}"
+			min="${param.min}"
 			autocomplete="${param.getOrDefault('autocomplete', 'off')}"
 			required="${param.getOrDefault('required', 'false')}"
 			value="${param.value}"
@@ -40,6 +42,7 @@
 			id="${param.id}"
 			name="${param.id}"
 			type="${param.getOrDefault('type', 'text')}"
+			min="${param.min}"
 			autocomplete="${param.getOrDefault('autocomplete', 'off')}"
 			required="${param.getOrDefault('required', 'false')}"
 			value="${param.value}"
