@@ -1,38 +1,26 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="flex items-center justify-between">
-	<div class="flex flex-1 justify-between sm:hidden">
-		<a href="#"
-			class="relative inline-flex items-center rounded-md border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50">Previous</a>
-		<a href="#"
-			class="relative ml-3 inline-flex items-center rounded-md border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50">Next</a>
-	</div>
-	<div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+<div class="flex items-center justify-between gap-x-2">
+	<div class="sm:flex sm:flex-1 sm:items-center sm:justify-between">
 		<div>
 			<p class="text-sm text-stone-700">
-				Showing
-				<span class="font-medium">1</span>
-				to
-				<span class="font-medium">10</span>
-				of
-				<span class="font-medium">97</span>
-				results
+				Hiển thị từ	
+				<span class="font-medium">${(props.currentPage - 1) * props.pageSize + 1}</span>
+				đến
+				<span class="font-medium">${props.currentPage * props.pageSize}</span>
+				trong
+				<span class="font-medium">${props.total}</span>
+				thú nuôi.
 			</p>
 		</div>
-		<div>
+		<div class="hidden sm:block">
 			<nav class="isolate inline-flex -space-x-px rounded-lg" aria-label="Pagination">
 				<a href="#"
 					class="relative inline-flex items-center rounded-l-lg border bg-white px-2 py-2 text-sm font-medium text-stone-500 hover:bg-stone-50 focus:z-20">
 					<span class="sr-only">Previous</span>
 					<!-- Heroicon name: mini/chevron-left -->
-					<svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-						aria-hidden="true">
-						<path fill-rule="evenodd"
-							d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
-							clip-rule="evenodd" />
-					</svg>
+					<span class="material-symbols-rounded">chevron_left</span>
 				</a>
-				<!-- Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white text-stone-500 hover:bg-stone-50" -->
 				<a href="#" aria-current="page"
 					class="relative z-10 inline-flex items-center border border-brand bg-brand/30 px-4 py-2 text-sm font-medium text-brand focus:z-20">1</a>
 				<a href="#"
@@ -50,15 +38,23 @@
 				<a href="#"
 					class="relative inline-flex items-center rounded-r-lg border bg-white px-2 py-2 text-sm font-medium text-stone-500 hover:bg-stone-50 focus:z-20">
 					<span class="sr-only">Next</span>
-					<!-- Heroicon name: mini/chevron-right -->
-					<svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-						aria-hidden="true">
-						<path fill-rule="evenodd"
-							d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-							clip-rule="evenodd" />
-					</svg>
+					<span class="material-symbols-rounded">chevron_right</span>
 				</a>
 			</nav>
 		</div>
+	</div>
+	<div class="flex flex-1 justify-end gap-x-2 sm:hidden">
+		<c:import url="/WEB-INF/templates/Link.jsp">
+			<c:param name="slot" value="<span class='material-symbols-rounded'>chevron_left</span>" />
+			<c:param name="bg" value="bg-white" />
+			<c:param name="text" value="text-stone-700" />
+			<c:param name="border" value="border" />
+		</c:import>
+		<c:import url="/WEB-INF/templates/Link.jsp">
+			<c:param name="slot" value="<span class='material-symbols-rounded'>chevron_right</span>" />
+			<c:param name="bg" value="bg-white" />
+			<c:param name="text" value="text-stone-700" />
+			<c:param name="border" value="border" />
+		</c:import>
 	</div>
 </div>
