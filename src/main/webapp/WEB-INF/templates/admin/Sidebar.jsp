@@ -5,7 +5,7 @@
 <nav aria-label="Main Nav">
 	<ul class="flex flex-col space-y-1 w-full">
 		<li>
-			<a href="#" class="flex items-center rounded-lg bg-gray-100 px-4 py-2 text-gray-700">
+			<a href="#" class="flex items-center rounded-lg bg-stone-100 px-4 py-2 text-stone-700">
 				<span class="material-symbols-rounded">
 					dashboard
 				</span>
@@ -14,7 +14,7 @@
 		</li>
 		<li>
 			<a href="#"
-				class="flex items-center rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700">
+				class="flex items-center rounded-lg px-4 py-2 text-stone-500 hover:bg-stone-100 hover:text-stone-700">
 				<span class="material-symbols-rounded">
 					pets
 				</span>
