@@ -7,6 +7,7 @@ import com.group12.petweb.controller.LoginController;
 import com.group12.petweb.controller.ProductsController;
 import com.group12.petweb.controller.SignUpController;
 import com.group12.petweb.controller.UserProfileController;
+import com.group12.petweb.controller.api.AdminPetApiController;
 import com.group12.petweb.controller.api.UserProfileApiController;
 import com.group12.petweb.dao.UserCredentialsDao;
 import com.group12.petweb.dao.UserCredentialsDaoImpl;
@@ -61,7 +62,9 @@ public class Application implements ServletContextListener, HttpSessionListener,
 				.addMapping("/api/user/profile");
 
 		context.addServlet("adminDashboardServlet", new AdminDashboardController()).addMapping("/admin", "/admin/dashboard");
+
 		context.addServlet("adminPetServlet", new AdminPetController()).addMapping("/admin/pet");
+		context.addServlet("adminPetApiServlet", new AdminPetApiController()).addMapping("/api/admin/pet");
 
 		context.addFilter("authorizationFilter", new AuthorizationFilter(redirector)).addMappingForServletNames(
 				EnumSet.allOf(DispatcherType.class),
