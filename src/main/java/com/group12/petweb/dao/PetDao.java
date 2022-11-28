@@ -9,5 +9,6 @@ import java.util.UUID;
 public interface PetDao {
 	Optional<Pet> findById(UUID id);
 
-	void create(Pet model) throws PersistenceException;
+	void create(Pet pet) throws PersistenceException;
+	void update(Pet pet) throws PersistenceException;
 }

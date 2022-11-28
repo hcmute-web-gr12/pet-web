@@ -19,23 +19,32 @@ public class PetDaoImpl implements PetDao {
 	public Optional<Pet> findById(UUID id) {
 		try (final EntityManager manager = factory.createEntityManager()) {
 			manager.getTransaction().begin();
-			final Optional<Pet> user = manager
+			final Optional<Pet> pet = manager
 					.createQuery("SELECT p FROM Pet p WHERE id = :id", Pet.class)
 					.setParameter("id", id)
 					.setMaxResults(1)
 					.getResultStream()
 					.findFirst();
 			manager.getTransaction().commit();
-			return user;
+			return pet;
 		}
 	}
 
 	@Override
-	public void create(Pet user) throws PersistenceException {
+	public void create(Pet pet) throws PersistenceException {
 		try (final EntityManager manager = factory.createEntityManager()) {
 			manager.getTransaction().begin();
-			manager.persist(user);
+			manager.persist(pet);
 			manager.flush();
+			manager.getTransaction().commit();
+		}
+	}
+
+	@Override
+	public void update(Pet pet) throws PersistenceException {
+		try (final EntityManager manager = factory.createEntityManager()) {
+			manager.getTransaction().begin();
+			manager.merge(pet);
 			manager.getTransaction().commit();
 		}
 	}
