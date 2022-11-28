@@ -129,9 +129,9 @@
 		<header>
 			<h2 class="mt-6 text-3xl font-extrabold text-brand">Thêm thú cưng.</h2>
 		</header>
-		<form id="pet-form" action="/api/admin/pet" method="dialog" class="flex flex-col flex-1 gap-y-6 mt-6">
+		<form id="pet-form" action="/api/admin/pet" method="dialog" class="flex flex-col gap-y-6 mt-6">
 			<div class="flex flex-col gap-y-6
-				sm:flex-row sm:gap-x-4 sm:items-center sm:justify-between">
+				sm:flex-row sm:gap-x-4 sm:items-center sm:justify-stretch">
 				<div class="space-y-2">
 					<c:import url="/WEB-INF/templates/Label.jsp">
 						<c:param name="slot" value="Tên thú cưng" />
@@ -173,6 +173,15 @@
 						<c:param name="placeholder" value="Nhập số lượng..." />
 					</c:import>
 				</div>
+
+			</div>
+
+			<div class="flex flex-col gap-y-2">
+				<c:import url="/WEB-INF/templates/Label.jsp">
+					<c:param name="slot" value="Hình ảnh <span class='text-xs font-bold text-stone-400'># .png, .jpg, ...</span>" />
+					<c:param name="of" value="imageFile" />
+				</c:import>
+				<input type="file" id="imageFile" name="imageFile" class="text-stone-700 focus:ring-brand/60" />
 			</div>
 
 			<div class="space-y-2">
