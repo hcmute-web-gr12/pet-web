@@ -154,6 +154,7 @@
 						<c:param name="id" value="price" />
 						<c:param name="type" value="number" />
 						<c:param name="min" value="0" />
+						<c:param name="step" value="1000" />
 						<c:param name="required" value="${true}" />
 						<c:param name="placeholder" value="Nhập giá tiền..." />
 					</c:import>
