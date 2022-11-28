@@ -20,7 +20,7 @@
 	<ul class="flex justify-end gap-x-2">
 		<li>
 			<c:import url="/WEB-INF/templates/Button.jsp">
-				<c:param name="id" value="add-pet-button" />
+				<c:param name="id" value="pet-add" />
 				<c:param name="type" value="button" />
 				<c:param name="slot" value="<span class='material-symbols-rounded'>add</span>" />
 				<c:param name="padding" value="p-2" />
@@ -124,12 +124,12 @@
 	</table>
 </div>
 
-<dialog id="add-pet-dialog" loading modal-mode="mega" class="bg-stone-50 rounded-lg shadow-lg border">
+<dialog id="pet-dialog" loading modal-mode="mega" class="bg-stone-50 rounded-lg shadow-lg border">
 	<div class="relative flex-auto min-w-96 flex-col justify-center lg:flex-none">
 		<header>
 			<h2 class="mt-6 text-3xl font-extrabold text-brand">Thêm thú cưng.</h2>
 		</header>
-		<form id="add-pet-form" action="/api/admin/pet" method="dialog" class="flex flex-col flex-1 gap-y-6 mt-6">
+		<form id="pet-form" action="/api/admin/pet" method="dialog" class="flex flex-col flex-1 gap-y-6 mt-6">
 			<div class="flex flex-col gap-y-6
 				sm:flex-row sm:gap-x-4 sm:items-center sm:justify-between">
 				<div class="space-y-2">
@@ -142,11 +142,7 @@
 						<c:param name="type" value="text" />
 						<c:param name="required" value="${true}" />
 						<c:param name="placeholder" value="Nhập tên thú cưng..." />
-						<c:param name="value" value="${param.username}" />
 					</c:import>
-					<c:if test='${error != null && error.getUsername() != null}'>
-						<p class="text-red-600 font-medium">${error.getUsername()}</p>
-					</c:if>
 				</div>
 
 				<div class="space-y-2">
@@ -160,11 +156,7 @@
 						<c:param name="min" value="0" />
 						<c:param name="required" value="${true}" />
 						<c:param name="placeholder" value="Nhập giá tiền..." />
-						<c:param name="value" value="${param.price}" />
 					</c:import>
-					<c:if test='${error != null && error.getEmail() != null}'>
-						<p class="text-red-600 font-medium">${error.getEmail()}</p>
-					</c:if>
 				</div>
 
 				<div class="space-y-2">
@@ -178,11 +170,7 @@
 						<c:param name="type" value="number" />
 						<c:param name="required" value="${true}" />
 						<c:param name="placeholder" value="Nhập số lượng..." />
-						<c:param name="value" value="${param.stock}" />
 					</c:import>
-					<c:if test='${error != null && error.getPassword() != null}'>
-						<p class="text-red-600 font-medium">${error.getPassword()}</p>
-					</c:if>
 				</div>
 			</div>
 
@@ -204,19 +192,22 @@
 						border border-stone-200 rounded-lg
 						focus:border-transparent focus:ring focus:ring-brand/60"></textarea>
 			</div>
-			<div class="w-fit place-self-end flex gap-x-4">
-				<c:import url="/WEB-INF/templates/Button.jsp">
-					<c:param name="id" value="pet-add-cancel" />
-					<c:param name="type" value="button" />
-					<c:param name="slot" value="Trở về" />
-					<c:param name="bg" value="bg-stone-500" />
-					<c:param name="border" value="border-stone-600" />
-					<c:param name="ring" value="ring-stone-500" />
-				</c:import>
-				<c:import url="/WEB-INF/templates/Button.jsp">
-					<c:param name="type" value="submit" />
-					<c:param name="slot" value="Thêm" />
-				</c:import>
+			<div class="flex justify-between gap-x-4">
+				<p id='pet-form-error' class="text-red-600 font-medium"></p>
+				<div class="flex gap-x-4">
+					<c:import url="/WEB-INF/templates/Button.jsp">
+						<c:param name="id" value="pet-form-back" />
+						<c:param name="type" value="button" />
+						<c:param name="slot" value="Trở về" />
+						<c:param name="bg" value="bg-stone-500" />
+						<c:param name="border" value="border-stone-600" />
+						<c:param name="ring" value="ring-stone-500" />
+					</c:import>
+					<c:import url="/WEB-INF/templates/Button.jsp">
+						<c:param name="type" value="submit" />
+						<c:param name="slot" value="Thêm" />
+					</c:import>
+				</div>
 			</div>
 		</form>
 	</div>
