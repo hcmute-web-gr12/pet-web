@@ -10,5 +10,6 @@ public interface PetDao {
 	Optional<Pet> findById(UUID id);
 
 	void create(Pet pet) throws PersistenceException;
+	Pet[] findSomeOffset(int offset, int count) throws PersistenceException;
 	void update(Pet pet) throws PersistenceException;
 }
