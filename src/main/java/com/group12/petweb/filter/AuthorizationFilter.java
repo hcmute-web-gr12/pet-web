@@ -26,7 +26,12 @@ public class AuthorizationFilter implements Filter {
 		final var httpResponse = (HttpServletResponse) response;
 		final var session = httpRequest.getSession(false);
 		if (session == null || session.getAttribute("user") == null) {
-			redirector.redirect(httpRequest, httpResponse, "/login", "Phiên làm việc đã hết hạn.", 1);
+			httpResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+			if (httpRequest.getServletPath().indexOf("api") != -1) {
+				httpResponse.getWriter().print(HttpServletResponse.SC_FORBIDDEN);
+			} else {
+				redirector.redirect(httpRequest, httpResponse, "/login", "Xin vui lòng đăng nhập.", 1);
+			}
 			return;
 		}
 		chain.doFilter(request, response);
