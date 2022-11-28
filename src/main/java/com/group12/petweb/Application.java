@@ -17,6 +17,8 @@ import com.group12.petweb.filter.AuthorizationFilter;
 import com.group12.petweb.service.ContextRedirector;
 import com.group12.petweb.service.Redirector;
 
+import com.cloudinary.*;
+
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import org.hibernate.cfg.Environment;
@@ -29,10 +31,12 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.Properties;
 
 @WebListener
 public class Application implements ServletContextListener, HttpSessionListener, HttpSessionAttributeListener {
+	private final String TEMP_DIR = "/tmp";
 	private final EntityManagerFactory factory;
 	private final UserCredentialsDao userCredentialsDao;
 	private final PetDao petDao;
@@ -53,6 +57,13 @@ public class Application implements ServletContextListener, HttpSessionListener,
 	public void contextInitialized(ServletContextEvent sce) {
 		final var mb = 1024 * 1024;
 		final var context = sce.getServletContext();
+		final var cloudinary = new Cloudinary(new HashMap<String, String>() {
+			{
+				put("cloud_name", System.getenv("CLOUDINARY_CLOUD_NAME"));
+				put("api_key", System.getenv("CLOUDINARY_API_KEY"));
+				put("api_secret", System.getenv("CLOUDINARY_API_SECRET"));
+			}
+		});
 
 		context.addServlet("homeServlet", new HomeController()).addMapping("/home");
 		context.addServlet("loginServlet", new LoginController(userCredentialsDao, redirector)).addMapping("/login");
@@ -64,12 +75,13 @@ public class Application implements ServletContextListener, HttpSessionListener,
 		context.addServlet("userProfileApiServlet", new UserProfileApiController(userCredentialsDao))
 				.addMapping("/api/user/profile");
 
-		context.addServlet("adminDashboardServlet", new AdminDashboardController()).addMapping("/admin", "/admin/dashboard");
+		context.addServlet("adminDashboardServlet", new AdminDashboardController()).addMapping("/admin",
+				"/admin/dashboard");
 
 		context.addServlet("adminPetServlet", new AdminPetController()).addMapping("/admin/pet");
-		final var adminPetApiServlet = context.addServlet("adminPetApiServlet", new AdminPetApiController(petDao));
+		final var adminPetApiServlet = context.addServlet("adminPetApiServlet", new AdminPetApiController(petDao, cloudinary));
 		adminPetApiServlet.addMapping("/api/admin/pet");
-		adminPetApiServlet.setMultipartConfig(new MultipartConfigElement("/tmp", 10 * mb, 100 * mb, mb));
+		adminPetApiServlet.setMultipartConfig(new MultipartConfigElement(TEMP_DIR, 10 * mb, 100 * mb, mb));
 
 		context.addFilter("authorizationFilter", new AuthorizationFilter(redirector)).addMappingForServletNames(
 				EnumSet.of(DispatcherType.REQUEST),

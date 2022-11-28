@@ -1,10 +1,15 @@
 package com.group12.petweb.controller.api;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
+import com.cloudinary.Cloudinary;
 import com.group12.petweb.dao.PetDao;
 import com.group12.petweb.model.Pet;
 
@@ -12,19 +17,26 @@ import jakarta.persistence.PersistenceException;
 
 public class AdminPetApiController extends HttpServlet {
 	private final PetDao petDao;
+	private final Cloudinary cloudinary;
 
-	public AdminPetApiController(PetDao petDao) {
+	public AdminPetApiController(PetDao petDao, Cloudinary cloudinary) {
 		this.petDao = petDao;
+		this.cloudinary = cloudinary;
 	}
 
 	@Override()
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		// TODO: upload imageFile part to Cloudimage
-		try {
+		final var part = request.getPart("imageFile");
+		final var fileName = part.getSubmittedFileName();
+		final var index = fileName.indexOf('.');
+		final var name = fileName.substring(0, index);
+		final var ext = fileName.substring(index);
+		final var temp = File.createTempFile(name + '-', ext, new File("/tmp"));
+		try (final var is = part.getInputStream()) {
 			final var model = new Pet();
+			model.setId(UUID.randomUUID());
 			model.setName(request.getParameter("name"));
 			model.setDescription(request.getParameter("description"));
-			model.setImageUrl(request.getParameter("imageFile"));
 			try {
 				model.setPrice(Integer.parseUnsignedInt(request.getParameter("price")));
 				model.setStock(Integer.parseUnsignedInt(request.getParameter("stock")));
@@ -32,10 +44,21 @@ public class AdminPetApiController extends HttpServlet {
 				model.setPrice(0);
 				model.setStock(0);
 			}
-			petDao.create(model);
+
+			Files.copy(is, temp.toPath(), StandardCopyOption.REPLACE_EXISTING);
+			final var res = cloudinary.uploader().upload(
+				temp,
+				new HashMap<String, String>() {
+					{
+						put("public_id", "pet-" + model.getId().toString());
+					}
+			});
+			temp.delete();
+			model.setImageUrl((String)res.get("secure_url"));
+			petDao.update(model);
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.getWriter().print(HttpServletResponse.SC_OK);
-		} catch (PersistenceException ex) {
+		} catch (Exception ex) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			response.getWriter().print(ex.getMessage());
 		}
