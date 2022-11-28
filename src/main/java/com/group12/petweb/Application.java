@@ -9,6 +9,8 @@ import com.group12.petweb.controller.SignUpController;
 import com.group12.petweb.controller.UserProfileController;
 import com.group12.petweb.controller.api.AdminPetApiController;
 import com.group12.petweb.controller.api.UserProfileApiController;
+import com.group12.petweb.dao.PetDao;
+import com.group12.petweb.dao.PetDaoImpl;
 import com.group12.petweb.dao.UserCredentialsDao;
 import com.group12.petweb.dao.UserCredentialsDaoImpl;
 import com.group12.petweb.filter.AuthorizationFilter;
@@ -19,10 +21,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import org.hibernate.cfg.Environment;
 
-import javax.servlet.DispatcherType;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import javax.servlet.*;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
@@ -36,6 +35,7 @@ import java.util.Properties;
 public class Application implements ServletContextListener, HttpSessionListener, HttpSessionAttributeListener {
 	private final EntityManagerFactory factory;
 	private final UserCredentialsDao userCredentialsDao;
+	private final PetDao petDao;
 	private final Redirector redirector;
 
 	public Application() {
@@ -45,12 +45,15 @@ public class Application implements ServletContextListener, HttpSessionListener,
 		properties.put(Environment.URL, System.getenv("CONNECTION_URL"));
 		factory = Persistence.createEntityManagerFactory("default", properties);
 		userCredentialsDao = new UserCredentialsDaoImpl(factory);
+		petDao = new PetDaoImpl(factory);
 		redirector = new ContextRedirector();
 	}
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		ServletContext context = sce.getServletContext();
+		final var mb = 1024 * 1024;
+		final var context = sce.getServletContext();
+
 		context.addServlet("homeServlet", new HomeController()).addMapping("/home");
 		context.addServlet("loginServlet", new LoginController(userCredentialsDao, redirector)).addMapping("/login");
 		context.addServlet("signUpServlet", new SignUpController(userCredentialsDao, redirector)).addMapping("/signup");
@@ -64,7 +67,9 @@ public class Application implements ServletContextListener, HttpSessionListener,
 		context.addServlet("adminDashboardServlet", new AdminDashboardController()).addMapping("/admin", "/admin/dashboard");
 
 		context.addServlet("adminPetServlet", new AdminPetController()).addMapping("/admin/pet");
-		context.addServlet("adminPetApiServlet", new AdminPetApiController()).addMapping("/api/admin/pet");
+		final var adminPetApiServlet = context.addServlet("adminPetApiServlet", new AdminPetApiController(petDao));
+		adminPetApiServlet.addMapping("/api/admin/pet");
+		adminPetApiServlet.setMultipartConfig(new MultipartConfigElement("/tmp", 10 * mb, 100 * mb, mb));
 
 		context.addFilter("authorizationFilter", new AuthorizationFilter(redirector)).addMappingForServletNames(
 				EnumSet.of(DispatcherType.REQUEST),
