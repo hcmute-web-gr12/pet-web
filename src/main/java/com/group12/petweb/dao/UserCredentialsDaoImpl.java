@@ -19,14 +19,9 @@ public class UserCredentialsDaoImpl implements UserCredentialsDao {
 	public Optional<UserCredentials> findById(UUID id) {
 		try (final EntityManager manager = factory.createEntityManager()) {
 			manager.getTransaction().begin();
-			final Optional<UserCredentials> user = manager
-					.createQuery("SELECT u FROM UserCredentials u WHERE id = :id", UserCredentials.class)
-					.setParameter("id", id)
-					.setMaxResults(1)
-					.getResultStream()
-					.findFirst();
+			final var optional = Optional.of(manager.find(UserCredentials.class, id));
 			manager.getTransaction().commit();
-			return user;
+			return optional;
 		}
 	}
 
@@ -34,7 +29,7 @@ public class UserCredentialsDaoImpl implements UserCredentialsDao {
 	public Optional<UserCredentials> findByEmail(String email) {
 		try (final EntityManager manager = factory.createEntityManager()) {
 			manager.getTransaction().begin();
-			final Optional<UserCredentials> user = manager
+			final var user = manager
 					.createQuery("SELECT u FROM UserCredentials u WHERE email = :email", UserCredentials.class)
 					.setParameter("email", email)
 					.setMaxResults(1)
