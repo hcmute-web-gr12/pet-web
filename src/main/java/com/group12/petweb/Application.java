@@ -67,10 +67,13 @@ public class Application implements ServletContextListener, HttpSessionListener,
 		context.addServlet("adminPetApiServlet", new AdminPetApiController()).addMapping("/api/admin/pet");
 
 		context.addFilter("authorizationFilter", new AuthorizationFilter(redirector)).addMappingForServletNames(
-				EnumSet.allOf(DispatcherType.class),
+				EnumSet.of(DispatcherType.REQUEST),
 				false,
 				"userProfileServlet",
-				"userProfileApiServlet");
+				"userProfileApiServlet",
+				"adminDashboardServlet",
+				"adminPetServlet",
+				"adminPetApiServlet");
 	}
 
 	@Override
