@@ -10,10 +10,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
 import com.cloudinary.Cloudinary;
+import com.google.gson.Gson;
 import com.group12.petweb.dao.PetDao;
 import com.group12.petweb.model.Pet;
-
-import jakarta.persistence.PersistenceException;
 
 public class AdminPetApiController extends HttpServlet {
 	private final PetDao petDao;
@@ -22,6 +21,25 @@ public class AdminPetApiController extends HttpServlet {
 	public AdminPetApiController(PetDao petDao, Cloudinary cloudinary) {
 		this.petDao = petDao;
 		this.cloudinary = cloudinary;
+	}
+
+	@Override()
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		int pageSize;
+		int page;
+		try {
+			page = Integer.parseInt(request.getParameter("page"));
+		} catch (Exception ex) {
+			page = 0;
+		}
+		try {
+			pageSize = Integer.parseInt(request.getParameter("pageSize"));
+		} catch (Exception ex) {
+			pageSize = 10;
+		}
+		final var pets = petDao.findSomeOffset(page * 10, pageSize);
+		response.setContentType("application/json");
+		response.getWriter().print(new Gson().toJson(pets));
 	}
 
 	@Override()
@@ -47,14 +65,14 @@ public class AdminPetApiController extends HttpServlet {
 
 			Files.copy(is, temp.toPath(), StandardCopyOption.REPLACE_EXISTING);
 			final var res = cloudinary.uploader().upload(
-				temp,
-				new HashMap<String, String>() {
-					{
-						put("public_id", "pet-" + model.getId().toString());
-					}
-			});
+					temp,
+					new HashMap<String, String>() {
+						{
+							put("public_id", "pet-" + model.getId().toString());
+						}
+					});
 			temp.delete();
-			model.setImageUrl((String)res.get("secure_url"));
+			model.setImageUrl((String) res.get("secure_url"));
 			petDao.update(model);
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.getWriter().print(HttpServletResponse.SC_OK);
