@@ -5,14 +5,8 @@
 	<script src="/scripts/admin/pet.js" defer></script>
 </head>
 <div class="flex justify-between gap-x-2">
-	<input
-		id="search-pet-input"
-		name="search-pet-input"
-		type="search"
-		value="${param.get('search-pet-input')}"
-		placeholder="Tìm thú nuôi"
-		spellcheck="false"
-		class="block w-48 px-4 py-2
+	<input id="search-pet-input" name="search-pet-input" type="search" value="${param.get('search-pet-input')}"
+		placeholder="Tìm thú nuôi" spellcheck="false" class="block w-48 px-4 py-2
 		bg-stone-50 placeholder-stone-500
 		transition duration-100 ease-in-out
 		border border-stone-200 rounded-lg
@@ -178,25 +172,22 @@
 
 			<div class="flex flex-col gap-y-2">
 				<c:import url="/WEB-INF/templates/Label.jsp">
-					<c:param name="slot" value="Hình ảnh <span class='text-xs font-bold text-stone-400'># .png, .jpg, ...</span>" />
+					<c:param name="slot"
+						value="Hình ảnh <span class='text-xs font-bold text-stone-400'># .png, .jpg, ...</span>" />
 					<c:param name="of" value="imageFile" />
 				</c:import>
-				<input type="file" id="imageFile" name="imageFile" class="text-stone-700 focus:ring-brand/60" />
+				<input type="file" id="imageFile" name="imageFile" accept="image/*"
+					class="text-stone-700 focus:ring-brand/60" />
 			</div>
 
 			<div class="space-y-2">
 				<c:import url="/WEB-INF/templates/Label.jsp">
-					<c:param name="slot" value="Mô tả <span class='text-xs font-bold text-stone-400'># Markdown</span>" />
+					<c:param name="slot"
+						value="Mô tả <span class='text-xs font-bold text-stone-400'># Markdown</span>" />
 					<c:param name="of" value="description" />
 				</c:import>
-				<textarea
-					id="description"
-					name="description"
-					placeholder="Nhập mô tả..."
-					rows="10"
-					cols="80"
-					spellcheck="false"
-					class="block w-full h-full px-5 py-3
+				<textarea id="description" name="description" placeholder="Nhập mô tả..." rows="10" cols="80"
+					spellcheck="false" class="block w-full h-full px-5 py-3
 						bg-stone-50 placeholder-stone-500
 						transition duration-100 ease-in-out
 						border border-stone-200 rounded-lg
