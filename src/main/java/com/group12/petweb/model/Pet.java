@@ -14,7 +14,7 @@ public class Pet {
 	private String name;
 	private long price;
 	private long stock;
-	private String imageUrl;
+	private String imagePublicId;
 	private String description;
 	private Timestamp createdDate;
 
@@ -53,9 +53,9 @@ public class Pet {
 		return description;
 	}
 
-	@Column(name = "IMAGE_URL")
-	public String getImageUrl() {
-		return imageUrl;
+	@Column(name = "IMAGE_PUBLIC_ID")
+	public String getImagePublicId() {
+		return imagePublicId;
 	}
 
 	public void setId(UUID id) {
@@ -78,8 +78,8 @@ public class Pet {
 		this.description = description;
 	}
 
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
+	public void setImagePublicId(String imagePublicId) {
+		this.imagePublicId = imagePublicId;
 	}
 
 	public void setCreatedDate(Timestamp createdDate) {
@@ -95,7 +95,7 @@ public class Pet {
 				", stock='" + stock + '\'' +
 				", price='" + price + '\'' +
 				", description='" + description + '\'' +
-				", imageUrl='" + imageUrl + '\'' +
+				", imagePublicId='" + imagePublicId + '\'' +
 				'}';
 	}
 }
