@@ -16,7 +16,8 @@ import com.group12.petweb.dao.UserCredentialsDaoImpl;
 import com.group12.petweb.filter.AuthorizationFilter;
 import com.group12.petweb.service.ContextRedirector;
 import com.group12.petweb.service.Redirector;
-
+import com.group12.petweb.util.MathUtils;
+import com.group12.petweb.util.MathUtilsImpl;
 import com.cloudinary.*;
 
 import jakarta.persistence.EntityManagerFactory;
@@ -41,6 +42,7 @@ public class Application implements ServletContextListener, HttpSessionListener,
 	private final UserCredentialsDao userCredentialsDao;
 	private final PetDao petDao;
 	private final Redirector redirector;
+	private final MathUtils mathUtils;
 
 	public Application() {
 		final Properties properties = new Properties();
@@ -51,6 +53,7 @@ public class Application implements ServletContextListener, HttpSessionListener,
 		userCredentialsDao = new UserCredentialsDaoImpl(factory);
 		petDao = new PetDaoImpl(factory);
 		redirector = new ContextRedirector();
+		mathUtils = new MathUtilsImpl();
 	}
 
 	@Override
@@ -78,7 +81,7 @@ public class Application implements ServletContextListener, HttpSessionListener,
 		context.addServlet("adminDashboardServlet", new AdminDashboardController()).addMapping("/admin",
 				"/admin/dashboard");
 
-		context.addServlet("adminPetServlet", new AdminPetController(petDao)).addMapping("/admin/pet");
+		context.addServlet("adminPetServlet", new AdminPetController(petDao, cloudinary, mathUtils)).addMapping("/admin/pet");
 		final var adminPetApiServlet = context.addServlet("adminPetApiServlet", new AdminPetApiController(petDao, cloudinary));
 		adminPetApiServlet.addMapping("/api/admin/pet");
 		adminPetApiServlet.setMultipartConfig(new MultipartConfigElement(TEMP_DIR, 10 * mb, 100 * mb, mb));
