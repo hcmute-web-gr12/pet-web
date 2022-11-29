@@ -5,9 +5,9 @@
 		<div>
 			<p class="text-sm text-stone-700">
 				Hiển thị từ	
-				<span class="font-medium">${(props.currentPage - 1) * props.pageSize + 1}</span>
+				<span class="font-medium">${(props.page - 1) * props.pageSize + 1}</span>
 				đến
-				<span class="font-medium">${props.currentPage * props.pageSize}</span>
+				<span class="font-medium">${props.page * props.pageSize}</span>
 				trong
 				<span class="font-medium">${props.total}</span>
 				thú nuôi.
