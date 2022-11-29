@@ -1,0 +1,20 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+  	<title>Brand</title>
+  	<c:import url="../templates/Head.jsp" />
+  	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootsstrap.css">
+</head>
+<body>
+  	<c:import url="../templates/Header.jsp" />
+  	
+  	<c:import url="../templates/PageHeader.jsp"/>
+  	
+  	<c:import url="../templates/products/product_detail.jsp" />
+  	    
+  	<c:import url="../templates/Footer.jsp" />
+  	
+</body>
+</html>
