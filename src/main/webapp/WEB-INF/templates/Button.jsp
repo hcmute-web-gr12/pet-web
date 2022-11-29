@@ -12,11 +12,12 @@
 <button
 	id="${param.id}"
 	type="${param.type}"
-	class="text-center flex h-full items-center ${padding} ${fontSize}
+	class="${param.className} text-center flex h-full items-center ${padding} ${fontSize}
 		${rounded} ${bg} ${text}
 		border ${border}
 		transition duration-100
-		focus:outline-none focus:border-transparent focus:ring focus:${ring}/60"
+		focus:outline-none focus:border-transparent focus:ring focus:${ring}/60
+		disabled:bg-stone-500 disabled:border-stone-600"
 >
 	${param.slot}
 </button>
