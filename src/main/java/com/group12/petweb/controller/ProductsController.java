@@ -20,6 +20,8 @@ public class ProductsController extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("/WEB-INF/views/Products_Dog.jsp");
 		} else if (type.equalsIgnoreCase("cat")) {
 			dispatcher = request.getRequestDispatcher("/WEB-INF/views/Products_Cat.jsp");
+		} else if (type.equalsIgnoreCase("acc")) {
+			dispatcher = request.getRequestDispatcher("/WEB-INF/views/Products_Acc.jsp");
 		} else {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;
