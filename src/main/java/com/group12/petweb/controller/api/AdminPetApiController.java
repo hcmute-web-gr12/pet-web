@@ -30,14 +30,14 @@ public class AdminPetApiController extends HttpServlet {
 		try {
 			page = Integer.parseInt(request.getParameter("page"));
 		} catch (Exception ex) {
-			page = 0;
+			page = 1;
 		}
 		try {
 			pageSize = Integer.parseInt(request.getParameter("pageSize"));
 		} catch (Exception ex) {
 			pageSize = 10;
 		}
-		final var pets = petDao.findSomeOffset(page * 10, pageSize);
+		final var pets = petDao.findSomeOffset((page - 1) * 10, pageSize);
 		response.setContentType("application/json");
 		response.getWriter().print(new Gson().toJson(pets));
 	}

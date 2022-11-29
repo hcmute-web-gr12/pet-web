@@ -78,7 +78,7 @@ public class Application implements ServletContextListener, HttpSessionListener,
 		context.addServlet("adminDashboardServlet", new AdminDashboardController()).addMapping("/admin",
 				"/admin/dashboard");
 
-		context.addServlet("adminPetServlet", new AdminPetController()).addMapping("/admin/pet");
+		context.addServlet("adminPetServlet", new AdminPetController(petDao)).addMapping("/admin/pet");
 		final var adminPetApiServlet = context.addServlet("adminPetApiServlet", new AdminPetApiController(petDao, cloudinary));
 		adminPetApiServlet.addMapping("/api/admin/pet");
 		adminPetApiServlet.setMultipartConfig(new MultipartConfigElement(TEMP_DIR, 10 * mb, 100 * mb, mb));
