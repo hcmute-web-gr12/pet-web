@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/tailwind.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/cash/8.1.2/cash.min.js" integrity="sha384-pDvPZiwWwI1Hq92oHdxo5ls17LrxxiLghbf/Qu7gk7JM/TketUJwH7JQ0hWbfNvS" crossorigin="anonymous" defer></script>
 	<script src="https://cdn.jsdelivr.net/npm/marked@4.2.3/marked.min.js" integrity="sha256-R7rgJo0CZw0Yry37kZFwIgp0q7kecWYEknYRVZ0k/7I=" crossorigin="anonymous" defer></script>
 	<script src="/scripts/purify.min.js" defer></script>

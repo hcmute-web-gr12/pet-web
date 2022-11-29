@@ -2,6 +2,7 @@ package com.group12.petweb;
 
 import com.group12.petweb.controller.AdminDashboardController;
 import com.group12.petweb.controller.AdminPetController;
+import com.group12.petweb.controller.CartController;
 import com.group12.petweb.controller.HomeController;
 import com.group12.petweb.controller.LoginController;
 import com.group12.petweb.controller.ProductsController;
@@ -72,7 +73,8 @@ public class Application implements ServletContextListener, HttpSessionListener,
 		context.addServlet("loginServlet", new LoginController(userCredentialsDao, redirector)).addMapping("/login");
 		context.addServlet("signUpServlet", new SignUpController(userCredentialsDao, redirector)).addMapping("/signup");
 		context.addServlet("productsServlet", new ProductsController()).addMapping("/products");
-
+		context.addServlet("cartServlet", new CartController()).addMapping("/cart");
+		
 		context.addServlet("userProfileServlet", new UserProfileController(userCredentialsDao, redirector))
 				.addMapping("/user", "/user/profile");
 		context.addServlet("userProfileApiServlet", new UserProfileApiController(userCredentialsDao))
