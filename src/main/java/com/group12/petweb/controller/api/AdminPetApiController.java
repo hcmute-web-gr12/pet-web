@@ -3,6 +3,7 @@ package com.group12.petweb.controller.api;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -88,5 +89,37 @@ public class AdminPetApiController extends HttpServlet {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			response.getWriter().print(ex.getMessage());
 		}
+	}
+
+	@Override()
+	public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		final var indexes = request.getParameterValues("index");
+		if (indexes == null || indexes.length == 0) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			response.getWriter().print(HttpServletResponse.SC_BAD_REQUEST);
+			return;
+		}
+
+		final var pets = (Pet[])request.getSession(false).getAttribute("admin.pets");
+		if (pets == null || pets.length == 0) {
+			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+			response.getWriter().print(HttpServletResponse.SC_FORBIDDEN);
+			return;
+		}
+
+		final var length = pets.length;
+		final var ids = new ArrayList<UUID>(indexes.length);
+		for(final var index : indexes) {
+			try {
+				final var i = Integer.parseInt(index);
+				if (i < 0 || i >= length) {
+					continue;
+				}
+				ids.add(pets[i].getId());
+			} catch(NumberFormatException ex) { }
+		}
+		petDao.deleteById(ids);
+		response.setStatus(HttpServletResponse.SC_OK);
+		response.getWriter().print(HttpServletResponse.SC_OK);
 	}
 }
