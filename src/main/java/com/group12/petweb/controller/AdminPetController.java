@@ -36,6 +36,7 @@ public class AdminPetController extends HttpServlet {
 		props.put("pageSize", pets.length);
 		props.put("total", petDao.countAll());
 		request.setAttribute("props", props);
+		request.getSession(false).setAttribute("admin.pets", pets);
 		request.getRequestDispatcher("/WEB-INF/views/Admin.jsp").forward(request, response);
 	}
 }

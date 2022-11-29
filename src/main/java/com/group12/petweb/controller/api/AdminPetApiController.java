@@ -40,6 +40,7 @@ public class AdminPetApiController extends HttpServlet {
 		final var pets = petDao.findSomeOffset((page - 1) * 10, pageSize);
 		response.setContentType("application/json");
 		response.getWriter().print(new Gson().toJson(pets));
+		request.getSession(false).setAttribute("admin.pets", pets);
 	}
 
 	@Override()
