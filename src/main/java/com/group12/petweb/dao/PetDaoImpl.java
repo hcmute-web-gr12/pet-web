@@ -50,13 +50,25 @@ public class PetDaoImpl implements PetDao {
 			manager.getTransaction().begin();
 			@SuppressWarnings("unchecked")
 			final var pets = (Pet[]) manager
-					.createNativeQuery("SELECT * FROM PET OFFSET :offset ROWS FETCH FIRST :count ROWS ONLY", Pet.class)
+					.createNativeQuery("SELECT * FROM PET ORDER BY CREATED_DATE DESC OFFSET :offset ROWS FETCH FIRST :count ROWS ONLY", Pet.class)
 					.setParameter("offset", offset)
 					.setParameter("count", count)
 					.getResultStream()
 					.toArray(Pet[]::new);
 			manager.getTransaction().commit();
 			return pets;
+		}
+	}
+
+	@Override
+	public long countAll() throws PersistenceException {
+		try (final EntityManager manager = factory.createEntityManager()) {
+			manager.getTransaction().begin();
+			final var count = (long)manager
+					.createNativeQuery("SELECT COUNT(*) FROM PET")
+					.getSingleResult();
+			manager.getTransaction().commit();
+			return count;
 		}
 	}
 }

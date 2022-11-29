@@ -12,4 +12,6 @@ public interface PetDao {
 	void create(Pet pet) throws PersistenceException;
 	Pet[] findSomeOffset(int offset, int count) throws PersistenceException;
 	void update(Pet pet) throws PersistenceException;
+
+	long countAll() throws PersistenceException;
 }
