@@ -1,5 +1,6 @@
 package com.group12.petweb.model;
 
+import java.sql.Timestamp;
 import java.util.UUID;
 
 import org.jetbrains.annotations.NotNull;
@@ -15,6 +16,7 @@ public class Pet {
 	private long stock;
 	private String imageUrl;
 	private String description;
+	private Timestamp createdDate;
 
 	@Id
 	@NotNull
@@ -22,6 +24,12 @@ public class Pet {
 	@GeneratedValue(generator = "UUID", strategy = GenerationType.AUTO)
 	public UUID getId() {
 		return id;
+	}
+
+	@Column(name = "CREATED_DATE", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", updatable = false, insertable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	public Timestamp getCreatedDate() {
+		return createdDate;
 	}
 
 	@NotNull
@@ -74,10 +82,15 @@ public class Pet {
 		this.imageUrl = imageUrl;
 	}
 
+	public void setCreatedDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
+	}
+
 	@Override
 	public String toString() {
 		return "Pet{" +
 				"id=" + id +
+				", createdDate='" + createdDate + '\'' +
 				", name='" + name + '\'' +
 				", stock='" + stock + '\'' +
 				", price='" + price + '\'' +
