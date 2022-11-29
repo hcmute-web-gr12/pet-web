@@ -25,8 +25,8 @@ public class AdminPetController extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		int pageSize;
 		int page;
-		page = mathUtils.clampLow(mathUtils.parseIntOrDefault(request.getParameter("page"), 0), 1);
-		pageSize = mathUtils.clampLow(mathUtils.parseIntOrDefault(request.getParameter("page"), 10), 1);
+		page = mathUtils.clampLow(mathUtils.parseIntOrDefault(request.getParameter("page"), 1), 1);
+		pageSize = mathUtils.clampLow(mathUtils.parseIntOrDefault(request.getParameter("pageSize"), 10), 1);
 		final var pets = petDao.findSomeOffset((page - 1) * pageSize, pageSize);
 		for(final var pet : pets) {
 			pet.setImagePublicId(cloudinary.url().secure(true).publicId(pet.getImagePublicId()).generate());

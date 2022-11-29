@@ -12,30 +12,25 @@ import javax.servlet.http.*;
 import com.cloudinary.Cloudinary;
 import com.group12.petweb.dao.PetDao;
 import com.group12.petweb.model.Pet;
+import com.group12.petweb.util.MathUtils;
 
 public class AdminPetApiController extends HttpServlet {
 	private final PetDao petDao;
 	private final Cloudinary cloudinary;
+	private final MathUtils mathUtils;
 
-	public AdminPetApiController(PetDao petDao, Cloudinary cloudinary) {
+	public AdminPetApiController(PetDao petDao, Cloudinary cloudinary, MathUtils mathUtils) {
 		this.petDao = petDao;
 		this.cloudinary = cloudinary;
+		this.mathUtils = mathUtils;
 	}
 
 	@Override()
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		int pageSize;
 		int page;
-		try {
-			page = Integer.parseInt(request.getParameter("page"));
-		} catch (Exception ex) {
-			page = 1;
-		}
-		try {
-			pageSize = Integer.parseInt(request.getParameter("pageSize"));
-		} catch (Exception ex) {
-			pageSize = 10;
-		}
+		page = mathUtils.clampLow(mathUtils.parseIntOrDefault(request.getParameter("page"), 1), 1);
+		pageSize = mathUtils.clampLow(mathUtils.parseIntOrDefault(request.getParameter("pageSize"), 10), 1);
 		final var pets = petDao.findSomeOffset((page - 1) * 10, pageSize);
 		for (final var pet : pets) {
 			pet.setImagePublicId(cloudinary.url().secure(true).publicId(pet.getImagePublicId()).generate());
