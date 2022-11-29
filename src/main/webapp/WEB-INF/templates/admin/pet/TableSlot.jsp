@@ -23,7 +23,8 @@
 			<td scope="col" class="px-4 py-3">
 				<div class="flex items-center space-x-2">
 					<c:import url="/WEB-INF/templates/Button.jsp">
-						<c:param name="id" value="add-pet-button" />
+						<c:param name="id" value="edit-pet-${status.getIndex()}" />
+						<c:param name="className" value="edit-pet" />
 						<c:param name="type" value="button" />
 						<c:param name="slot" value="<span class='material-symbols-rounded'>edit</span>" />
 						<c:param name="text" value="text-stone-700" />
@@ -34,7 +35,8 @@
 						<c:param name="ring" value="ring-yellow-500" />
 					</c:import>
 					<c:import url="/WEB-INF/templates/Button.jsp">
-						<c:param name="id" value="add-pet-button" />
+						<c:param name="id" value="delete-pet-${status.getIndex()}" />
+						<c:param name="className" value="delete-pet" />
 						<c:param name="type" value="button" />
 						<c:param name="slot" value="<span class='material-symbols-rounded'>delete</span>" />
 						<c:param name="padding" value="p-2" />
