@@ -5,6 +5,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.PersistenceException;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -67,6 +69,32 @@ public class PetDaoImpl implements PetDao {
 			final var count = (long)manager
 					.createNativeQuery("SELECT COUNT(*) FROM PET")
 					.getSingleResult();
+			manager.getTransaction().commit();
+			return count;
+		}
+	}
+
+	@Override
+	public int deleteById(UUID id) throws PersistenceException {
+		try (final EntityManager manager = factory.createEntityManager()) {
+			manager.getTransaction().begin();
+			final var count = manager
+					.createQuery("DELETE FROM Pet WHERE id = :id")
+					.setMaxResults(1)
+					.executeUpdate();
+			manager.getTransaction().commit();
+			return count;
+		}
+	}
+
+	@Override
+	public int deleteById(List<UUID> ids) throws PersistenceException {
+		try (final EntityManager manager = factory.createEntityManager()) {
+			manager.getTransaction().begin();
+			final var count = manager
+					.createQuery("DELETE FROM Pet WHERE id IN :ids")
+					.setParameter("ids", ids)
+					.executeUpdate();
 			manager.getTransaction().commit();
 			return count;
 		}
