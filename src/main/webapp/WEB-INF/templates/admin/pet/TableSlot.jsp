@@ -6,7 +6,7 @@
 			<td scope="col" class="px-4 py-3">
 				<div class="flex items-center">
 					<input id="checkbox-${status.getIndex()}" type="checkbox"
-						class="w-4 h-4 text-brand bg-stone-100 rounded border focus:ring-brand/60">
+						class="pet-select w-4 h-4 text-brand bg-stone-100 rounded border focus:ring-brand/60">
 					<label for="checkbox-${status.getIndex()}" class="sr-only">checkbox</label>
 				</div>
 			</td>

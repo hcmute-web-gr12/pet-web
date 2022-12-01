@@ -22,7 +22,7 @@
 		</li>
 		<li>
 			<c:import url="/WEB-INF/templates/Button.jsp">
-				<c:param name="id" value="delete-pet-button" />
+				<c:param name="id" value="pet-delete-some" />
 				<c:param name="type" value="button" />
 				<c:param name="slot" value="<span class='material-symbols-rounded'>delete</span>" />
 				<c:param name="padding" value="p-2" />
@@ -39,9 +39,9 @@
 		<tr>
 			<th scope="col" class="px-4 py-3 rounded-l-xl">
 				<div class="flex items-center">
-					<input id="checkbox-all" type="checkbox"
+					<input id="pet-select-all" name="pet-select-all" type="checkbox"
 						class="w-4 h-4 text-brand bg-stone-100 rounded border focus:ring-brand/60 focus:ring-2">
-					<label for="checkbox-all" class="sr-only">checkbox</label>
+					<label for="pet-select-all" class="sr-only">checkbox</label>
 				</div>
 			</th>
 			<th scope="col" class="px-4 py-3">
