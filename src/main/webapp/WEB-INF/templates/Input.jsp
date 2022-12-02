@@ -15,7 +15,7 @@
 		<input
 			disabled
 			id="${param.id}"
-			name="${param.id}"
+			name="${param.getOrDefault('name', param.id)}"
 			type="${param.getOrDefault('type', 'text')}"
 			value="${param.value}"
 			min="${param.min}"
@@ -28,7 +28,7 @@
 		<input
 			autofocus
 			id="${param.id}"
-			name="${param.id}"
+			name="${param.getOrDefault('name', param.id)}"
 			type="${param.getOrDefault('type', 'text')}"
 			min="${param.min}"
 			step="${param.step}"
@@ -42,7 +42,7 @@
 	<c:otherwise>
 		<input
 			id="${param.id}"
-			name="${param.id}"
+			name="${param.getOrDefault('name', param.id)}"
 			type="${param.getOrDefault('type', 'text')}"
 			min="${param.min}"
 			step="${param.step}"
