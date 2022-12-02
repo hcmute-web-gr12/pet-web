@@ -23,8 +23,8 @@
 			<td scope="col" class="px-4 py-3">
 				<div class="flex items-center space-x-2">
 					<c:import url="/WEB-INF/templates/Button.jsp">
-						<c:param name="id" value="edit-pet-${status.getIndex()}" />
-						<c:param name="className" value="edit-pet" />
+						<c:param name="id" value="pet-edit-${status.getIndex()}" />
+						<c:param name="className" value="pet-edit" />
 						<c:param name="type" value="button" />
 						<c:param name="slot" value="<span class='material-symbols-rounded'>edit</span>" />
 						<c:param name="text" value="text-stone-700" />

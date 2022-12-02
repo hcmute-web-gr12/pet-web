@@ -121,7 +121,7 @@
 					<c:param name="of" value="imageFile" />
 				</c:import>
 				<input type="file" id="imageFile" name="imageFile" accept="image/*"
-					class="text-stone-700 focus:ring-brand/60" />
+					class="w-48 text-stone-700 focus:ring-brand/60" />
 			</div>
 
 			<div class="space-y-2">
@@ -152,6 +152,109 @@
 						<c:param name="id" value="pet-add-submit" />
 						<c:param name="type" value="submit" />
 						<c:param name="slot" value="Thêm" />
+					</c:import>
+				</div>
+			</div>
+		</form>
+	</div>
+</dialog>
+
+<dialog id="pet-edit-dialog" loading modal-mode="mega" class="bg-stone-50 rounded-lg shadow-lg border">
+	<div class="relative flex-auto min-w-96 flex-col justify-center lg:flex-none">
+		<header>
+			<h2 class="mt-2 text-3xl font-extrabold text-yellow-500">Chỉnh sửa thú cưng.</h2>
+		</header>
+		<form id="pet-edit-form" action="/api/admin/pet" method="dialog" class="flex flex-col gap-y-6 mt-6">
+			<div class="flex flex-col sm:flex-row gap-x-4 gap-y-2">
+					<div class="space-y-2">
+						<c:import url="/WEB-INF/templates/Label.jsp">
+							<c:param name="slot" value="Tên thú cưng" />
+							<c:param name="of" value="name" />
+						</c:import>
+						<c:import url="/WEB-INF/templates/Input.jsp">
+							<c:param name="id" value="name" />
+							<c:param name="type" value="text" />
+							<c:param name="required" value="${true}" />
+							<c:param name="placeholder" value="Nhập tên thú cưng..." />
+							<c:param name="ring" value="ring-yellow-500" />
+						</c:import>
+					</div>
+
+					<div class="space-y-2">
+						<c:import url="/WEB-INF/templates/Label.jsp">
+							<c:param name="slot" value="Giá tiền" />
+							<c:param name="of" value="price" />
+						</c:import>
+						<c:import url="/WEB-INF/templates/Input.jsp">
+							<c:param name="id" value="price" />
+							<c:param name="type" value="number" />
+							<c:param name="min" value="0" />
+							<c:param name="step" value="1000" />
+							<c:param name="required" value="${true}" />
+							<c:param name="placeholder" value="Nhập giá tiền..." />
+							<c:param name="ring" value="ring-yellow-500" />
+						</c:import>
+					</div>
+
+					<div class="space-y-2">
+						<c:import url="/WEB-INF/templates/Label.jsp">
+							<c:param name="slot" value="Số lượng" />
+							<c:param name="of" value="stock" />
+						</c:import>
+						<c:import url="/WEB-INF/templates/Input.jsp">
+							<c:param name="id" value="stock" />
+							<c:param name="min" value="0" />
+							<c:param name="type" value="number" />
+							<c:param name="required" value="${true}" />
+							<c:param name="placeholder" value="Nhập số lượng..." />
+							<c:param name="ring" value="ring-yellow-500" />
+						</c:import>
+					</div>
+			</div>
+			<div class="flex flex-col md:flex-row gap-x-4 gap-y-2">
+				<div class="flex flex-col justify-center gap-y-2">
+					<c:import url="/WEB-INF/templates/Label.jsp">
+						<c:param name="slot" value="Hình ảnh <span class='text-xs font-bold text-stone-400'># .png, .jpg, ...</span>
+						<img class='h-full max-h-44 md:max-h-56 mt-2 text-center border aspect-square object-cover rounded' src='https://res.cloudinary.com/dnkb0pwpm/image/upload/v1/pet/default.jpg' alt='${pet.name}'> " />
+						<c:param name="of" value="pet-edit-imageFile" />
+					</c:import>
+									<input type="file" id="pet-edit-imageFile" name="imageFile" accept="image/*"
+						class="w-full text-stone-700 focus:ring-brand/60" />
+				</div>
+
+
+				<div class="flex flex-col justify-center items-start gap-y-2 w-full">
+					<c:import url="/WEB-INF/templates/Label.jsp">
+						<c:param name="slot"
+							value="Mô tả <span class='text-xs font-bold text-stone-400'># Markdown</span>" />
+						<c:param name="of" value="pet-edit-description" />
+					</c:import>
+					<textarea id="pet-edit-description" name="description" placeholder="Nhập mô tả..."
+						spellcheck="false" class="block w-full h-full min-h-fit px-5 py-3
+							bg-stone-50 placeholder-stone-500
+							transition duration-100 ease-in-out
+							border border-stone-200 rounded-lg
+							focus:border-transparent focus:ring focus:ring-yellow-500/60"></textarea>
+				</div>
+			</div>
+			<div class="flex justify-between gap-x-4">
+				<p id='pet-edit-error' class="text-red-600 font-medium"></p>
+				<div class="flex gap-x-4">
+					<c:import url="/WEB-INF/templates/Button.jsp">
+						<c:param name="id" value="pet-edit-back" />
+						<c:param name="type" value="button" />
+						<c:param name="slot" value="Trở về" />
+						<c:param name="bg" value="bg-stone-500" />
+						<c:param name="border" value="border-stone-600" />
+						<c:param name="ring" value="ring-stone-500" />
+					</c:import>
+					<c:import url="/WEB-INF/templates/Button.jsp">
+						<c:param name="id" value="pet-edit-submit" />
+						<c:param name="type" value="submit" />
+						<c:param name="slot" value="Chỉnh sửa" />
+						<c:param name="bg" value="bg-yellow-500" />
+						<c:param name="border" value="border-yellow-600" />
+						<c:param name="ring" value="ring-yellow-500" />
 					</c:import>
 				</div>
 			</div>
