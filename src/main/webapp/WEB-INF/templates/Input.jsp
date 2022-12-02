@@ -3,7 +3,7 @@
 
 <c:set
 	var="defaultClass"
-	value="block w-full h-full px-5 py-3
+	value="block w-full h-auto px-5 py-3
 	bg-stone-50 placeholder-stone-500
 	transition duration-100 ease-in-out
 	border border-stone-200 rounded-lg
