@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
 import com.cloudinary.Cloudinary;
+import com.google.gson.Gson;
 import com.group12.petweb.dao.PetDao;
 import com.group12.petweb.model.Pet;
 import com.group12.petweb.util.MathUtils;
@@ -28,6 +29,32 @@ public class AdminPetApiController extends HttpServlet {
 
 	@Override()
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		final var index = request.getParameter("index");
+		if (index != null) {
+			try {
+				final var i = Integer.parseInt(index);
+				final var pets = (Pet[])request.getSession(false).getAttribute("admin.pets");
+				if (i < 0 || i >= pets.length) {
+					return;
+				}
+				final var optional = petDao.findById(pets[i].getId());
+				response.setStatus(HttpServletResponse.SC_OK);
+				response.setContentType("application/json");
+				if (optional.isEmpty()) {
+					response.getWriter().print("{}");
+				} else {
+					final var pet = optional.get();
+					pet.setImagePublicId(cloudinary.url().secure(true).publicId(pet.getImagePublicId()).generate());
+					response.getWriter().print(new Gson().toJson(pet));
+				}
+			} catch(NumberFormatException ex) {
+				response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+				response.setContentType("text/plain");
+				response.getWriter().print("");
+			}
+			return;
+		}
+
 		int pageSize;
 		int page;
 		page = mathUtils.clampLow(mathUtils.parseIntOrDefault(request.getParameter("page"), 1), 1);
