@@ -166,60 +166,64 @@
 		</header>
 		<form id="pet-edit-form" action="/api/admin/pet" method="dialog" class="flex flex-col gap-y-6 mt-6">
 			<div class="flex flex-col sm:flex-row gap-x-4 gap-y-2">
-					<div class="space-y-2">
-						<c:import url="/WEB-INF/templates/Label.jsp">
-							<c:param name="slot" value="Tên thú cưng" />
-							<c:param name="of" value="name" />
-						</c:import>
-						<c:import url="/WEB-INF/templates/Input.jsp">
-							<c:param name="id" value="name" />
-							<c:param name="type" value="text" />
-							<c:param name="required" value="${true}" />
-							<c:param name="placeholder" value="Nhập tên thú cưng..." />
-							<c:param name="ring" value="ring-yellow-500" />
-						</c:import>
-					</div>
+				<div class="space-y-2">
+					<c:import url="/WEB-INF/templates/Label.jsp">
+						<c:param name="slot" value="Tên thú cưng" />
+						<c:param name="of" value="pet-edit-name" />
+					</c:import>
+					<c:import url="/WEB-INF/templates/Input.jsp">
+						<c:param name="id" value="pet-edit-name" />
+						<c:param name="name" value="name" />
+						<c:param name="type" value="text" />
+						<c:param name="required" value="${true}" />
+						<c:param name="placeholder" value="Nhập tên thú cưng..." />
+						<c:param name="ring" value="ring-yellow-500" />
+					</c:import>
+				</div>
 
-					<div class="space-y-2">
-						<c:import url="/WEB-INF/templates/Label.jsp">
-							<c:param name="slot" value="Giá tiền" />
-							<c:param name="of" value="price" />
-						</c:import>
-						<c:import url="/WEB-INF/templates/Input.jsp">
-							<c:param name="id" value="price" />
-							<c:param name="type" value="number" />
-							<c:param name="min" value="0" />
-							<c:param name="step" value="1000" />
-							<c:param name="required" value="${true}" />
-							<c:param name="placeholder" value="Nhập giá tiền..." />
-							<c:param name="ring" value="ring-yellow-500" />
-						</c:import>
-					</div>
+				<div class="space-y-2">
+					<c:import url="/WEB-INF/templates/Label.jsp">
+						<c:param name="slot" value="Giá tiền" />
+						<c:param name="of" value="pet-edit-price" />
+					</c:import>
+					<c:import url="/WEB-INF/templates/Input.jsp">
+						<c:param name="id" value="pet-edit-price" />
+						<c:param name="name" value="price" />
+						<c:param name="type" value="number" />
+						<c:param name="min" value="0" />
+						<c:param name="step" value="1000" />
+						<c:param name="required" value="${true}" />
+						<c:param name="placeholder" value="Nhập giá tiền..." />
+						<c:param name="ring" value="ring-yellow-500" />
+					</c:import>
+				</div>
 
-					<div class="space-y-2">
-						<c:import url="/WEB-INF/templates/Label.jsp">
-							<c:param name="slot" value="Số lượng" />
-							<c:param name="of" value="stock" />
-						</c:import>
-						<c:import url="/WEB-INF/templates/Input.jsp">
-							<c:param name="id" value="stock" />
-							<c:param name="min" value="0" />
-							<c:param name="type" value="number" />
-							<c:param name="required" value="${true}" />
-							<c:param name="placeholder" value="Nhập số lượng..." />
-							<c:param name="ring" value="ring-yellow-500" />
-						</c:import>
-					</div>
+				<div class="space-y-2">
+					<c:import url="/WEB-INF/templates/Label.jsp">
+						<c:param name="slot" value="Số lượng" />
+						<c:param name="of" value="pet-edit-stock" />
+					</c:import>
+					<c:import url="/WEB-INF/templates/Input.jsp">
+						<c:param name="id" value="pet-edit-stock" />
+						<c:param name="name" value="stock" />
+						<c:param name="min" value="0" />
+						<c:param name="type" value="number" />
+						<c:param name="required" value="${true}" />
+						<c:param name="placeholder" value="Nhập số lượng..." />
+						<c:param name="ring" value="ring-yellow-500" />
+					</c:import>
+				</div>
 			</div>
 			<div class="flex flex-col md:flex-row gap-x-4 gap-y-2">
 				<div class="flex flex-col justify-center gap-y-2">
 					<c:import url="/WEB-INF/templates/Label.jsp">
-						<c:param name="slot" value="Hình ảnh <span class='text-xs font-bold text-stone-400'># .png, .jpg, ...</span>
-						<img class='h-full max-h-44 md:max-h-56 mt-2 text-center border aspect-square object-cover rounded' src='https://res.cloudinary.com/dnkb0pwpm/image/upload/v1/pet/default.jpg' alt='${pet.name}'> " />
-						<c:param name="of" value="pet-edit-imageFile" />
+						<c:param name="slot"
+							value="Hình ảnh <span class='text-xs font-bold text-stone-400'># .png, .jpg, ...</span>
+						<img id='pet-edit-image' class='h-full md:h-auto md:w-full max-h-44 md:max-h-56 mt-2 text-center border aspect-square object-cover rounded-lg' src='https://res.cloudinary.com/dnkb0pwpm/image/upload/v1/pet/default.jpg' alt='${pet.name}'>" />
+						<c:param name="of" value="pet-edit-image-file" />
 					</c:import>
-									<input type="file" id="pet-edit-imageFile" name="imageFile" accept="image/*"
-						class="w-full text-stone-700 focus:ring-brand/60" />
+					<input type="file" id="pet-edit-image-file" name="imageFile" accept="image/*"
+						class="w-full text-stone-700 p-1 rounded-lg border focus:outline-none focus:ring focus:ring-yellow-500/60" />
 				</div>
 
 
