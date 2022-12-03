@@ -142,7 +142,7 @@
 				<div class="flex gap-x-4">
 					<c:import url="/WEB-INF/templates/Button.jsp">
 						<c:param name="id" value="pet-form-back" />
-						<c:param name="type" value="button" />
+						<c:param name="type" value="reset" />
 						<c:param name="slot" value="Trở về" />
 						<c:param name="bg" value="bg-stone-500" />
 						<c:param name="border" value="border-stone-600" />
@@ -246,7 +246,7 @@
 				<div class="flex gap-x-4">
 					<c:import url="/WEB-INF/templates/Button.jsp">
 						<c:param name="id" value="pet-edit-back" />
-						<c:param name="type" value="button" />
+						<c:param name="type" value="reset" />
 						<c:param name="slot" value="Trở về" />
 						<c:param name="bg" value="bg-stone-500" />
 						<c:param name="border" value="border-stone-600" />
