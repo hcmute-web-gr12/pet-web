@@ -149,4 +149,71 @@ public class AdminPetApiController extends HttpServlet {
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.getWriter().print(HttpServletResponse.SC_OK);
 	}
+
+	@Override()
+	public void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		final var index = request.getParameter("index");
+		if (index == null) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			response.getWriter().print(HttpServletResponse.SC_BAD_REQUEST);
+			return;
+		}
+		final var attr = request.getSession(false).getAttribute("admin.pets");
+		if (attr == null) {
+			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+			response.getWriter().print(HttpServletResponse.SC_FORBIDDEN);
+			return;
+		}
+		final var pets = (Pet[])attr;
+		try {
+			final var i = Integer.parseInt(index);
+			if (i < 0 || i >= pets.length) {
+				response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+				response.getWriter().print(HttpServletResponse.SC_FORBIDDEN);
+				return;
+			}
+			final var optional = petDao.findById(pets[i].getId());
+			if (optional.isEmpty()) {
+				response.setStatus(HttpServletResponse.SC_GONE);
+				response.getWriter().print(HttpServletResponse.SC_GONE);
+				return;
+			}
+			final var pet = optional.get();
+			pet.setName(request.getParameter("name"));
+			pet.setDescription(request.getParameter("description"));
+			pet.setPrice(Integer.parseUnsignedInt(request.getParameter("price")));
+			pet.setStock(Integer.parseUnsignedInt(request.getParameter("stock")));
+
+			final var part = request.getPart("imageFile");
+			final var is = part.getInputStream();
+			final var fileName = part.getSubmittedFileName();
+			if (fileName != null && !fileName.isEmpty()) {
+				final var idx = fileName.indexOf('.');
+				final var name = fileName.substring(0, idx);
+				final var ext = fileName.substring(idx);
+				final var temp = File.createTempFile(name + '-', ext, new File("/tmp"));
+				final var publicId = "pet/" + pet.getId().toString();
+				Files.copy(is, temp.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				cloudinary.uploader().upload(
+						temp,
+						new HashMap<String, String>() {
+							{
+								put("public_id", publicId);
+								put("overwrite", "true");
+							}
+						});
+				temp.delete();
+				pet.setImagePublicId(publicId);
+				response.setStatus(HttpServletResponse.SC_OK);
+				response.getWriter().print(HttpServletResponse.SC_OK);
+			}
+			petDao.update(pet);
+		} catch(NumberFormatException ex) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			response.getWriter().print(ex.getMessage());
+		} catch (Exception ex) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			response.getWriter().print(ex.getMessage());
+		}
+	}
 }
