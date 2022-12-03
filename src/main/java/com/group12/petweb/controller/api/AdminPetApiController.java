@@ -15,16 +15,19 @@ import com.google.gson.Gson;
 import com.group12.petweb.dao.PetDao;
 import com.group12.petweb.model.Pet;
 import com.group12.petweb.util.MathUtils;
+import com.group12.petweb.util.PaginationUtils;
 
 public class AdminPetApiController extends HttpServlet {
 	private final PetDao petDao;
 	private final Cloudinary cloudinary;
 	private final MathUtils mathUtils;
+	private final PaginationUtils pUtils;
 
-	public AdminPetApiController(PetDao petDao, Cloudinary cloudinary, MathUtils mathUtils) {
+	public AdminPetApiController(PetDao petDao, Cloudinary cloudinary, MathUtils mathUtils, PaginationUtils pUtils) {
 		this.petDao = petDao;
 		this.cloudinary = cloudinary;
 		this.mathUtils = mathUtils;
+		this.pUtils = pUtils;
 	}
 
 	@Override()
@@ -59,16 +62,18 @@ public class AdminPetApiController extends HttpServlet {
 		int page;
 		page = mathUtils.clampLow(mathUtils.parseIntOrDefault(request.getParameter("page"), 1), 1);
 		pageSize = mathUtils.clampLow(mathUtils.parseIntOrDefault(request.getParameter("pageSize"), 10), 1);
-		final var pets = petDao.findSomeOffset((page - 1) * 10, pageSize);
+		final var pets = petDao.findSomeOffset((page - 1) * pageSize, pageSize);
 		for (final var pet : pets) {
 			pet.setImagePublicId(cloudinary.url().secure(true).publicId(pet.getImagePublicId()).generate());
 		}
 		request.getSession(false).setAttribute("admin.pets", pets);
 		final var props = new HashMap<String, Object>();
+		final var total = petDao.countAll();
 		props.put("pets", pets);
 		props.put("page", page);
 		props.put("pageSize", pets.length);
-		props.put("total", petDao.countAll());
+		props.put("total", total);
+		props.put("pages", pUtils.generatePageStrings(total, page, pageSize));
 		request.setAttribute("props", props);
 		request.getRequestDispatcher("/WEB-INF/templates/admin/pet/TableSlot.jsp").forward(request, response);
 	}
