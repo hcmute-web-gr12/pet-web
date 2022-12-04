@@ -17,6 +17,8 @@ public interface MathUtils {
 
 	double clampLow(double value, double min);
 
+	byte parseByteOrDefault(String s, byte defaultValue);
+
 	int parseIntOrDefault(String s, int defaultValue);
 
 	long parseLongOrDefault(String s, long defaultValue);

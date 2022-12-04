@@ -42,6 +42,15 @@ public class MathUtilsImpl implements MathUtils {
 	}
 
 	@Override
+	public byte parseByteOrDefault(String s, byte defaultValue) {
+		try {
+			return Byte.parseByte(s);
+		} catch(NumberFormatException ex) {
+			return defaultValue;
+		}
+	}
+
+	@Override
 	public int parseIntOrDefault(String s, int defaultValue) {
 		try {
 			return Integer.parseInt(s);
