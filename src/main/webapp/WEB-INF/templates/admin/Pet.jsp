@@ -114,14 +114,39 @@
 
 			</div>
 
-			<div class="flex flex-col gap-y-2">
-				<c:import url="/WEB-INF/templates/Label.jsp">
-					<c:param name="slot"
-						value="Hình ảnh <span class='text-xs font-bold text-stone-400'># .png, .jpg, ...</span>" />
-					<c:param name="of" value="imageFile" />
-				</c:import>
-				<input type="file" id="imageFile" name="imageFile" accept="image/*"
-					class="w-48 text-stone-700 focus:ring-brand/60" />
+			<div class="flex flex-col sm:flex-row gap-x-8 gap-y-6">
+				<div class="flex flex-col gap-y-2">
+					<c:import url="/WEB-INF/templates/Label.jsp">
+						<c:param name="slot"
+							value="Hình ảnh <span class='text-xs font-bold text-stone-400'># .png, .jpg, ...</span>" />
+						<c:param name="of" value="imageFile" />
+					</c:import>
+					<input type="file" id="imageFile" name="imageFile" accept="image/*"
+						class="w-48 text-stone-700 focus:ring-brand/60" />
+				</div>
+				<div class="flex flex-col gap-y-2">
+					<c:import url="/WEB-INF/templates/Label.jsp">
+						<c:param name="slot" value="Category" />
+					</c:import>
+					<div class="flex flex-row gap-x-6">
+						<div class="flex flex-row gap-x-2 items-center">
+							<input required id="pet-add-dog" name="category" value="0" type="radio"
+								class="rounded px-5 py-3 text-base text-brand transition duration-200 ease-in-out transform border-stone-400 bg-stone-50 focus:outline-none focus:border-transparent focus:ring focus:ring-brand/60" />
+							<c:import url="/WEB-INF/templates/Label.jsp">
+								<c:param name="slot" value="Dog" />
+								<c:param name="of" value="pet-add-dog" />
+							</c:import>
+						</div>
+						<div class="flex flex-row gap-x-2 items-center">
+							<input required id="pet-add-cat" name="category" value="1" type="radio"
+								class="rounded px-5 py-3 text-base text-brand transition duration-200 ease-in-out transform border-stone-400 bg-stone-50 focus:outline-none focus:border-transparent focus:ring focus:ring-brand/60" />
+							<c:import url="/WEB-INF/templates/Label.jsp">
+								<c:param name="slot" value="Cat" />
+								<c:param name="of" value="pet-add-cat" />
+							</c:import>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<div class="space-y-2">
