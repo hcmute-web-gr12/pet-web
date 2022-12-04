@@ -19,8 +19,8 @@ public class Pet {
 	private String description;
 	private Timestamp createdDate;
 
-	public static final byte CATEGORY_DOG = 0;
-	public static final byte CATEGORY_CAT = 0;
+	public static final byte CATEGORY_DOG = 1;
+	public static final byte CATEGORY_CAT = 2;
 
 	@Id
 	@NotNull
