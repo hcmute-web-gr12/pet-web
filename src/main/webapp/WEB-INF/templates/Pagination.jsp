@@ -17,47 +17,66 @@
 		</div>
 		<div class="hidden sm:block">
 			<nav class="isolate inline-flex -space-x-px rounded-lg" aria-label="Pagination">
-				<a href="#" id="page-previous"
-					class="relative inline-flex items-center rounded-l-lg border bg-white px-2 py-2 text-sm font-medium text-stone-500 hover:bg-stone-50 focus:z-20">
-					<span class="sr-only">Previous</span>
-					<span class="material-symbols-rounded">chevron_left</span>
-				</a>
-				<c:forEach var="page" items="${props.pages}">
-					<c:choose>
-						<c:when test="${page.equals('...')}">
-							<span
-								class="relative inline-flex items-center border bg-white px-4 py-2 text-sm font-medium text-stone-700">...</span>
-						</c:when>
-						<c:when test="${page.equals(props.page.toString())}">
-							<a href="?page=${page}" aria-current="page"
-								class="page-link relative z-10 inline-flex items-center border border-brand bg-brand/30 px-4 py-2 text-sm font-medium text-brand focus:z-20">${page}</a>
-						</c:when>
-						<c:otherwise>
-							<a href="?page=${page}"
-								class="page-link relative hidden items-center border bg-white px-4 py-2 text-sm font-medium text-stone-500 hover:bg-stone-50 focus:z-20 md:inline-flex">${page}</a>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-				<a href="#" id="page-next"
-					class="relative inline-flex items-center rounded-r-lg border bg-white px-2 py-2 text-sm font-medium text-stone-500 hover:bg-stone-50 focus:z-20">
-					<span class="sr-only">Next</span>
-					<span class="material-symbols-rounded">chevron_right</span>
-				</a>
+				<ol class="flex justify-center gap-1 text-xs font-medium">
+					<li>
+						<a href="#"
+							class="page-previous inline-flex h-8 w-8 items-center justify-center rounded border">
+							<span class="sr-only">Previous</span>
+							<span class="material-symbols-rounded">chevron_left</span>
+						</a>
+					</li>
+					<c:forEach var="page" items="${props.pages}">
+						<c:choose>
+							<c:when test="${page.equals('...')}">
+								<li class="block h-8 w-8 rounded border text-center leading-8">
+									...
+								</li>
+							</c:when>
+							<c:when test="${page.equals(props.page.toString())}">
+								<li
+									class="block h-8 w-8 rounded border-brand-700 bg-brand text-center leading-8 text-white">
+									${page}
+								</li>
+							</c:when>
+							<c:otherwise>
+								<li>
+									<a href="?page=${page}"
+										class="page-link block h-8 w-8 rounded border text-center leading-8">
+										${page}
+									</a>
+								</li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<li>
+						<a href="#" class="page-next inline-flex h-8 w-8 items-center justify-center rounded border">
+							<span class="sr-only">Next</span>
+							<span class="material-symbols-rounded">chevron_right</span>
+						</a>
+					</li>
+				</ol>
 			</nav>
 		</div>
 	</div>
 	<div class="flex flex-1 justify-end gap-x-2 sm:hidden">
-		<c:import url="/WEB-INF/templates/Link.jsp">
-			<c:param name="slot" value="<span class='material-symbols-rounded'>chevron_left</span>" />
-			<c:param name="bg" value="bg-white" />
-			<c:param name="text" value="text-stone-700" />
-			<c:param name="border" value="border" />
-		</c:import>
-		<c:import url="/WEB-INF/templates/Link.jsp">
-			<c:param name="slot" value="<span class='material-symbols-rounded'>chevron_right</span>" />
-			<c:param name="bg" value="bg-white" />
-			<c:param name="text" value="text-stone-700" />
-			<c:param name="border" value="border" />
-		</c:import>
+		<nav class="isolate inline-flex -space-x-px rounded-lg" aria-label="Pagination">
+			<ol class="flex justify-center gap-1 text-xs font-medium">
+				<li>
+					<a href="#" class="page-previous inline-flex h-8 w-8 items-center justify-center rounded border">
+						<span class="sr-only">Previous</span>
+						<span class="material-symbols-rounded">chevron_left</span>
+					</a>
+				</li>
+				<li class="block h-8 w-8 rounded border-brand-700 bg-brand text-center leading-8 text-white">
+					${props.page}
+				</li>
+				<li>
+					<a href="#" class="page-next inline-flex h-8 w-8 items-center justify-center rounded border">
+						<span class="sr-only">Next</span>
+						<span class="material-symbols-rounded">chevron_right</span>
+					</a>
+				</li>
+			</ol>
+		</nav>
 	</div>
 </div>
