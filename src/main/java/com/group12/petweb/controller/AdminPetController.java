@@ -1,7 +1,6 @@
 package com.group12.petweb.controller;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -40,7 +39,7 @@ public class AdminPetController extends HttpServlet {
 		props.put("url", "/WEB-INF/templates/admin/Pet.jsp");
 		props.put("pets", pets);
 		props.put("page", page);
-		props.put("pageSize", pets.length);
+		props.put("pageSize", pageSize);
 		props.put("total", total);
 		props.put("pages", pUtils.generatePageStrings(total, page, pageSize));
 		request.setAttribute("props", props);

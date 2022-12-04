@@ -71,7 +71,7 @@ public class AdminPetApiController extends HttpServlet {
 		final var total = petDao.countAll();
 		props.put("pets", pets);
 		props.put("page", page);
-		props.put("pageSize", pets.length);
+		props.put("pageSize", pageSize);
 		props.put("total", total);
 		props.put("pages", pUtils.generatePageStrings(total, page, pageSize));
 		request.setAttribute("props", props);
