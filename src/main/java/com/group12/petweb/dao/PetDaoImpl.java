@@ -8,7 +8,13 @@ import jakarta.persistence.PersistenceException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.StringJoiner;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class PetDaoImpl implements PetDao {
 	private final EntityManagerFactory factory;
@@ -52,9 +58,43 @@ public class PetDaoImpl implements PetDao {
 			manager.getTransaction().begin();
 			@SuppressWarnings("unchecked")
 			final var pets = (Pet[]) manager
-					.createNativeQuery("SELECT * FROM PET ORDER BY CREATED_DATE DESC OFFSET :offset ROWS FETCH FIRST :count ROWS ONLY", Pet.class)
-					.setParameter("offset", offset)
-					.setParameter("count", count)
+					.createNativeQuery("SELECT * FROM PET ORDER BY CREATED_DATE DESC", Pet.class)
+					.setFirstResult(offset)
+					.setMaxResults(count)
+					.getResultStream()
+					.toArray(Pet[]::new);
+			manager.getTransaction().commit();
+			return pets;
+		}
+	}
+
+	@Override
+	public Pet[] findCategoryOffset(byte category, int offset, int count) throws PersistenceException {
+		try (final EntityManager manager = factory.createEntityManager()) {
+			manager.getTransaction().begin();
+			@SuppressWarnings("unchecked")
+			final var pets = (Pet[]) manager
+					.createNativeQuery("SELECT * FROM PET WHERE CATEGORY = :category ORDER BY CREATED_DATE DESC", Pet.class)
+					.setParameter("category", category)
+					.setFirstResult(offset)
+					.setMaxResults(count)
+					.getResultStream()
+					.toArray(Pet[]::new);
+			manager.getTransaction().commit();
+			return pets;
+		}
+	}
+
+	@Override
+	public Pet[] findCategoriesOffset(byte[] categories, int offset, int count) throws PersistenceException {
+		try (final EntityManager manager = factory.createEntityManager()) {
+			manager.getTransaction().begin();
+			@SuppressWarnings("unchecked")
+			final var pets = (Pet[]) manager
+					.createNativeQuery("SELECT * FROM PET WHERE CATEGORY IN (:categories) ORDER BY CREATED_DATE DESC", Pet.class)
+					.setParameter("categories", StringUtils.join(ArrayUtils.toObject(categories), ","))
+					.setFirstResult(offset)
+					.setMaxResults(count)
 					.getResultStream()
 					.toArray(Pet[]::new);
 			manager.getTransaction().commit();
