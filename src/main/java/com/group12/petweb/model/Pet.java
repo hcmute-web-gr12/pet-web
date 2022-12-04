@@ -12,11 +12,15 @@ import jakarta.persistence.*;
 public class Pet {
 	private UUID id;
 	private String name;
+	private Byte category;
 	private long price;
 	private long stock;
 	private String imagePublicId;
 	private String description;
 	private Timestamp createdDate;
+
+	public static final byte CATEGORY_DOG = 0;
+	public static final byte CATEGORY_CAT = 0;
 
 	@Id
 	@NotNull
@@ -36,6 +40,11 @@ public class Pet {
 	@Column(name = "NAME")
 	public String getName() {
 		return name;
+	}
+
+	@Column(name = "CATEGORY")
+	public Byte getCategory() {
+		return category;
 	}
 
 	@Column(name = "PRICE")
@@ -64,6 +73,10 @@ public class Pet {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public void setCategory(Byte category) {
+		this.category = category;
 	}
 
 	public void setPrice(long price) {

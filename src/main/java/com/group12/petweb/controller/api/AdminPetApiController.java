@@ -86,13 +86,9 @@ public class AdminPetApiController extends HttpServlet {
 			model.setId(UUID.randomUUID());
 			model.setName(request.getParameter("name"));
 			model.setDescription(request.getParameter("description"));
-			try {
-				model.setPrice(Integer.parseUnsignedInt(request.getParameter("price")));
-				model.setStock(Integer.parseUnsignedInt(request.getParameter("stock")));
-			} catch (NumberFormatException ex) {
-				model.setPrice(0);
-				model.setStock(0);
-			}
+			model.setCategory(Byte.parseByte(request.getParameter("category")));
+			model.setPrice(Integer.parseUnsignedInt(request.getParameter("price")));
+			model.setStock(Integer.parseUnsignedInt(request.getParameter("stock")));
 
 			final var fileName = part.getSubmittedFileName();
 			if (fileName != null && !fileName.isEmpty()) {
@@ -117,6 +113,9 @@ public class AdminPetApiController extends HttpServlet {
 			petDao.update(model);
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.getWriter().print(HttpServletResponse.SC_OK);
+		} catch(NumberFormatException ex) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			response.getWriter().print(ex.getMessage());
 		} catch (Exception ex) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			response.getWriter().print(ex.getMessage());
