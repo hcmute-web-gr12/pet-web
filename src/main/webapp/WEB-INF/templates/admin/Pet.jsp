@@ -121,7 +121,7 @@
 					</c:import>
 					<div class="flex flex-row gap-x-6">
 						<div class="flex flex-row gap-x-2 items-center">
-							<input required checked id="pet-add-dog" name="category" value="0" type="radio"
+							<input required checked id="pet-add-dog" name="category" value="1" type="radio"
 								class="rounded px-5 py-3 text-base text-brand transition duration-200 ease-in-out transform border-stone-400 bg-stone-50 focus:outline-none focus:border-transparent focus:ring focus:ring-brand/60" />
 							<c:import url="/WEB-INF/templates/Label.jsp">
 								<c:param name="slot" value="Dog" />
@@ -129,7 +129,7 @@
 							</c:import>
 						</div>
 						<div class="flex flex-row gap-x-2 items-center">
-							<input required id="pet-add-cat" name="category" value="1" type="radio"
+							<input required id="pet-add-cat" name="category" value="2" type="radio"
 								class="rounded px-5 py-3 text-base text-brand transition duration-200 ease-in-out transform border-stone-400 bg-stone-50 focus:outline-none focus:border-transparent focus:ring focus:ring-brand/60" />
 							<c:import url="/WEB-INF/templates/Label.jsp">
 								<c:param name="slot" value="Cat" />
