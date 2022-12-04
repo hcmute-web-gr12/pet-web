@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="vi_VN"/>
 <tbody>
 	<c:forEach var="pet" varStatus="status" items="${props.pets}">
 		<tr class="border-b">
@@ -15,7 +17,7 @@
 				<div class="text-base font-medium">${pet.name}</div>
 			</td>
 			<td scope="col" class="px-4 py-3">
-				${pet.price} VND
+				<fmt:formatNumber value="${pet.price}" type="currency"/>
 			</td>
 			<td scope="col" class="px-4 py-3">
 				${pet.stock}
