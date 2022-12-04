@@ -72,7 +72,7 @@ public class Application implements ServletContextListener, HttpSessionListener,
 			}
 		});
 
-		context.addServlet("homeServlet", new HomeController()).addMapping("/home");
+		context.addServlet("homeServlet", new HomeController(petDao, cloudinary)).addMapping("/home");
 		context.addServlet("loginServlet", new LoginController(userCredentialsDao, redirector)).addMapping("/login");
 		context.addServlet("signUpServlet", new SignUpController(userCredentialsDao, redirector)).addMapping("/signup");
 		context.addServlet("productServlet", new ProductController(petDao, mathUtils, cloudinary)).addMapping("/products");
