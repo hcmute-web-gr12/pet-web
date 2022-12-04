@@ -17,12 +17,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ProductsController extends HttpServlet {
+public class ProductController extends HttpServlet {
 	private final PetDao petDao;
 	private final MathUtils mUtils;
 	private final Cloudinary cloudinary;
 
-	public ProductsController(PetDao petDao, MathUtils mUtils, Cloudinary cloudinary) {
+	public ProductController(PetDao petDao, MathUtils mUtils, Cloudinary cloudinary) {
 		this.petDao = petDao;
 		this.mUtils = mUtils;
 		this.cloudinary = cloudinary;

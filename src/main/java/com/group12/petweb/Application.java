@@ -4,7 +4,7 @@ import com.group12.petweb.controller.AdminDashboardController;
 import com.group12.petweb.controller.AdminPetController;
 import com.group12.petweb.controller.HomeController;
 import com.group12.petweb.controller.LoginController;
-import com.group12.petweb.controller.ProductsController;
+import com.group12.petweb.controller.ProductController;
 import com.group12.petweb.controller.SignUpController;
 import com.group12.petweb.controller.UserProfileController;
 import com.group12.petweb.controller.api.AdminPetApiController;
@@ -75,7 +75,7 @@ public class Application implements ServletContextListener, HttpSessionListener,
 		context.addServlet("homeServlet", new HomeController()).addMapping("/home");
 		context.addServlet("loginServlet", new LoginController(userCredentialsDao, redirector)).addMapping("/login");
 		context.addServlet("signUpServlet", new SignUpController(userCredentialsDao, redirector)).addMapping("/signup");
-		context.addServlet("productsServlet", new ProductsController(petDao, mathUtils, cloudinary)).addMapping("/products");
+		context.addServlet("productServlet", new ProductController(petDao, mathUtils, cloudinary)).addMapping("/products");
 
 		context.addServlet("userProfileServlet", new UserProfileController(userCredentialsDao, redirector))
 				.addMapping("/user", "/user/profile");
