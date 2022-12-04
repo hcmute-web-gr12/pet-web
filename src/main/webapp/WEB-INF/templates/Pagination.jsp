@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="flex items-center justify-between gap-x-2">
 	<div class="sm:flex sm:flex-1 sm:items-center sm:justify-between">
 		<div>
@@ -7,7 +8,8 @@
 				Hiển thị từ
 				<span class="font-medium">${(props.page - 1) * props.pageSize + 1}</span>
 				đến
-				<span class="font-medium">${props.page * props.pageSize}</span>
+				<span class="font-medium">${(props.page - 1) * props.pageSize +
+					fn:length(props.pets)}</span>
 				trong
 				<span class="font-medium">${props.total}</span>
 				thú nuôi.
