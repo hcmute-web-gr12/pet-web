@@ -5,6 +5,7 @@ import com.group12.petweb.controller.AdminPetController;
 import com.group12.petweb.controller.HomeController;
 import com.group12.petweb.controller.LoginController;
 import com.group12.petweb.controller.ProductCollectionController;
+import com.group12.petweb.controller.ProductController;
 import com.group12.petweb.controller.SignUpController;
 import com.group12.petweb.controller.UserProfileController;
 import com.group12.petweb.controller.api.AdminPetApiController;
@@ -89,6 +90,8 @@ public class Application implements ServletContextListener, HttpSessionListener,
 		final var adminPetApiServlet = context.addServlet("adminPetApiServlet", new AdminPetApiController(petDao, cloudinary, mathUtils, paginationUtils));
 		adminPetApiServlet.addMapping("/api/admin/pet");
 		adminPetApiServlet.setMultipartConfig(new MultipartConfigElement(TEMP_DIR, 10 * mb, 100 * mb, mb));
+
+		context.addServlet("productServlet", new ProductController(petDao, mathUtils, cloudinary, redirector)).addMapping("/product/*");
 
 		context.addFilter("authorizationFilter", new AuthorizationFilter(redirector)).addMappingForServletNames(
 				EnumSet.of(DispatcherType.REQUEST),

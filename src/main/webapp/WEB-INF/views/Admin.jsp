@@ -26,8 +26,7 @@
 			</div>
 			<div class="sticky inset-x-0 bottom-0 border-t border-stone-100">
 				<a href="#" class="flex shrink-0 items-center bg-white p-4 hover:bg-gray-50">
-					<img alt="Profile picture"
-						src="https://via.placeholder.com/70"
+					<img alt="Profile picture" src="https://via.placeholder.com/70"
 						class="h-10 w-10 rounded-full object-cover" />
 
 					<div class="ml-1.5">
