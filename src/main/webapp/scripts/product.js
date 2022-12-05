@@ -1,0 +1,1 @@
+"use strict";document.getElementById("description").insertAdjacentHTML("afterbegin",DOMPurify.sanitize(marked.parse(description.replace(/&grave;/g,"`"),{gfm:!0,headerIds:!0,smartypants:!0,smartLists:!0}).replace("&lt;","<")));
