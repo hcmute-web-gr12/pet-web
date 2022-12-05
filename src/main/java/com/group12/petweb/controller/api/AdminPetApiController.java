@@ -1,6 +1,7 @@
 package com.group12.petweb.controller.api;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
@@ -84,8 +85,8 @@ public class AdminPetApiController extends HttpServlet {
 		try (final var is = part.getInputStream()) {
 			final var model = new Pet();
 			model.setId(UUID.randomUUID());
-			model.setName(request.getParameter("name"));
-			model.setDescription(request.getParameter("description"));
+			model.setName(new String(request.getParameter("name").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
+			model.setDescription(new String(request.getParameter("description").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
 			model.setCategory(Byte.parseByte(request.getParameter("category")));
 			model.setPrice(Integer.parseUnsignedInt(request.getParameter("price")));
 			model.setStock(Integer.parseUnsignedInt(request.getParameter("stock")));
@@ -183,8 +184,8 @@ public class AdminPetApiController extends HttpServlet {
 				return;
 			}
 			final var pet = optional.get();
-			pet.setName(request.getParameter("name"));
-			pet.setDescription(request.getParameter("description"));
+			pet.setName(new String(request.getParameter("name").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
+			pet.setDescription(new String(request.getParameter("description").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
 			pet.setPrice(Integer.parseUnsignedInt(request.getParameter("price")));
 			pet.setStock(Integer.parseUnsignedInt(request.getParameter("stock")));
 
