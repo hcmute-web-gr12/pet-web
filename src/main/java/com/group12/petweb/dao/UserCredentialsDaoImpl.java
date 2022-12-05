@@ -19,9 +19,11 @@ public class UserCredentialsDaoImpl implements UserCredentialsDao {
 	public Optional<UserCredentials> findById(UUID id) {
 		try (final EntityManager manager = factory.createEntityManager()) {
 			manager.getTransaction().begin();
-			final var optional = Optional.of(manager.find(UserCredentials.class, id));
+			final var credentials = manager.find(UserCredentials.class, id);
 			manager.getTransaction().commit();
-			return optional;
+			return credentials == null
+					? Optional.empty()
+					: Optional.of(credentials);
 		}
 	}
 

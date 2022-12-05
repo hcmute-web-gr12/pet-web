@@ -5,13 +5,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.PersistenceException;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.StringJoiner;
 import java.util.UUID;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -27,9 +23,11 @@ public class PetDaoImpl implements PetDao {
 	public Optional<Pet> findById(final UUID id) {
 		try (final EntityManager manager = factory.createEntityManager()) {
 			manager.getTransaction().begin();
-			final var optional = Optional.of(manager.find(Pet.class, id));
+			final var pet = manager.find(Pet.class, id);
 			manager.getTransaction().commit();
-			return optional;
+			return pet == null
+					? Optional.empty()
+					: Optional.of(pet);
 		}
 	}
 
@@ -74,7 +72,8 @@ public class PetDaoImpl implements PetDao {
 			manager.getTransaction().begin();
 			@SuppressWarnings("unchecked")
 			final var pets = (Pet[]) manager
-					.createNativeQuery("SELECT * FROM PET WHERE CATEGORY = :category ORDER BY CREATED_DATE DESC", Pet.class)
+					.createNativeQuery("SELECT * FROM PET WHERE CATEGORY = :category ORDER BY CREATED_DATE DESC",
+							Pet.class)
 					.setParameter("category", category)
 					.setFirstResult(offset)
 					.setMaxResults(count)
@@ -91,7 +90,8 @@ public class PetDaoImpl implements PetDao {
 			manager.getTransaction().begin();
 			@SuppressWarnings("unchecked")
 			final var pets = (Pet[]) manager
-					.createNativeQuery("SELECT * FROM PET WHERE CATEGORY IN (:categories) ORDER BY CREATED_DATE DESC", Pet.class)
+					.createNativeQuery("SELECT * FROM PET WHERE CATEGORY IN (:categories) ORDER BY CREATED_DATE DESC",
+							Pet.class)
 					.setParameter("categories", StringUtils.join(ArrayUtils.toObject(categories), ","))
 					.setFirstResult(offset)
 					.setMaxResults(count)
@@ -106,7 +106,7 @@ public class PetDaoImpl implements PetDao {
 	public long countAll() throws PersistenceException {
 		try (final EntityManager manager = factory.createEntityManager()) {
 			manager.getTransaction().begin();
-			final var count = (long)manager
+			final var count = (long) manager
 					.createNativeQuery("SELECT COUNT(*) FROM PET")
 					.getSingleResult();
 			manager.getTransaction().commit();
