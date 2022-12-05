@@ -53,6 +53,6 @@ public class ProductCollectionController extends HttpServlet {
 		props.put("page", page);
 		props.put("pageSize", pageSize);
 		request.setAttribute("props", props);
-		request.getRequestDispatcher("/WEB-INF/views/Product.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/ProductCollection.jsp").forward(request, response);
 	}
 }

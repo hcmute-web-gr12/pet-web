@@ -40,7 +40,7 @@
 	<ul class="grid gap-4 mt-4 sm:grid-cols-2 lg:grid-cols-4">
 		<c:forEach var="pet" varStatus="status" items="${props.pets}">
 			<li>
-				<a href="#" class="block overflow-hidden group">
+				<a href="/product/${pet.id.toString()}" class="block overflow-hidden group">
 					<img src="${pet.imagePublicId}" alt="${pet.name}"
 						class="h-[350px] w-full object-cover transition duration-200 group-hover:scale-105 sm:h-[450px]" />
 
