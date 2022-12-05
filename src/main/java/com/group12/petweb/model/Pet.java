@@ -57,7 +57,7 @@ public class Pet {
 		return stock;
 	}
 
-	@Column(name = "DESCRIPTION")
+	@Column(name = "DESCRIPTION", columnDefinition="TEXT")
 	public String getDescription() {
 		return description;
 	}
