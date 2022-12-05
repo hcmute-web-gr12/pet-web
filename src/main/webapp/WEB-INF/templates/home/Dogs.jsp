@@ -13,7 +13,7 @@
 					</p>
 
 					<div class="w-fit mx-auto">
-						<c:url var="href" value="/products?category=1" />
+						<c:url var="href" value="/product?category=1" />
 						<c:import url="/WEB-INF/templates/Link.jsp">
 							<c:param name="slot" value="Đến cửa hàng" />
 							<c:param name="href" value="${href}" />
