@@ -12,7 +12,7 @@
 <button
 	id="${param.id}"
 	type="${param.type}"
-	class="${param.className} text-center flex h-full items-center ${padding} ${fontSize}
+	class="${param.className} text-center flex h-full justify-center items-center ${padding} ${fontSize}
 		${rounded} ${bg} ${text}
 		border ${border}
 		transition duration-100
