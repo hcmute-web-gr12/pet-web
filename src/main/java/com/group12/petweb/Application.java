@@ -9,7 +9,12 @@ import com.group12.petweb.controller.ProductController;
 import com.group12.petweb.controller.SignUpController;
 import com.group12.petweb.controller.UserProfileController;
 import com.group12.petweb.controller.api.AdminPetApiController;
+import com.group12.petweb.controller.api.CartApiController;
 import com.group12.petweb.controller.api.UserProfileApiController;
+import com.group12.petweb.dao.CartDao;
+import com.group12.petweb.dao.CartDaoImpl;
+import com.group12.petweb.dao.CartItemDao;
+import com.group12.petweb.dao.CartItemDaoImpl;
 import com.group12.petweb.dao.PetDao;
 import com.group12.petweb.dao.PetDaoImpl;
 import com.group12.petweb.dao.UserCredentialsDao;
@@ -47,6 +52,8 @@ public class Application implements ServletContextListener, HttpSessionListener,
 	private final Redirector redirector;
 	private final MathUtils mathUtils;
 	private final PaginationUtils paginationUtils;
+	private final CartDao cartDao;
+	private final CartItemDao cartItemDao;
 
 	public Application() {
 		final Properties properties = new Properties();
@@ -59,6 +66,8 @@ public class Application implements ServletContextListener, HttpSessionListener,
 		redirector = new ContextRedirector();
 		mathUtils = new MathUtilsImpl();
 		paginationUtils = new PaginationUtilsImpl();
+		cartDao = new CartDaoImpl(factory);
+		cartItemDao = new CartItemDaoImpl(factory);
 	}
 
 	@Override
@@ -92,6 +101,8 @@ public class Application implements ServletContextListener, HttpSessionListener,
 		adminPetApiServlet.setMultipartConfig(new MultipartConfigElement(TEMP_DIR, 10 * mb, 100 * mb, mb));
 
 		context.addServlet("productServlet", new ProductController(petDao, mathUtils, cloudinary, redirector)).addMapping("/product/*");
+
+		context.addServlet("cartApiServlet", new CartApiController(cartDao, petDao, userCredentialsDao, cartItemDao)).addMapping("/cart");
 
 		context.addFilter("authorizationFilter", new AuthorizationFilter(redirector)).addMappingForServletNames(
 				EnumSet.of(DispatcherType.REQUEST),
