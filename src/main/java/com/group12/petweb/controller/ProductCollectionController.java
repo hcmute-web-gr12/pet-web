@@ -1,6 +1,5 @@
 package com.group12.petweb.controller;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,12 +16,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ProductController extends HttpServlet {
+public class ProductCollectionController extends HttpServlet {
 	private final PetDao petDao;
 	private final MathUtils mUtils;
 	private final Cloudinary cloudinary;
 
-	public ProductController(PetDao petDao, MathUtils mUtils, Cloudinary cloudinary) {
+	public ProductCollectionController(PetDao petDao, MathUtils mUtils, Cloudinary cloudinary) {
 		this.petDao = petDao;
 		this.mUtils = mUtils;
 		this.cloudinary = cloudinary;
