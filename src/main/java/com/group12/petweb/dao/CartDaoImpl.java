@@ -19,7 +19,6 @@ public class CartDaoImpl implements CartDao {
 		try (final var manager = factory.createEntityManager()) {
 			manager.getTransaction().begin();
 			final var cart = manager.find(Cart.class, id);
-			manager.flush();
 			manager.getTransaction().commit();
 			return cart == null
 					? Optional.empty()
@@ -43,6 +42,21 @@ public class CartDaoImpl implements CartDao {
 			manager.getTransaction().begin();
 			manager.merge(cart);
 			manager.getTransaction().commit();
+		}
+	}
+
+	@Override
+	public Optional<Cart> findOngoingByUserId(UUID id) {
+		try (final var manager = factory.createEntityManager()) {
+			manager.getTransaction().begin();
+			final var optional = manager
+				.createQuery("SELECT c FROM Cart c WHERE c.user.id = :id AND c.ordered = false", Cart.class)
+				.setParameter("id", id)
+				.setMaxResults(1)
+				.getResultStream()
+				.findFirst();
+			manager.getTransaction().commit();
+			return optional;
 		}
 	}
 }

@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public interface CartDao {
 	Optional<Cart> findById(UUID id);
+	Optional<Cart> findOngoingByUserId(UUID id);
 	void create(Cart cart) throws PersistenceException;
 	void update(Cart cart) throws PersistenceException;
 }
