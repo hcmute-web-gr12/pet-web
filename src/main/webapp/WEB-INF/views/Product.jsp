@@ -10,7 +10,10 @@
 	<title>Brand</title>
 	<c:import url="../templates/Head.jsp" />
 	<script>
-		const description = `${fn: replace(fn: replace(props.pet.description, "`", "&grave;"), "<", "&lt;")}`;
+		const props = {
+			description: `${fn: replace(fn: replace(props.pet.description, "`", "&grave;"), "<", "&lt;")}`,
+			stock: ${props.pet.stock},
+		 };
 	</script>
 	<script defer src="/scripts/product.js"></script>
 </head>
@@ -20,7 +23,7 @@
 	<main class="my-8 mx-4 flex flex-col gap-8 bg-stone-50">
 		<section class="relative mx-auto max-w-screen-xl">
 			<div class="lg:hidden">
-				<h1 class="text-2xl font-bold lg:text-3xl">${props.pet.name}</h1>
+				<h1 class="text-2xl text-brand font-bold lg:text-3xl">${props.pet.name}</h1>
 				<p class="mt-1 text-sm text-gray-500">ID: ${props.pet.id.toString()}</p>
 			</div>
 
@@ -67,7 +70,7 @@
 
 				<div class="flex flex-col gap-y-4 lg:sticky lg:top-0 lg:pt-2">
 					<div class="hidden lg:block">
-						<h1 class="text-2xl font-bold lg:text-3xl">${props.pet.name}</h1>
+						<h1 class="text-2xl text-brand font-bold lg:text-3xl">${props.pet.name}</h1>
 						<p class="mt-1 text-sm text-gray-500">ID: ${props.pet.id.toString()}</p>
 					</div>
 					<form id="cart-form" class="flex flex-col gap-y-4">
@@ -150,7 +153,7 @@
 									class="w-fit inline-flex items-center rounded-full bg-red-600 border border-red-700 px-2.5 py-1 gap-x-1">
 									<span class="material-symbols-rounded text-stone-200"> sentiment_dissatisfied
 									</span>
-									<p class="whitespace-nowrap text-sm font-semibold text-stone-200">Hết hàng</p>
+									<p class="whitespace-nowrap text-sm font-medium text-stone-200">Hết hàng</p>
 								</div>
 								<c:import url="/WEB-INF/templates/Button.jsp">
 									<c:param name="slot" value="Thêm vào giỏ hàng" />
@@ -179,13 +182,13 @@
 						<div
 							class="w-fit h-fit inline-flex items-center rounded-full bg-stone-500 border border-stone-600 px-2.5 py-1 gap-x-1">
 							<span class="material-symbols-rounded text-stone-300"> sentiment_dissatisfied </span>
-							<p class="whitespace-nowrap text-sm font-semibold text-stone-300 m-0">Chưa có mô tả</p>
+							<p class="whitespace-nowrap text-sm font-medium text-stone-300 m-0">Chưa có mô tả</p>
 						</div>
 					</c:when>
 					<c:otherwise>
 						<article class="lg:col-span-3">
 							<h2 class="text-brand mb-1 text-2xl font-bold">Mô tả thú cưng</h2>
-							<section id="description" class="prose prose-stone max-w-none border rounded-xl p-2">
+							<section id="description" class="prose prose-stone max-w-none border rounded-xl p-4">
 							</section>
 						</article>
 					</c:otherwise>
