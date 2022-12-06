@@ -15,6 +15,8 @@ public class Pet {
 	private Byte category;
 	private long price;
 	private long stock;
+	private String imageFormat;
+	private int imageVersion;
 	private String imagePublicId;
 	private String description;
 	private Timestamp createdDate;
@@ -62,6 +64,16 @@ public class Pet {
 		return description;
 	}
 
+	@Column(name = "IMAGE_VERSION")
+	public int getImageVersion() {
+		return imageVersion;
+	}
+
+	@Column(name = "IMAGE_FORMAT", columnDefinition = "VARCHAR(11)")
+	public String getImageFormat() {
+		return imageFormat;
+	}
+
 	@Column(name = "IMAGE_PUBLIC_ID")
 	public String getImagePublicId() {
 		return imagePublicId;
@@ -95,6 +107,14 @@ public class Pet {
 		this.imagePublicId = imagePublicId;
 	}
 
+	public void setImageVersion(int imageVersion) {
+		this.imageVersion = imageVersion;
+	}
+
+	public void setImageFormat(String imageFormat) {
+		this.imageFormat = imageFormat;
+	}
+
 	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
 	}
@@ -108,6 +128,8 @@ public class Pet {
 				", stock='" + stock + '\'' +
 				", price='" + price + '\'' +
 				", description='" + description + '\'' +
+				", imageFormat='" + imageFormat + '\'' +
+				", imageVersion='" + imageVersion + '\'' +
 				", imagePublicId='" + imagePublicId + '\'' +
 				'}';
 	}
