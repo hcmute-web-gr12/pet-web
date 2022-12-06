@@ -245,7 +245,7 @@
 						<c:param name="slot"
 							value="Hình ảnh <span class='text-xs font-bold text-stone-400'># .png, .jpg, ...</span>
 						<img id='pet-edit-image' class='h-full md:h-auto md:w-full max-h-44 md:max-h-56 mt-2 text-center border aspect-square object-cover rounded-lg' src='https://res.cloudinary.com/dnkb0pwpm/image/upload/v1/pet/default.jpg' alt='${pet.name}'>" />
-						<c:param name="of" value="pet-edit-image-file" />
+						<c:param name="of" value="pet-edit-image-input" />
 					</c:import>
 					<input type="file" id="pet-edit-image-file" name="imageFile" accept="image/*"
 						class="w-full text-stone-700 p-1 rounded-lg border focus:outline-none focus:ring focus:ring-yellow-500/60" />
