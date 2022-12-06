@@ -15,6 +15,7 @@ import com.cloudinary.Cloudinary;
 import com.google.gson.Gson;
 import com.group12.petweb.dao.PetDao;
 import com.group12.petweb.model.Pet;
+import com.group12.petweb.util.CloudinaryUtils;
 import com.group12.petweb.util.MathUtils;
 import com.group12.petweb.util.PaginationUtils;
 
@@ -23,12 +24,14 @@ public class AdminPetApiController extends HttpServlet {
 	private final Cloudinary cloudinary;
 	private final MathUtils mathUtils;
 	private final PaginationUtils pUtils;
+	private final CloudinaryUtils cloudinaryUtils;
 
-	public AdminPetApiController(PetDao petDao, Cloudinary cloudinary, MathUtils mathUtils, PaginationUtils pUtils) {
+	public AdminPetApiController(PetDao petDao, Cloudinary cloudinary, MathUtils mathUtils, PaginationUtils pUtils, CloudinaryUtils cloudinaryUtils) {
 		this.petDao = petDao;
 		this.cloudinary = cloudinary;
 		this.mathUtils = mathUtils;
 		this.pUtils = pUtils;
+		this.cloudinaryUtils = cloudinaryUtils;
 	}
 
 	@Override()
@@ -37,7 +40,7 @@ public class AdminPetApiController extends HttpServlet {
 		if (index != null) {
 			try {
 				final var i = Integer.parseInt(index);
-				final var pets = (Pet[])request.getSession(false).getAttribute("admin.pets");
+				final var pets = (Pet[]) request.getSession(false).getAttribute("admin.pets");
 				if (i < 0 || i >= pets.length) {
 					return;
 				}
@@ -48,10 +51,10 @@ public class AdminPetApiController extends HttpServlet {
 					response.getWriter().print("{}");
 				} else {
 					final var pet = optional.get();
-					pet.setImagePublicId(cloudinary.url().secure(true).publicId(pet.getImagePublicId()).generate());
+					pet.setImagePublicId(cloudinaryUtils.generateImageUrl(pet));
 					response.getWriter().print(new Gson().toJson(pet));
 				}
-			} catch(NumberFormatException ex) {
+			} catch (NumberFormatException ex) {
 				response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 				response.setContentType("text/plain");
 				response.getWriter().print("");
@@ -65,7 +68,7 @@ public class AdminPetApiController extends HttpServlet {
 		pageSize = mathUtils.clampLow(mathUtils.parseIntOrDefault(request.getParameter("pageSize"), 10), 1);
 		final var pets = petDao.findSomeOffset((page - 1) * pageSize, pageSize);
 		for (final var pet : pets) {
-			pet.setImagePublicId(cloudinary.url().secure(true).publicId(pet.getImagePublicId()).generate());
+			pet.setImagePublicId(cloudinaryUtils.generateImageUrl(pet));
 		}
 		request.getSession(false).setAttribute("admin.pets", pets);
 		final var props = new HashMap<String, Object>();
@@ -85,8 +88,10 @@ public class AdminPetApiController extends HttpServlet {
 		try (final var is = part.getInputStream()) {
 			final var model = new Pet();
 			model.setId(UUID.randomUUID());
-			model.setName(new String(request.getParameter("name").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
-			model.setDescription(new String(request.getParameter("description").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
+			model.setName(new String(request.getParameter("name").getBytes(StandardCharsets.ISO_8859_1),
+					StandardCharsets.UTF_8));
+			model.setDescription(new String(request.getParameter("description").getBytes(StandardCharsets.ISO_8859_1),
+					StandardCharsets.UTF_8));
 			model.setCategory(Byte.parseByte(request.getParameter("category")));
 			model.setPrice(Integer.parseUnsignedInt(request.getParameter("price")));
 			model.setStock(Integer.parseUnsignedInt(request.getParameter("stock")));
@@ -99,7 +104,7 @@ public class AdminPetApiController extends HttpServlet {
 				final var temp = File.createTempFile(name + '-', ext, new File("/tmp"));
 				final var publicId = "pet/" + model.getId().toString();
 				Files.copy(is, temp.toPath(), StandardCopyOption.REPLACE_EXISTING);
-				cloudinary.uploader().upload(
+				final var result = cloudinary.uploader().upload(
 						temp,
 						new HashMap<String, String>() {
 							{
@@ -108,13 +113,15 @@ public class AdminPetApiController extends HttpServlet {
 						});
 				temp.delete();
 				model.setImagePublicId(publicId);
+				model.setImageFormat((String) result.get("format"));
+				model.setImageVersion((Integer)result.get("version"));
 			} else {
 				model.setImagePublicId("pet/default.jpg");
 			}
 			petDao.update(model);
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.getWriter().print(HttpServletResponse.SC_OK);
-		} catch(NumberFormatException ex) {
+		} catch (NumberFormatException ex) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			response.getWriter().print(ex.getMessage());
 		} catch (Exception ex) {
@@ -124,7 +131,8 @@ public class AdminPetApiController extends HttpServlet {
 	}
 
 	@Override()
-	public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	public void doDelete(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 		final var indexes = request.getParameterValues("index");
 		if (indexes == null || indexes.length == 0) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -132,7 +140,7 @@ public class AdminPetApiController extends HttpServlet {
 			return;
 		}
 
-		final var pets = (Pet[])request.getSession(false).getAttribute("admin.pets");
+		final var pets = (Pet[]) request.getSession(false).getAttribute("admin.pets");
 		if (pets == null || pets.length == 0) {
 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 			response.getWriter().print(HttpServletResponse.SC_FORBIDDEN);
@@ -141,14 +149,15 @@ public class AdminPetApiController extends HttpServlet {
 
 		final var length = pets.length;
 		final var ids = new ArrayList<UUID>(indexes.length);
-		for(final var index : indexes) {
+		for (final var index : indexes) {
 			try {
 				final var i = Integer.parseInt(index);
 				if (i < 0 || i >= length) {
 					continue;
 				}
 				ids.add(pets[i].getId());
-			} catch(NumberFormatException ex) { }
+			} catch (NumberFormatException ex) {
+			}
 		}
 		petDao.deleteById(ids);
 		response.setStatus(HttpServletResponse.SC_OK);
@@ -169,7 +178,7 @@ public class AdminPetApiController extends HttpServlet {
 			response.getWriter().print(HttpServletResponse.SC_FORBIDDEN);
 			return;
 		}
-		final var pets = (Pet[])attr;
+		final var pets = (Pet[]) attr;
 		try {
 			final var i = Integer.parseInt(index);
 			if (i < 0 || i >= pets.length) {
@@ -184,8 +193,10 @@ public class AdminPetApiController extends HttpServlet {
 				return;
 			}
 			final var pet = optional.get();
-			pet.setName(new String(request.getParameter("name").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
-			pet.setDescription(new String(request.getParameter("description").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
+			pet.setName(new String(request.getParameter("name").getBytes(StandardCharsets.ISO_8859_1),
+					StandardCharsets.UTF_8));
+			pet.setDescription(new String(request.getParameter("description").getBytes(StandardCharsets.ISO_8859_1),
+					StandardCharsets.UTF_8));
 			pet.setPrice(Integer.parseUnsignedInt(request.getParameter("price")));
 			pet.setStock(Integer.parseUnsignedInt(request.getParameter("stock")));
 
@@ -199,7 +210,7 @@ public class AdminPetApiController extends HttpServlet {
 				final var temp = File.createTempFile(name + '-', ext, new File("/tmp"));
 				final var publicId = "pet/" + pet.getId().toString();
 				Files.copy(is, temp.toPath(), StandardCopyOption.REPLACE_EXISTING);
-				cloudinary.uploader().upload(
+				final var result = cloudinary.uploader().upload(
 						temp,
 						new HashMap<String, String>() {
 							{
@@ -209,11 +220,13 @@ public class AdminPetApiController extends HttpServlet {
 						});
 				temp.delete();
 				pet.setImagePublicId(publicId);
+				pet.setImageFormat((String) result.get("format"));
+				pet.setImageVersion((Integer)result.get("version"));
 				response.setStatus(HttpServletResponse.SC_OK);
 				response.getWriter().print(HttpServletResponse.SC_OK);
 			}
 			petDao.update(pet);
-		} catch(NumberFormatException ex) {
+		} catch (NumberFormatException ex) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			response.getWriter().print(ex.getMessage());
 		} catch (Exception ex) {

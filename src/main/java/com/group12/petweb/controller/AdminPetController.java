@@ -6,20 +6,20 @@ import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
-import com.cloudinary.Cloudinary;
 import com.group12.petweb.dao.PetDao;
+import com.group12.petweb.util.CloudinaryUtils;
 import com.group12.petweb.util.MathUtils;
 import com.group12.petweb.util.PaginationUtils;
 
 public class AdminPetController extends HttpServlet {
 	private final PetDao petDao;
-	private final Cloudinary cloudinary;
+	private final CloudinaryUtils cloudinaryUtils;
 	private final MathUtils mathUtils;
 	private final PaginationUtils pUtils;
 
-	public AdminPetController(PetDao petDao, Cloudinary cloudinary, MathUtils mathUtils, PaginationUtils pUtils) {
+	public AdminPetController(PetDao petDao, CloudinaryUtils cloudinaryUtils, MathUtils mathUtils, PaginationUtils pUtils) {
 		this.petDao = petDao;
-		this.cloudinary = cloudinary;
+		this.cloudinaryUtils = cloudinaryUtils;
 		this.mathUtils = mathUtils;
 		this.pUtils = pUtils;
 	}
@@ -32,7 +32,7 @@ public class AdminPetController extends HttpServlet {
 		pageSize = mathUtils.clampLow(mathUtils.parseIntOrDefault(request.getParameter("pageSize"), 10), 1);
 		final var pets = petDao.findSomeOffset((page - 1) * pageSize, pageSize);
 		for (final var pet : pets) {
-			pet.setImagePublicId(cloudinary.url().secure(true).publicId(pet.getImagePublicId()).generate());
+			pet.setImagePublicId(cloudinaryUtils.generateImageUrl(pet));
 		}
 		final var total = petDao.countAll();
 		final var props = new HashMap<String, Object>();

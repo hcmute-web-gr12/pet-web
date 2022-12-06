@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import com.cloudinary.Cloudinary;
 import com.group12.petweb.dao.PetDao;
 import com.group12.petweb.model.Pet;
+import com.group12.petweb.util.CloudinaryUtils;
 import com.group12.petweb.util.MathUtils;
 
 import java.io.IOException;
@@ -19,12 +19,12 @@ import java.util.HashMap;
 public class ProductCollectionController extends HttpServlet {
 	private final PetDao petDao;
 	private final MathUtils mUtils;
-	private final Cloudinary cloudinary;
+	private final CloudinaryUtils cloudinaryUtils;
 
-	public ProductCollectionController(PetDao petDao, MathUtils mUtils, Cloudinary cloudinary) {
+	public ProductCollectionController(PetDao petDao, MathUtils mUtils, CloudinaryUtils cloudinaryUtils) {
 		this.petDao = petDao;
 		this.mUtils = mUtils;
-		this.cloudinary = cloudinary;
+		this.cloudinaryUtils = cloudinaryUtils;
 	}
 
 	@Override()
@@ -46,7 +46,7 @@ public class ProductCollectionController extends HttpServlet {
 					(page - 1) * pageSize, pageSize);
 		}
 		for (final var pet : pets) {
-			pet.setImagePublicId(cloudinary.url().secure(true).publicId(pet.getImagePublicId()).generate());
+			pet.setImagePublicId(cloudinaryUtils.generateImageUrl(pet));
 		}
 		final var props = new HashMap<String, Object>();
 		props.put("pets", pets);

@@ -3,21 +3,20 @@ package com.group12.petweb.controller;
 import java.io.*;
 import java.util.HashMap;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
-import com.cloudinary.Cloudinary;
 import com.group12.petweb.dao.PetDao;
 import com.group12.petweb.model.Pet;
+import com.group12.petweb.util.CloudinaryUtils;
 
 public class HomeController extends HttpServlet {
 	private final PetDao petDao;
-	private final Cloudinary cloudinary;
+	private final CloudinaryUtils cloudinaryUtils;
 
-	public HomeController(PetDao petDao, Cloudinary cloudinary) {
+	public HomeController(PetDao petDao, CloudinaryUtils cloudinaryUtils) {
 		this.petDao = petDao;
-		this.cloudinary = cloudinary;
+		this.cloudinaryUtils = cloudinaryUtils;
 	}
 
 	@Override()
@@ -25,10 +24,10 @@ public class HomeController extends HttpServlet {
 		final var dogs = petDao.findCategoryOffset(Pet.CATEGORY_DOG, 0, 5);
 		final var cats = petDao.findCategoryOffset(Pet.CATEGORY_CAT, 0, 5);
 		for (final var pet : dogs) {
-			pet.setImagePublicId(cloudinary.url().secure(true).publicId(pet.getImagePublicId()).generate());
+			pet.setImagePublicId(cloudinaryUtils.generateImageUrl(pet));
 		}
 		for (final var pet : cats) {
-			pet.setImagePublicId(cloudinary.url().secure(true).publicId(pet.getImagePublicId()).generate());
+			pet.setImagePublicId(cloudinaryUtils.generateImageUrl(pet));
 		}
 		final var props = new HashMap<String, Object>();
 		props.put("dogs", dogs);

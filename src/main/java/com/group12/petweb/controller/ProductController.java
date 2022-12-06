@@ -5,10 +5,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.cloudinary.Cloudinary;
 import com.group12.petweb.dao.PetDao;
 import com.group12.petweb.service.Redirector;
-import com.group12.petweb.util.MathUtils;
+import com.group12.petweb.util.CloudinaryUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -16,15 +15,13 @@ import java.util.UUID;
 
 public class ProductController extends HttpServlet {
 	private final PetDao petDao;
-	private final MathUtils mUtils;
-	private final Cloudinary cloudinary;
 	private final Redirector redirector;
+	private final CloudinaryUtils cloudinaryUtils;
 
-	public ProductController(PetDao petDao, MathUtils mUtils, Cloudinary cloudinary, Redirector redirector) {
+	public ProductController(PetDao petDao, Redirector redirector, CloudinaryUtils cloudinaryUtils) {
 		this.petDao = petDao;
-		this.mUtils = mUtils;
-		this.cloudinary = cloudinary;
 		this.redirector = redirector;
+		this.cloudinaryUtils = cloudinaryUtils;
 	}
 
 	@Override()
@@ -43,7 +40,7 @@ public class ProductController extends HttpServlet {
 			}
 			final var pet = optional.get();
 			final var props = new HashMap<String, Object>();
-			pet.setImagePublicId(cloudinary.url().secure(true).publicId(pet.getImagePublicId()).generate());
+			pet.setImagePublicId(cloudinaryUtils.generateImageUrl(pet));
 			props.put("pet", optional.get());
 			request.setAttribute("props", props);
 			request.getRequestDispatcher("/WEB-INF/views/Product.jsp").forward(request, response);

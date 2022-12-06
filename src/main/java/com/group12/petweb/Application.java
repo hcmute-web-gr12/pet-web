@@ -20,8 +20,11 @@ import com.group12.petweb.dao.PetDaoImpl;
 import com.group12.petweb.dao.UserCredentialsDao;
 import com.group12.petweb.dao.UserCredentialsDaoImpl;
 import com.group12.petweb.filter.AuthorizationFilter;
+import com.group12.petweb.filter.CartFilter;
 import com.group12.petweb.service.ContextRedirector;
 import com.group12.petweb.service.Redirector;
+import com.group12.petweb.util.CloudinaryUtils;
+import com.group12.petweb.util.CloudinaryUtilsImpl;
 import com.group12.petweb.util.MathUtils;
 import com.group12.petweb.util.MathUtilsImpl;
 import com.group12.petweb.util.PaginationUtils;
@@ -54,6 +57,8 @@ public class Application implements ServletContextListener, HttpSessionListener,
 	private final PaginationUtils paginationUtils;
 	private final CartDao cartDao;
 	private final CartItemDao cartItemDao;
+	private final Cloudinary cloudinary;
+	private final CloudinaryUtils cloudinaryUtils;
 
 	public Application() {
 		final Properties properties = new Properties();
@@ -68,24 +73,25 @@ public class Application implements ServletContextListener, HttpSessionListener,
 		paginationUtils = new PaginationUtilsImpl();
 		cartDao = new CartDaoImpl(factory);
 		cartItemDao = new CartItemDaoImpl(factory);
-	}
-
-	@Override
-	public void contextInitialized(ServletContextEvent sce) {
-		final var mb = 1024 * 1024;
-		final var context = sce.getServletContext();
-		final var cloudinary = new Cloudinary(new HashMap<String, String>() {
+		cloudinary = new Cloudinary(new HashMap<String, String>() {
 			{
 				put("cloud_name", System.getenv("CLOUDINARY_CLOUD_NAME"));
 				put("api_key", System.getenv("CLOUDINARY_API_KEY"));
 				put("api_secret", System.getenv("CLOUDINARY_API_SECRET"));
 			}
 		});
+		cloudinaryUtils = new CloudinaryUtilsImpl(cloudinary);
+	}
 
-		context.addServlet("homeServlet", new HomeController(petDao, cloudinary)).addMapping("/home");
+	@Override
+	public void contextInitialized(ServletContextEvent sce) {
+		final var mb = 1024 * 1024;
+		final var context = sce.getServletContext();
+		context.addServlet("homeServlet", new HomeController(petDao, cloudinaryUtils)).addMapping("/home");
 		context.addServlet("loginServlet", new LoginController(userCredentialsDao, redirector)).addMapping("/login");
 		context.addServlet("signUpServlet", new SignUpController(userCredentialsDao, redirector)).addMapping("/signup");
-		context.addServlet("productCollectionServlet", new ProductCollectionController(petDao, mathUtils, cloudinary)).addMapping("/product");
+		context.addServlet("productCollectionServlet",
+				new ProductCollectionController(petDao, mathUtils, cloudinaryUtils)).addMapping("/product");
 
 		context.addServlet("userProfileServlet", new UserProfileController(userCredentialsDao, redirector))
 				.addMapping("/user", "/user/profile");
@@ -95,14 +101,18 @@ public class Application implements ServletContextListener, HttpSessionListener,
 		context.addServlet("adminDashboardServlet", new AdminDashboardController()).addMapping("/admin",
 				"/admin/dashboard");
 
-		context.addServlet("adminPetServlet", new AdminPetController(petDao, cloudinary, mathUtils, paginationUtils)).addMapping("/admin/pet");
-		final var adminPetApiServlet = context.addServlet("adminPetApiServlet", new AdminPetApiController(petDao, cloudinary, mathUtils, paginationUtils));
+		context.addServlet("adminPetServlet",
+				new AdminPetController(petDao, cloudinaryUtils, mathUtils, paginationUtils)).addMapping("/admin/pet");
+		final var adminPetApiServlet = context.addServlet("adminPetApiServlet",
+				new AdminPetApiController(petDao, cloudinary, mathUtils, paginationUtils, cloudinaryUtils));
 		adminPetApiServlet.addMapping("/api/admin/pet");
 		adminPetApiServlet.setMultipartConfig(new MultipartConfigElement(TEMP_DIR, 10 * mb, 100 * mb, mb));
 
-		context.addServlet("productServlet", new ProductController(petDao, mathUtils, cloudinary, redirector)).addMapping("/product/*");
+		context.addServlet("productServlet", new ProductController(petDao, redirector, cloudinaryUtils))
+				.addMapping("/product/*");
 
-		context.addServlet("cartApiServlet", new CartApiController(cartDao, petDao, userCredentialsDao, cartItemDao)).addMapping("/cart");
+		context.addServlet("cartApiServlet", new CartApiController(cartDao, petDao, userCredentialsDao, cartItemDao))
+				.addMapping("/api/cart");
 
 		context.addFilter("authorizationFilter", new AuthorizationFilter(redirector)).addMappingForServletNames(
 				EnumSet.of(DispatcherType.REQUEST),
@@ -112,6 +122,10 @@ public class Application implements ServletContextListener, HttpSessionListener,
 				"adminDashboardServlet",
 				"adminPetServlet",
 				"adminPetApiServlet");
+		context.addFilter("cartFilter", new CartFilter(cartDao)).addMappingForServletNames(
+				EnumSet.of(DispatcherType.REQUEST),
+				true,
+				"cartApiServlet");
 	}
 
 	@Override
