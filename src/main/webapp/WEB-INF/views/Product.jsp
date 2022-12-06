@@ -1,8 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions" %>
-<fmt:setLocale value="vi_VN"/>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<fmt:setLocale value="vi_VN" />
 <!DOCTYPE html>
 <html>
 
@@ -10,7 +10,7 @@
 	<title>Brand</title>
 	<c:import url="../templates/Head.jsp" />
 	<script>
-	 const description = `${fn:replace(fn:replace(props.pet.description, "`", "&grave;"), "<", "&lt;")}`;
+		const description = `${fn: replace(fn: replace(props.pet.description, "`", "&grave;"), "<", "&lt;")}`;
 	</script>
 	<script defer src="/scripts/product.js"></script>
 </head>
@@ -44,22 +44,22 @@
 
 					<ul class="mt-1 flex gap-1">
 						<li>
-						<img alt="${props.pet.name}" src="${props.pet.imagePublicId}"
+							<img alt="${props.pet.name}" src="${props.pet.imagePublicId}"
 								class="border h-16 w-16 rounded-md object-cover" />
 						</li>
 
 						<li>
-						<img alt="${props.pet.name}" src="${props.pet.imagePublicId}"
+							<img alt="${props.pet.name}" src="${props.pet.imagePublicId}"
 								class="border h-16 w-16 rounded-md object-cover" />
 						</li>
 
 						<li>
-						<img alt="${props.pet.name}" src="${props.pet.imagePublicId}"
+							<img alt="${props.pet.name}" src="${props.pet.imagePublicId}"
 								class="border h-16 w-16 rounded-md object-cover" />
 						</li>
 
 						<li>
-						<img alt="${props.pet.name}" src="${props.pet.imagePublicId}"
+							<img alt="${props.pet.name}" src="${props.pet.imagePublicId}"
 								class="border h-16 w-16 rounded-md object-cover" />
 						</li>
 					</ul>
@@ -70,7 +70,7 @@
 						<h1 class="text-2xl font-bold lg:text-3xl">${props.pet.name}</h1>
 						<p class="mt-1 text-sm text-gray-500">ID: ${props.pet.id.toString()}</p>
 					</div>
-					<form class="flex flex-col gap-y-4">
+					<form id="cart-form" class="flex flex-col gap-y-4">
 						<fieldset>
 							<legend class="text-lg font-bold">Color</legend>
 
@@ -139,24 +139,57 @@
 						</fieldset>
 
 						<div>
-							<p class="text-xl font-bold"><fmt:formatNumber value="${props.pet.price}" type="currency"/></p>
+							<p class="text-xl font-bold">
+								<fmt:formatNumber value="${props.pet.price}" type="currency" />
+							</p>
 						</div>
 
-						<c:import url="/WEB-INF/templates/Button.jsp">
-							<c:param name="slot" value="Thêm vào giỏ hàng" />
-							<c:param name="type" value="submit" />
-							<c:param name="bg" value="bg-brand" />
-							<c:param name="border" value="border-brand-700" />
-							<c:param name="ring" value="ring-brand" />
-						</c:import>
+						<c:choose>
+							<c:when test="${props.pet.stock == 0}">
+								<div
+									class="w-fit inline-flex items-center rounded-full bg-red-600 border border-red-700 px-2.5 py-1 gap-x-1">
+									<span class="material-symbols-rounded text-stone-200"> sentiment_dissatisfied
+									</span>
+									<p class="whitespace-nowrap text-sm font-semibold text-stone-200">Hết hàng</p>
+								</div>
+								<c:import url="/WEB-INF/templates/Button.jsp">
+									<c:param name="slot" value="Thêm vào giỏ hàng" />
+									<c:param name="type" value="submit" />
+									<c:param name="bg" value="bg-brand w-fit lg:w-full" />
+									<c:param name="border" value="border-brand-700" />
+									<c:param name="ring" value="ring-brand" />
+									<c:param name="disabled" value="${true}" />
+								</c:import>
+							</c:when>
+							<c:otherwise>
+								<c:import url="/WEB-INF/templates/Button.jsp">
+									<c:param name="slot" value="Thêm vào giỏ hàng" />
+									<c:param name="type" value="submit" />
+									<c:param name="bg" value="bg-brand" />
+									<c:param name="border" value="border-brand-700" />
+									<c:param name="ring" value="ring-brand" />
+								</c:import>
+							</c:otherwise>
+						</c:choose>
 					</form>
 				</div>
 
-				<div class="lg:col-span-3">
-					<div id="description"
-						class="prose prose-stone dark:prose-invert max-w-none [&>iframe]:mt-6 [&>iframe]:aspect-video [&>iframe]:w-full [&>iframe]:rounded-xl">
-					</div>
-				</div>
+				<c:choose>
+					<c:when test="${props.pet.description == null || props.pet.description.length() == 0}">
+						<div
+							class="w-fit h-fit inline-flex items-center rounded-full bg-stone-500 border border-stone-600 px-2.5 py-1 gap-x-1">
+							<span class="material-symbols-rounded text-stone-300"> sentiment_dissatisfied </span>
+							<p class="whitespace-nowrap text-sm font-semibold text-stone-300 m-0">Chưa có mô tả</p>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<article class="lg:col-span-3">
+							<h2 class="text-brand mb-1 text-2xl font-bold">Mô tả thú cưng</h2>
+							<section id="description" class="prose prose-stone max-w-none border rounded-xl p-2">
+							</section>
+						</article>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</section>
 	</main>
