@@ -32,7 +32,10 @@ public class AdminPetController extends HttpServlet {
 		pageSize = mathUtils.clampLow(mathUtils.parseIntOrDefault(request.getParameter("pageSize"), 10), 1);
 		final var pets = petDao.findSomeOffset((page - 1) * pageSize, pageSize);
 		for (final var pet : pets) {
-			pet.setImagePublicId(cloudinaryUtils.generateImageUrl(pet));
+			pet.setImagePublicId(cloudinaryUtils.generateImageUrl(
+					pet,
+					url -> url.format("webp"),
+					transform -> transform.quality("auto").width(50).height(50).crop("fill")));
 		}
 		final var total = petDao.countAll();
 		final var props = new HashMap<String, Object>();

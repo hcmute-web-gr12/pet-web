@@ -46,7 +46,10 @@ public class ProductCollectionController extends HttpServlet {
 					(page - 1) * pageSize, pageSize);
 		}
 		for (final var pet : pets) {
-			pet.setImagePublicId(cloudinaryUtils.generateImageUrl(pet));
+			pet.setImagePublicId(cloudinaryUtils.generateImageUrl(
+					pet,
+					url -> url.format("webp"),
+					transform -> transform.quality("auto").width(450).height(450).crop("fill")));
 		}
 		final var props = new HashMap<String, Object>();
 		props.put("pets", pets);

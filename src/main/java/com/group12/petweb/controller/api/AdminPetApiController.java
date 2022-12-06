@@ -26,7 +26,8 @@ public class AdminPetApiController extends HttpServlet {
 	private final PaginationUtils pUtils;
 	private final CloudinaryUtils cloudinaryUtils;
 
-	public AdminPetApiController(PetDao petDao, Cloudinary cloudinary, MathUtils mathUtils, PaginationUtils pUtils, CloudinaryUtils cloudinaryUtils) {
+	public AdminPetApiController(PetDao petDao, Cloudinary cloudinary, MathUtils mathUtils, PaginationUtils pUtils,
+			CloudinaryUtils cloudinaryUtils) {
 		this.petDao = petDao;
 		this.cloudinary = cloudinary;
 		this.mathUtils = mathUtils;
@@ -51,7 +52,10 @@ public class AdminPetApiController extends HttpServlet {
 					response.getWriter().print("{}");
 				} else {
 					final var pet = optional.get();
-					pet.setImagePublicId(cloudinaryUtils.generateImageUrl(pet));
+					pet.setImagePublicId(cloudinaryUtils.generateImageUrl(
+							pet,
+							url -> url.format("webp"),
+							transform -> transform.width(300).height(300).crop("fill")));
 					response.getWriter().print(new Gson().toJson(pet));
 				}
 			} catch (NumberFormatException ex) {
@@ -68,7 +72,10 @@ public class AdminPetApiController extends HttpServlet {
 		pageSize = mathUtils.clampLow(mathUtils.parseIntOrDefault(request.getParameter("pageSize"), 10), 1);
 		final var pets = petDao.findSomeOffset((page - 1) * pageSize, pageSize);
 		for (final var pet : pets) {
-			pet.setImagePublicId(cloudinaryUtils.generateImageUrl(pet));
+			pet.setImagePublicId(cloudinaryUtils.generateImageUrl(
+					pet,
+					url -> url.format("webp"),
+					transform -> transform.quality("auto").width(50).height(50).crop("fill")));
 		}
 		request.getSession(false).setAttribute("admin.pets", pets);
 		final var props = new HashMap<String, Object>();
@@ -114,9 +121,9 @@ public class AdminPetApiController extends HttpServlet {
 				temp.delete();
 				model.setImagePublicId(publicId);
 				model.setImageFormat((String) result.get("format"));
-				model.setImageVersion((Integer)result.get("version"));
+				model.setImageVersion((Integer) result.get("version"));
 			} else {
-				model.setImagePublicId("pet/default.jpg");
+				model.setImagePublicId("pet/default");
 			}
 			petDao.update(model);
 			response.setStatus(HttpServletResponse.SC_OK);
@@ -221,7 +228,7 @@ public class AdminPetApiController extends HttpServlet {
 				temp.delete();
 				pet.setImagePublicId(publicId);
 				pet.setImageFormat((String) result.get("format"));
-				pet.setImageVersion((Integer)result.get("version"));
+				pet.setImageVersion((Integer) result.get("version"));
 				response.setStatus(HttpServletResponse.SC_OK);
 				response.getWriter().print(HttpServletResponse.SC_OK);
 			}

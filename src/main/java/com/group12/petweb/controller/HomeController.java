@@ -24,10 +24,16 @@ public class HomeController extends HttpServlet {
 		final var dogs = petDao.findCategoryOffset(Pet.CATEGORY_DOG, 0, 5);
 		final var cats = petDao.findCategoryOffset(Pet.CATEGORY_CAT, 0, 5);
 		for (final var pet : dogs) {
-			pet.setImagePublicId(cloudinaryUtils.generateImageUrl(pet));
+			pet.setImagePublicId(cloudinaryUtils.generateImageUrl(
+					pet,
+					url -> url.format("webp"),
+					transform -> transform.quality("auto").width(300).height(300).crop("fill")));
 		}
 		for (final var pet : cats) {
-			pet.setImagePublicId(cloudinaryUtils.generateImageUrl(pet));
+			pet.setImagePublicId(cloudinaryUtils.generateImageUrl(
+					pet,
+					url -> url.format("webp"),
+					transform -> transform.quality("auto").width(300).height(300).crop("fill")));
 		}
 		final var props = new HashMap<String, Object>();
 		props.put("dogs", dogs);

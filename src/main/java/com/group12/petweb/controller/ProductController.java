@@ -40,11 +40,14 @@ public class ProductController extends HttpServlet {
 			}
 			final var pet = optional.get();
 			final var props = new HashMap<String, Object>();
-			pet.setImagePublicId(cloudinaryUtils.generateImageUrl(pet));
+			pet.setImagePublicId(cloudinaryUtils.generateImageUrl(
+					pet,
+					url -> url.format("webp"),
+					transform -> transform.quality("auto").width(1000).crop("fill")));
 			props.put("pet", optional.get());
 			request.setAttribute("props", props);
 			request.getRequestDispatcher("/WEB-INF/views/Product.jsp").forward(request, response);
-		} catch(IllegalArgumentException ex) {
+		} catch (IllegalArgumentException ex) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		}
 	}
