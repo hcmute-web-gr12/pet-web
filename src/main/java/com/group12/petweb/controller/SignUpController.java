@@ -3,6 +3,7 @@ package com.group12.petweb.controller;
 import com.group12.petweb.dao.UserCredentialsDao;
 import com.group12.petweb.model.SignUpValidationError;
 import com.group12.petweb.model.UserCredentials;
+import com.group12.petweb.service.Mail;
 import com.group12.petweb.service.Redirector;
 
 import javax.servlet.RequestDispatcher;
@@ -20,10 +21,12 @@ import jakarta.persistence.PersistenceException;
 public class SignUpController extends HttpServlet {
 	private final UserCredentialsDao userCredentialsDao;
 	private final Redirector redirector;
+	private final Mail mail;
 
-	public SignUpController(UserCredentialsDao userCredentialsDao, Redirector redirector) {
+	public SignUpController(UserCredentialsDao userCredentialsDao, Redirector redirector, Mail mail) {
 		this.userCredentialsDao = userCredentialsDao;
 		this.redirector = redirector;
+		this.mail = mail;
 	}
 
 	@Override()
@@ -58,6 +61,13 @@ public class SignUpController extends HttpServlet {
 			});
 			request.getRequestDispatcher("/WEB-INF/views/SignUp.jsp").forward(request, response);
 			return;
+		}
+		try {
+			mail.sendTo(request.getParameter("email"), "Đăng ký tài khoản tại Pet Web!",
+					"Xin chào " + (String) request.getParameter("username") + "!\n" +
+							"Tài khoản của bạn đã được đăng ký thành công.");
+		} catch (Exception ex) {
+			System.out.println(ex);
 		}
 		redirector.redirect(request, response, "/login", "Đăng ký thành công!", 1);
 	}

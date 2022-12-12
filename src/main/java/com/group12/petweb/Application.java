@@ -22,7 +22,9 @@ import com.group12.petweb.dao.UserCredentialsDaoImpl;
 import com.group12.petweb.filter.AuthorizationFilter;
 import com.group12.petweb.filter.CartFilter;
 import com.group12.petweb.service.ContextRedirector;
+import com.group12.petweb.service.Mail;
 import com.group12.petweb.service.Redirector;
+import com.group12.petweb.service.SMTPMail;
 import com.group12.petweb.util.CloudinaryUtils;
 import com.group12.petweb.util.CloudinaryUtilsImpl;
 import com.group12.petweb.util.MathUtils;
@@ -31,6 +33,13 @@ import com.group12.petweb.util.PaginationUtils;
 import com.group12.petweb.util.PaginationUtilsImpl;
 import com.cloudinary.*;
 
+import jakarta.mail.Authenticator;
+import jakarta.mail.Message;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import org.hibernate.cfg.Environment;
@@ -59,6 +68,7 @@ public class Application implements ServletContextListener, HttpSessionListener,
 	private final CartItemDao cartItemDao;
 	private final Cloudinary cloudinary;
 	private final CloudinaryUtils cloudinaryUtils;
+	private final Mail mail;
 
 	public Application() {
 		final Properties properties = new Properties();
@@ -81,6 +91,7 @@ public class Application implements ServletContextListener, HttpSessionListener,
 			}
 		});
 		cloudinaryUtils = new CloudinaryUtilsImpl(cloudinary);
+		mail = new SMTPMail(System.getenv("MAIL_ADDRESS"), System.getenv("MAIL_PASSWORD"));
 	}
 
 	@Override
@@ -89,7 +100,7 @@ public class Application implements ServletContextListener, HttpSessionListener,
 		final var context = sce.getServletContext();
 		context.addServlet("homeServlet", new HomeController(petDao, cloudinaryUtils)).addMapping("/home");
 		context.addServlet("loginServlet", new LoginController(userCredentialsDao, redirector)).addMapping("/login");
-		context.addServlet("signUpServlet", new SignUpController(userCredentialsDao, redirector)).addMapping("/signup");
+		context.addServlet("signUpServlet", new SignUpController(userCredentialsDao, redirector, mail)).addMapping("/signup");
 		context.addServlet("productCollectionServlet",
 				new ProductCollectionController(petDao, mathUtils, cloudinaryUtils)).addMapping("/product");
 
