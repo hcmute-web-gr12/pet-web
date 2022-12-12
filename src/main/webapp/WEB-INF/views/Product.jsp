@@ -44,28 +44,6 @@
 							<span class="ml-1.5 text-xs"> Hover to zoom </span>
 						</div>
 					</div>
-
-					<ul class="mt-1 flex gap-1">
-						<li>
-							<img alt="${props.pet.name}" src="${props.pet.imagePublicId}"
-								class="border h-16 w-16 rounded-md object-cover" />
-						</li>
-
-						<li>
-							<img alt="${props.pet.name}" src="${props.pet.imagePublicId}"
-								class="border h-16 w-16 rounded-md object-cover" />
-						</li>
-
-						<li>
-							<img alt="${props.pet.name}" src="${props.pet.imagePublicId}"
-								class="border h-16 w-16 rounded-md object-cover" />
-						</li>
-
-						<li>
-							<img alt="${props.pet.name}" src="${props.pet.imagePublicId}"
-								class="border h-16 w-16 rounded-md object-cover" />
-						</li>
-					</ul>
 				</div>
 
 				<div class="flex flex-col gap-y-4 lg:sticky lg:top-0 lg:pt-2">
@@ -75,57 +53,56 @@
 					</div>
 					<form id="cart-form" class="flex flex-col gap-y-4">
 						<fieldset>
-							<legend class="text-lg font-bold">Color</legend>
+							<legend class="text-lg font-bold">Màu sắc</legend>
 
 							<div class="mt-2 flex gap-1">
 								<label for="color_green" class="cursor-pointer">
 									<input type="radio" id="color_green" name="color" class="peer sr-only" checked />
 
 									<span
-										class="block h-6 w-6 rounded-full border border-gray-200 bg-green-700 ring-1 ring-transparent ring-offset-1 peer-checked:ring-gray-300"></span>
+										class="block h-6 w-6 rounded-full border border-gray-200 bg-green-700 ring ring-transparent peer-checked:ring-brand-600/60"></span>
 								</label>
 
 								<label for="color_blue" class="cursor-pointer">
 									<input type="radio" id="color_blue" name="color" class="peer sr-only" />
 
 									<span
-										class="block h-6 w-6 rounded-full border border-gray-200 bg-blue-700 ring-1 ring-transparent ring-offset-1 peer-checked:ring-gray-300"></span>
+										class="block h-6 w-6 rounded-full border border-gray-200 bg-blue-700 ring ring-transparent peer-checked:ring-brand-600/60"></span>
 								</label>
 
 								<label for="color_pink" class="cursor-pointer">
 									<input type="radio" id="color_pink" name="color" class="peer sr-only" />
 
 									<span
-										class="block h-6 w-6 rounded-full border border-gray-200 bg-pink-700 ring-1 ring-transparent ring-offset-1 peer-checked:ring-gray-300"></span>
+										class="block h-6 w-6 rounded-full border border-gray-200 bg-pink-700 ring ring-transparent peer-checked:ring-brand-600/60"></span>
 								</label>
 
 								<label for="color_red" class="cursor-pointer">
 									<input type="radio" id="color_red" name="color" class="peer sr-only" />
 
 									<span
-										class="block h-6 w-6 rounded-full border border-gray-200 bg-red-700 ring-1 ring-transparent ring-offset-1 peer-checked:ring-gray-300"></span>
+										class="block h-6 w-6 rounded-full border border-gray-200 bg-red-700 ring ring-transparent peer-checked:ring-brand-600/60"></span>
 								</label>
 
 								<label for="color_indigo" class="cursor-pointer">
 									<input type="radio" id="color_indigo" name="color" class="peer sr-only" />
 
 									<span
-										class="block h-6 w-6 rounded-full border border-gray-200 bg-indigo-700 ring-1 ring-transparent ring-offset-1 peer-checked:ring-gray-300"></span>
+										class="block h-6 w-6 rounded-full border border-gray-200 bg-indigo-700 ring ring-transparent peer-checked:ring-brand-600/60"></span>
 								</label>
 							</div>
 						</fieldset>
 
 						<fieldset>
-							<legend class="text-lg font-bold">Category</legend>
+							<legend class="text-lg font-bold">Phân loại</legend>
 
 							<div class="mt-2 flex gap-1">
 								<label for="material_cotton" class="cursor-pointer">
 									<input type="radio" id="material_cotton" name="material" class="peer sr-only"
 										checked />
-
 									<span
 										class="block rounded-full border border-gray-200 px-3 py-1 text-xs peer-checked:bg-gray-100">
-										Cotton
+										Chó
 									</span>
 								</label>
 
@@ -135,7 +112,7 @@
 
 									<span
 										class="block rounded-full border border-gray-200 px-3 py-1 text-xs peer-checked:bg-gray-100">
-										Wool
+										Giống tây
 									</span>
 								</label>
 							</div>
