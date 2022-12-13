@@ -38,6 +38,23 @@
 								<c:param name="padding" value="p-2" />
 							</c:import>
 						</li>
+						<li>
+							<c:import url="/WEB-INF/templates/Link.jsp">
+								<c:param name="slot" value="<p class='material-symbols-rounded'>shopping_cart</p>" />
+								<c:param name="href" value="/cart" />
+								<c:param name="padding" value="p-2" />
+							</c:import>
+						</li>
+						<li>
+							<c:import url="/WEB-INF/templates/Link.jsp">
+								<c:param name="slot" value="<p class='material-symbols-rounded'>logout</p>" />
+								<c:param name="href" value="/logout" />
+								<c:param name="padding" value="p-0" />
+								<c:param name="text" value="text-brand" />
+								<c:param name="bg" value="bg-transparent" />
+								<c:param name="border" value="border-transparent" />
+							</c:import>
+						</li>
 					</c:when>
 					<c:otherwise>
 						<li>
