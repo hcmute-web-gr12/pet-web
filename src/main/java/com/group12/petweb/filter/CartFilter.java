@@ -1,6 +1,7 @@
 package com.group12.petweb.filter;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.UUID;
 
 import javax.servlet.Filter;
@@ -9,7 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import com.group12.petweb.dao.CartDao;
 import com.group12.petweb.model.UserSession;
@@ -26,7 +26,7 @@ public class CartFilter implements Filter {
 			throws IOException, ServletException {
 		final var httpRequest = (HttpServletRequest) request;
 		final var session = httpRequest.getSession(false);
-		if (session == null) {
+		if (session == null || session.getAttribute("cartId") != null) {
 			chain.doFilter(request, response);
 			return;
 		}
@@ -35,7 +35,7 @@ public class CartFilter implements Filter {
 			chain.doFilter(request, response);
 			return;
 		}
-		final var optional = cDao.findOngoingByUserId(userSession.getId());
+		final var optional = cDao.findByUserId(userSession.getId());
 		if (optional.isEmpty()) {
 			session.setAttribute("cartId", UUID.randomUUID());
 		} else {
