@@ -51,4 +51,11 @@ public class UserCredentialsDaoImpl implements UserCredentialsDao {
 			manager.getTransaction().commit();
 		}
 	}
+
+	@Override()
+	public UserCredentials getReference(UUID id) {
+		try (final EntityManager manager = factory.createEntityManager()) {
+			return manager.getReference(UserCredentials.class, id);
+		}
+	}
 }

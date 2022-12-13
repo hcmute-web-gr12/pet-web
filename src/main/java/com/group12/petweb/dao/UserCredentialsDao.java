@@ -8,7 +8,10 @@ import java.util.UUID;
 
 public interface UserCredentialsDao {
 	Optional<UserCredentials> findById(UUID id);
+
 	Optional<UserCredentials> findByEmail(String email);
 
 	void create(UserCredentials model) throws PersistenceException;
+
+	UserCredentials getReference(UUID id);
 }

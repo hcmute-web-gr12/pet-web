@@ -139,4 +139,11 @@ public class PetDaoImpl implements PetDao {
 			return count;
 		}
 	}
+
+	@Override()
+	public Pet getReference(UUID id) {
+		try (final EntityManager manager = factory.createEntityManager()) {
+			return manager.getReference(Pet.class, id);
+		}
+	}
 }

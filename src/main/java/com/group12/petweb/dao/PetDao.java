@@ -18,4 +18,5 @@ public interface PetDao {
 	long countAll() throws PersistenceException;
 	int deleteById(UUID id) throws PersistenceException;
 	int deleteById(List<UUID> ids) throws PersistenceException;
+	Pet getReference(UUID id);
 }
