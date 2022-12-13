@@ -2,6 +2,7 @@ package com.group12.petweb;
 
 import com.group12.petweb.controller.AdminDashboardController;
 import com.group12.petweb.controller.AdminPetController;
+import com.group12.petweb.controller.CartController;
 import com.group12.petweb.controller.HomeController;
 import com.group12.petweb.controller.LoginController;
 import com.group12.petweb.controller.LogoutController;
@@ -124,6 +125,9 @@ public class Application implements ServletContextListener, HttpSessionListener,
 		context.addServlet("logoutServlet", new LogoutController(redirector))
 				.addMapping("/logout");
 
+		context.addServlet("cartServlet", new CartController(cartDao, cloudinaryUtils))
+				.addMapping("/cart");
+
 		context.addFilter("authorizationFilter", new AuthorizationFilter(redirector)).addMappingForServletNames(
 				EnumSet.of(DispatcherType.REQUEST),
 				false,
@@ -133,7 +137,8 @@ public class Application implements ServletContextListener, HttpSessionListener,
 				"adminPetServlet",
 				"adminPetApiServlet",
 				"cartApiServlet",
-				"logoutServlet");
+				"logoutServlet",
+				"cartServlet");
 		context.addFilter("cartFilter", new CartFilter(cartDao)).addMappingForServletNames(
 				EnumSet.of(DispatcherType.REQUEST),
 				true,
