@@ -119,7 +119,7 @@ public class Application implements ServletContextListener, HttpSessionListener,
 		context.addServlet("productServlet", new ProductController(petDao, redirector, cloudinaryUtils))
 				.addMapping("/product/*");
 
-		context.addServlet("cartApiServlet", new CartApiController(cartDao, petDao, userCredentialsDao))
+		context.addServlet("cartApiServlet", new CartApiController(cartDao, petDao, userCredentialsDao, cartItemDao))
 				.addMapping("/api/cart");
 
 		context.addServlet("logoutServlet", new LogoutController(redirector))
