@@ -4,6 +4,7 @@ import com.group12.petweb.controller.AdminDashboardController;
 import com.group12.petweb.controller.AdminPetController;
 import com.group12.petweb.controller.HomeController;
 import com.group12.petweb.controller.LoginController;
+import com.group12.petweb.controller.LogoutController;
 import com.group12.petweb.controller.ProductCollectionController;
 import com.group12.petweb.controller.ProductController;
 import com.group12.petweb.controller.SignUpController;
@@ -39,6 +40,7 @@ import org.hibernate.cfg.Environment;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebListener;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionEvent;
@@ -46,6 +48,7 @@ import javax.servlet.http.HttpSessionListener;
 
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Properties;
 
 @WebListener
@@ -118,6 +121,9 @@ public class Application implements ServletContextListener, HttpSessionListener,
 		context.addServlet("cartApiServlet", new CartApiController(cartDao, petDao, userCredentialsDao))
 				.addMapping("/api/cart");
 
+		context.addServlet("logoutServlet", new LogoutController(redirector))
+				.addMapping("/logout");
+
 		context.addFilter("authorizationFilter", new AuthorizationFilter(redirector)).addMappingForServletNames(
 				EnumSet.of(DispatcherType.REQUEST),
 				false,
@@ -126,7 +132,8 @@ public class Application implements ServletContextListener, HttpSessionListener,
 				"adminDashboardServlet",
 				"adminPetServlet",
 				"adminPetApiServlet",
-				"cartApiServlet");
+				"cartApiServlet",
+				"logoutServlet");
 		context.addFilter("cartFilter", new CartFilter(cartDao)).addMappingForServletNames(
 				EnumSet.of(DispatcherType.REQUEST),
 				true,
