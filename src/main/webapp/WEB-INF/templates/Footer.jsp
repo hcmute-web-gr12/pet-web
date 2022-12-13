@@ -6,9 +6,9 @@
             <h3 class="mb-2 font-bold uppercase tracking-wide text-stone-800">Liên hệ Brand</h3>
             <a href="#" class="transition hover:text-stone-900">Trụ sở: 59 Văn Cao, Liễu Giai, Ba Đình, Hà Nội</a>
             <a href="#" class="transition hover:text-stone-900">Trại giống: Quỳnh Hội, Quỳnh Phụ, Thái Bình</a>
-            <a href="#" class="transition hover:text-stone-900">Hotline: 0888 08 3388</a>
-            <a href="#" class="transition hover:text-stone-900">Website: https://azpet.com.vn</a>
-            <a href="#" class="transition hover:text-stone-900">Email: contact@azpet.com.vn</a>
+            <a href="#" class="transition hover:text-stone-900">Hotline: 0123 456 789</a>
+            <a href="#" class="transition hover:text-stone-900">Website: https://petweb.com</a>
+            <a href="#" class="transition hover:text-stone-900">Email: contact@petweb.com</a>
         </nav>
         <nav class="flex flex-col items-start space-y-2.5 md:space-y-1.5">
             <h3 class="mb-2 font-bold uppercase tracking-wide text-stone-800">Chính sách mua hàng</h3>
