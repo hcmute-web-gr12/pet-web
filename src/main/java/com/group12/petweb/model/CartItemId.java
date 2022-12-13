@@ -10,6 +10,14 @@ public class CartItemId implements Serializable {
 	private UUID cartId;
 	private UUID petId;
 
+	public CartItemId() {
+	}
+
+	public CartItemId(UUID cartId, UUID petId) {
+		this.cartId = cartId;
+		this.petId = petId;
+	}
+
 	@Column(name = "CART_ID")
 	public UUID getCartId() {
 		return cartId;
