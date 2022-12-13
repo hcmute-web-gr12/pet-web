@@ -31,7 +31,7 @@
 			<div class="grid gap-8 lg:grid-cols-4 lg:items-start">
 				<div class="lg:col-span-3">
 					<img alt="${props.pet.name}" src="${props.pet.imagePublicId}"
-						class="border h-72 w-full rounded-xl object-cover lg:h-[540px]" />
+						class="border h-72 bg-stone-100 w-full rounded-xl object-contain lg:h-[540px]" />
 				</div>
 
 				<div class="flex flex-col gap-y-4 lg:sticky lg:top-0 lg:pt-2">
