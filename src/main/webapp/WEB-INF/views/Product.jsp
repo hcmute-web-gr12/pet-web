@@ -75,7 +75,7 @@
 								</c:import>
 							</c:otherwise>
 						</c:choose>
-						<p id="error" class="text-sm font-medium text-red-600 opacity-0 transition-opacity">
+						<p id="form-result" class="text-sm font-medium text-red-600 opacity-0 transition-opacity">
 						</p>
 					</form>
 				</div>
