@@ -17,7 +17,6 @@ public class Cart {
 	private UserCredentials user;
 	private List<CartItem> items = new LinkedList<CartItem>();
 	private Timestamp createdDate;
-	private boolean ordered;
 
 	public Cart() {
 	}
@@ -28,12 +27,6 @@ public class Cart {
 
 	public Cart(UserCredentials user, CartItem... items) {
 		this.user = user;
-		this.items = Arrays.asList(items);
-	}
-
-	public Cart(UserCredentials user, boolean ordered, CartItem... items) {
-		this.user = user;
-		this.ordered = ordered;
 		this.items = Arrays.asList(items);
 	}
 
@@ -64,11 +57,6 @@ public class Cart {
 		return items;
 	}
 
-	@Column(name = "ORDERED")
-	public boolean isOrdered() {
-		return ordered;
-	}
-
 	public void setId(UUID id) {
 		this.id = id;
 	}
@@ -85,10 +73,6 @@ public class Cart {
 		this.createdDate = createdDate;
 	}
 
-	public void setOrdered(boolean ordered) {
-		this.ordered = ordered;
-	}
-
 	@Override
 	public String toString() {
 		return "Cart{" +
@@ -96,7 +80,6 @@ public class Cart {
 				", createdDate='" + createdDate + '\'' +
 				", user='" + user.getId() + '\'' +
 				", items='" + items + '\'' +
-				", ordered='" + ordered + '\'' +
 				'}';
 	}
 }

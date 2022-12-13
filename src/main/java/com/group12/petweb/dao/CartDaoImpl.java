@@ -46,11 +46,11 @@ public class CartDaoImpl implements CartDao {
 	}
 
 	@Override
-	public Optional<Cart> findOngoingByUserId(UUID id) {
+	public Optional<Cart> findByUserId(UUID id) {
 		try (final var manager = factory.createEntityManager()) {
 			manager.getTransaction().begin();
 			final var optional = manager
-				.createQuery("SELECT c FROM Cart c WHERE c.user.id = :id AND c.ordered = false", Cart.class)
+				.createQuery("SELECT c FROM Cart c WHERE c.user.id = :id", Cart.class)
 				.setParameter("id", id)
 				.setMaxResults(1)
 				.getResultStream()
