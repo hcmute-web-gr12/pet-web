@@ -34,16 +34,12 @@ public class CartApiController extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 	}
 
-	private class PostBody {
-		public String id;
-	}
-
 	@Override()
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		PostBody body;
+		String idString;
 		try {
-			body = new Gson().fromJson(new String(request.getInputStream().readAllBytes()), PostBody.class);
-			if (body.id == null || body.id.isEmpty()) {
+			idString = request.getParameter("id");
+			if (idString == null || idString.isEmpty()) {
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 				response.getWriter().print("missing id parameter");
 				return;
@@ -55,7 +51,7 @@ public class CartApiController extends HttpServlet {
 		}
 		UUID id;
 		try {
-			id = UUID.fromString(body.id);
+			id = UUID.fromString(idString);
 		} catch (Exception ex) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			response.getWriter().print(ex.getMessage());
