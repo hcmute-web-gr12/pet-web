@@ -7,14 +7,23 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "CART_ITEM")
 public class CartItem {
-	private CartItemId cartItemId;
+	private CartItemId id = new CartItemId();
 	private Cart cart;
 	private Pet pet;
 	private int quantity;
 
+	public CartItem() {
+	}
+
+	public CartItem(Cart cart, Pet pet, int quantity) {
+		this.cart = cart;
+		this.pet = pet;
+		this.quantity = quantity;
+	}
+
 	@EmbeddedId
-	public CartItemId getCartItemId() {
-		return cartItemId;
+	public CartItemId getId() {
+		return id;
 	}
 
 	@NotNull
@@ -39,8 +48,8 @@ public class CartItem {
 		return quantity;
 	}
 
-	public void setCartItemId(CartItemId cartItemId) {
-		this.cartItemId = cartItemId;
+	public void setId(CartItemId id) {
+		this.id = id;
 	}
 
 	public void setCart(Cart cart) {
@@ -58,9 +67,10 @@ public class CartItem {
 	@Override
 	public String toString() {
 		return "CartItem{" +
-				"cart='" + cart.getId() + '\'' +
+				"id='" + id + '\'' +
+				", cart='" + cart.getId() + '\'' +
 				", pet='" + pet.getId() + '\'' +
-				", quantity='" + quantity + '\'' +
+				", quantity=" + quantity +
 				'}';
 	}
 }
