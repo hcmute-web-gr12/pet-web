@@ -2,77 +2,101 @@ package com.group12.petweb.controller.api;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.group12.petweb.dao.CartDao;
-import com.group12.petweb.dao.CartItemDao;
 import com.group12.petweb.dao.PetDao;
 import com.group12.petweb.dao.UserCredentialsDao;
 import com.group12.petweb.model.Cart;
 import com.group12.petweb.model.CartItem;
-import com.group12.petweb.model.CartItemId;
+import com.group12.petweb.model.UserSession;
 
 public class CartApiController extends HttpServlet {
 	private final CartDao cartDao;
 	private final PetDao petDao;
-	private final UserCredentialsDao uDao;
-	private final CartItemDao ciDao;
+	private final UserCredentialsDao ucDao;
 
-	public CartApiController(CartDao cartDao, PetDao petDao, UserCredentialsDao uDao, CartItemDao ciDao) {
+	public CartApiController(CartDao cartDao, PetDao petDao, UserCredentialsDao uDao) {
 		this.cartDao = cartDao;
 		this.petDao = petDao;
-		this.uDao = uDao;
-		this.ciDao = ciDao;
+		this.ucDao = uDao;
 	}
 
 	@Override()
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		final var user = uDao.findByEmail("duydang2412@gmail.com");
-		final var pets = petDao.findSomeOffset(0, 3);
-		final var cart = new Cart();
-		final var item1 = new CartItem();
-		final var item2 = new CartItem();
-		final var item3 = new CartItem();
-		final var items = new ArrayList<CartItem>();
-		cart.setUser(user.get());
-		System.out.println(cart);
-		cartDao.create(cart);
-		item1.setPet(pets[0]);
-		item1.setQuantity(100);
-		item1.setCart(cart);
-		item1.setCartItemId(new CartItemId(){{
-			setPetId(pets[0].getId());
-			setCartId(cart.getId());
-		}});
-		item2.setPet(pets[1]);
-		item2.setQuantity(300);
-		item2.setCart(cart);
-		item2.setCartItemId(new CartItemId(){{
-			setPetId(pets[1].getId());
-			setCartId(cart.getId());
-		}});
-		item3.setPet(pets[2]);
-		item3.setQuantity(500);
-		item3.setCart(cart);
-		item3.setCartItemId(new CartItemId(){{
-			setPetId(pets[2].getId());
-			setCartId(cart.getId());
-		}});
-		items.add(item1);
-		items.add(item2);
-		items.add(item3);
-		ciDao.update(item1);
-		ciDao.update(item2);
-		ciDao.update(item3);
-		cart.setItems(items);
-		System.out.println(cart);
-		cartDao.update(cart);
+	}
 
-		final var cart2 = cartDao.findById(cart.getId());
-		System.out.println(cart2);
+	private class PostBody {
+		public String id;
+	}
+
+	@Override()
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		PostBody body;
+		try {
+			body = new Gson().fromJson(new String(request.getInputStream().readAllBytes()), PostBody.class);
+			if (body.id == null || body.id.isEmpty()) {
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				response.getWriter().print("missing id parameter");
+				return;
+			}
+		} catch (JsonSyntaxException ex) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			response.getWriter().print(ex.getMessage());
+			return;
+		}
+		UUID id;
+		try {
+			id = UUID.fromString(body.id);
+		} catch (Exception ex) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			response.getWriter().print(ex.getMessage());
+			return;
+		}
+		final var session = request.getSession(false);
+		final var cartId = (UUID) session.getAttribute("cartId");
+		if (cartId == null) {
+			setCartSession(session, id);
+		} else {
+			final var optional = cartDao.findById(cartId);
+			if (optional.isEmpty()) {
+				setCartSession(session, id);
+			} else {
+				final var cart = optional.get();
+				var duplicated = false;
+				for(var item : cart.getItems()) {
+					if (item.getPet().getId().equals(id)) {
+						item.setQuantity(item.getQuantity() + 1);
+						duplicated = true;
+						break;
+					}
+				}
+				if (!duplicated) {
+					final var item = new CartItem(cart, petDao.getReference(id), 1);
+					cart.getItems().add(item);
+				}
+				cartDao.update(cart);
+			}
+		}
+		response.setStatus(HttpServletResponse.SC_OK);
+		response.getWriter().print("");
+	}
+
+	private void setCartSession(HttpSession session, UUID petId) {
+		final var userSession = (UserSession) session.getAttribute("user");
+		final var cart = new Cart(ucDao.getReference(userSession.getId()));
+		final var item = new CartItem(cart, petDao.getReference(petId), 1);
+		cart.setId(UUID.randomUUID());
+		cart.getItems().add(item);
+		cartDao.update(cart);
+		session.setAttribute("cartId", cart.getId());
 	}
 }

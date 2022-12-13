@@ -33,13 +33,6 @@ import com.group12.petweb.util.PaginationUtils;
 import com.group12.petweb.util.PaginationUtilsImpl;
 import com.cloudinary.*;
 
-import jakarta.mail.Authenticator;
-import jakarta.mail.Message;
-import jakarta.mail.PasswordAuthentication;
-import jakarta.mail.Session;
-import jakarta.mail.Transport;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeMessage;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import org.hibernate.cfg.Environment;
@@ -122,7 +115,7 @@ public class Application implements ServletContextListener, HttpSessionListener,
 		context.addServlet("productServlet", new ProductController(petDao, redirector, cloudinaryUtils))
 				.addMapping("/product/*");
 
-		context.addServlet("cartApiServlet", new CartApiController(cartDao, petDao, userCredentialsDao, cartItemDao))
+		context.addServlet("cartApiServlet", new CartApiController(cartDao, petDao, userCredentialsDao))
 				.addMapping("/api/cart");
 
 		context.addFilter("authorizationFilter", new AuthorizationFilter(redirector)).addMappingForServletNames(
@@ -132,7 +125,8 @@ public class Application implements ServletContextListener, HttpSessionListener,
 				"userProfileApiServlet",
 				"adminDashboardServlet",
 				"adminPetServlet",
-				"adminPetApiServlet");
+				"adminPetApiServlet",
+				"cartApiServlet");
 		context.addFilter("cartFilter", new CartFilter(cartDao)).addMappingForServletNames(
 				EnumSet.of(DispatcherType.REQUEST),
 				true,
