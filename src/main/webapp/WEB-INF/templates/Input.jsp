@@ -7,6 +7,7 @@
 	bg-stone-50 placeholder-stone-500
 	transition duration-100 ease-in-out
 	border border-stone-200 rounded-lg
+	transition
 	focus:border-transparent focus:ring focus:${param.getOrDefault('ring', 'ring-brand')}/60
 	disabled:cursor-not-allowed disabled:bg-stone-200 disabled:opacity-75" />
 
