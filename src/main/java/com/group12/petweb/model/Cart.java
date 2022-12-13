@@ -1,6 +1,8 @@
 package com.group12.petweb.model;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,9 +15,27 @@ import jakarta.persistence.*;
 public class Cart {
 	private UUID id;
 	private UserCredentials user;
-	private List<CartItem> items;
+	private List<CartItem> items = new LinkedList<CartItem>();
 	private Timestamp createdDate;
 	private boolean ordered;
+
+	public Cart() {
+	}
+	
+	public Cart(UserCredentials user) {
+		this.user = user;
+	}
+
+	public Cart(UserCredentials user, CartItem... items) {
+		this.user = user;
+		this.items = Arrays.asList(items);
+	}
+
+	public Cart(UserCredentials user, boolean ordered, CartItem... items) {
+		this.user = user;
+		this.ordered = ordered;
+		this.items = Arrays.asList(items);
+	}
 
 	@Id
 	@NotNull
@@ -39,7 +59,7 @@ public class Cart {
 	}
 
 	@Column(name = "ITEMS")
-	@OneToMany(mappedBy = "cart", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "cart", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	public List<CartItem> getItems() {
 		return items;
 	}
