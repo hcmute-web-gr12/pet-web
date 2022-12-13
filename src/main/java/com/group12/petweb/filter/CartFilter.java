@@ -1,7 +1,6 @@
 package com.group12.petweb.filter;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.UUID;
 
 import javax.servlet.Filter;

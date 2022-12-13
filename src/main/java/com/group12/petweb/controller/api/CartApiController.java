@@ -1,7 +1,6 @@
 package com.group12.petweb.controller.api;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.UUID;
 
 import javax.servlet.ServletException;
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.group12.petweb.dao.CartDao;
 import com.group12.petweb.dao.PetDao;
