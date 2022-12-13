@@ -25,7 +25,7 @@
 			<ul class="w-full lg:w-2/3 grid grid-cols-3 lg:grid-cols-5 grid-flow-col gap-4">
 				<c:forEach var="pet" varStatus="status" items="${props.cats}">
 					<li>
-						<a href="#" class="block">
+						<a href="/product/${pet.id}" class="block">
 							<img alt="${pet.name}" src="${pet.imagePublicId}"
 								class="aspect-[7/9] w-full object-cover bg-stone-200 border" />
 
