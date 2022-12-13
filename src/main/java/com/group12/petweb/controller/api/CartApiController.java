@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.JsonSyntaxException;
 import com.group12.petweb.dao.CartDao;
+import com.group12.petweb.dao.CartItemDao;
 import com.group12.petweb.dao.PetDao;
 import com.group12.petweb.dao.UserCredentialsDao;
 import com.group12.petweb.model.Cart;
@@ -21,11 +22,13 @@ public class CartApiController extends HttpServlet {
 	private final CartDao cartDao;
 	private final PetDao petDao;
 	private final UserCredentialsDao ucDao;
+	private final CartItemDao ciDao;
 
-	public CartApiController(CartDao cartDao, PetDao petDao, UserCredentialsDao uDao) {
+	public CartApiController(CartDao cartDao, PetDao petDao, UserCredentialsDao uDao, CartItemDao ciDao) {
 		this.cartDao = cartDao;
 		this.petDao = petDao;
 		this.ucDao = uDao;
+		this.ciDao = ciDao;
 	}
 
 	@Override()
@@ -70,14 +73,14 @@ public class CartApiController extends HttpServlet {
 					if (item.getPet().getId().equals(id)) {
 						item.setQuantity(item.getQuantity() + 1);
 						duplicated = true;
+						ciDao.update(item);
 						break;
 					}
 				}
 				if (!duplicated) {
 					final var item = new CartItem(cart, petDao.getReference(id), 1);
-					cart.getItems().add(item);
+					ciDao.update(item);
 				}
-				cartDao.update(cart);
 			}
 		}
 		response.setStatus(HttpServletResponse.SC_OK);
@@ -86,11 +89,11 @@ public class CartApiController extends HttpServlet {
 
 	private void setCartSession(HttpSession session, UUID petId) {
 		final var userSession = (UserSession) session.getAttribute("user");
+		System.out.println((UUID)session.getAttribute("cartId"));
 		final var cart = new Cart(ucDao.getReference(userSession.getId()));
 		final var item = new CartItem(cart, petDao.getReference(petId), 1);
-		cart.setId(UUID.randomUUID());
-		cart.getItems().add(item);
-		cartDao.update(cart);
+		cartDao.create(cart);
+		ciDao.update(item);
 		session.setAttribute("cartId", cart.getId());
 	}
 }
