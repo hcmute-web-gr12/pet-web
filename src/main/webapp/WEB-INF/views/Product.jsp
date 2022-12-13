@@ -23,28 +23,15 @@
 	<c:import url="../templates/Header.jsp" />
 	<main class="my-8 mx-4 flex flex-col gap-8 bg-stone-50">
 		<section class="relative mx-auto max-w-screen-xl">
-			<div class="lg:hidden">
+			<div class="lg:hidden mb-2">
 				<h1 class="text-2xl text-brand font-bold lg:text-3xl">${props.pet.name}</h1>
 				<p class="mt-1 text-sm text-gray-500">ID: ${props.pet.id.toString()}</p>
 			</div>
 
 			<div class="grid gap-8 lg:grid-cols-4 lg:items-start">
 				<div class="lg:col-span-3">
-					<div class="relative mt-4">
-						<img alt="${props.pet.name}" src="${props.pet.imagePublicId}"
-							class="border h-72 w-full rounded-xl object-cover lg:h-[540px]" />
-
-						<div
-							class="absolute bottom-4 left-1/2 inline-flex -translate-x-1/2 items-center rounded-full bg-black/75 px-3 py-1.5 text-white">
-							<svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-								stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-									d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-							</svg>
-
-							<span class="ml-1.5 text-xs"> Hover to zoom </span>
-						</div>
-					</div>
+					<img alt="${props.pet.name}" src="${props.pet.imagePublicId}"
+						class="border h-72 w-full rounded-xl object-cover lg:h-[540px]" />
 				</div>
 
 				<div class="flex flex-col gap-y-4 lg:sticky lg:top-0 lg:pt-2">
