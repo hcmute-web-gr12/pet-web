@@ -11,6 +11,7 @@
 	<c:import url="../templates/Head.jsp" />
 	<script>
 		const props = {
+			id: '${props.pet.id.toString()}',
 			description: `${fn: replace(fn: replace(props.pet.description, "`", "&grave;"), "<", "&lt;")}`,
 			stock: ${props.pet.stock},
 		 };
@@ -52,72 +53,6 @@
 						<p class="mt-1 text-sm text-gray-500">ID: ${props.pet.id.toString()}</p>
 					</div>
 					<form id="cart-form" class="flex flex-col gap-y-4">
-						<fieldset>
-							<legend class="text-lg font-bold">Màu sắc</legend>
-
-							<div class="mt-2 flex gap-1">
-								<label for="color_green" class="cursor-pointer">
-									<input type="radio" id="color_green" name="color" class="peer sr-only" checked />
-
-									<span
-										class="block h-6 w-6 rounded-full border border-gray-200 bg-green-700 ring ring-transparent peer-checked:ring-brand-600/60"></span>
-								</label>
-
-								<label for="color_blue" class="cursor-pointer">
-									<input type="radio" id="color_blue" name="color" class="peer sr-only" />
-
-									<span
-										class="block h-6 w-6 rounded-full border border-gray-200 bg-blue-700 ring ring-transparent peer-checked:ring-brand-600/60"></span>
-								</label>
-
-								<label for="color_pink" class="cursor-pointer">
-									<input type="radio" id="color_pink" name="color" class="peer sr-only" />
-
-									<span
-										class="block h-6 w-6 rounded-full border border-gray-200 bg-pink-700 ring ring-transparent peer-checked:ring-brand-600/60"></span>
-								</label>
-
-								<label for="color_red" class="cursor-pointer">
-									<input type="radio" id="color_red" name="color" class="peer sr-only" />
-
-									<span
-										class="block h-6 w-6 rounded-full border border-gray-200 bg-red-700 ring ring-transparent peer-checked:ring-brand-600/60"></span>
-								</label>
-
-								<label for="color_indigo" class="cursor-pointer">
-									<input type="radio" id="color_indigo" name="color" class="peer sr-only" />
-
-									<span
-										class="block h-6 w-6 rounded-full border border-gray-200 bg-indigo-700 ring ring-transparent peer-checked:ring-brand-600/60"></span>
-								</label>
-							</div>
-						</fieldset>
-
-						<fieldset>
-							<legend class="text-lg font-bold">Phân loại</legend>
-
-							<div class="mt-2 flex gap-1">
-								<label for="material_cotton" class="cursor-pointer">
-									<input type="radio" id="material_cotton" name="material" class="peer sr-only"
-										checked />
-									<span
-										class="block rounded-full border border-gray-200 px-3 py-1 text-xs peer-checked:bg-gray-100">
-										Chó
-									</span>
-								</label>
-
-								<label for="material_wool" class="cursor-pointer">
-									<input type="radio" id="material_wool" name="material" class="peer sr-only"
-										checked />
-
-									<span
-										class="block rounded-full border border-gray-200 px-3 py-1 text-xs peer-checked:bg-gray-100">
-										Giống tây
-									</span>
-								</label>
-							</div>
-						</fieldset>
-
 						<div>
 							<p class="text-xl font-bold">
 								<fmt:formatNumber value="${props.pet.price}" type="currency" />
@@ -133,6 +68,7 @@
 									<p class="whitespace-nowrap text-sm font-medium text-stone-200">Hết hàng</p>
 								</div>
 								<c:import url="/WEB-INF/templates/Button.jsp">
+									<c:param name="id" value="add-to-cart" />
 									<c:param name="slot" value="Thêm vào giỏ hàng" />
 									<c:param name="type" value="submit" />
 									<c:param name="bg" value="bg-brand w-fit lg:w-full" />
@@ -143,6 +79,7 @@
 							</c:when>
 							<c:otherwise>
 								<c:import url="/WEB-INF/templates/Button.jsp">
+									<c:param name="id" value="add-to-cart" />
 									<c:param name="slot" value="Thêm vào giỏ hàng" />
 									<c:param name="type" value="submit" />
 									<c:param name="bg" value="bg-brand" />
@@ -151,6 +88,8 @@
 								</c:import>
 							</c:otherwise>
 						</c:choose>
+						<p id="error" class="text-sm font-medium text-red-600 opacity-0 transition-opacity">
+						</p>
 					</form>
 				</div>
 
