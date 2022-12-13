@@ -7,25 +7,16 @@
 <c:set var="fontSize" value="${param.getOrDefault('font-size', 'text-base')}" />
 <c:set var="ring" value="${param.getOrDefault('ring', 'ring-primary')}" />
 <c:set var="padding" value="${param.getOrDefault('padding', 'px-4 py-2')}" />
+<c:set var="__class" value="${param.className} ${padding} ${fontSize} ${rounded} ${bg} ${text} ${border} ${param.slot} w-auto text-center flex h-full justify-center items-center border transition focus:outline-none focus:border-transparent focus:ring focus:${ring}/60 disabled:bg-stone-500 disabled:border-stone-600" />
 
 <c:choose>
 	<c:when test="${param.disabled}">
-		<button disabled id="${param.id}" type="${param.type}" class="${param.className} text-center flex h-full justify-center items-center ${padding} ${fontSize}
-		${rounded} ${bg} ${text}
-		border ${border}
-		transition duration-100
-		focus:outline-none focus:border-transparent focus:ring focus:${ring}/60
-		disabled:bg-stone-500 disabled:border-stone-600">
+		<button disabled id="${param.id}" type="${param.type}" class="${__class}">
 			${param.slot}
 		</button>
 	</c:when>
 	<c:otherwise>
-		<button id="${param.id}" type="${param.type}" class="${param.className} text-center flex h-full justify-center items-center ${padding} ${fontSize}
-		${rounded} ${bg} ${text}
-		border ${border}
-		transition duration-100
-		focus:outline-none focus:border-transparent focus:ring focus:${ring}/60
-		disabled:bg-stone-500 disabled:border-stone-600">
+		<button id="${param.id}" type="${param.type}" class="${__class}">
 			${param.slot}
 		</button>
 	</c:otherwise>
