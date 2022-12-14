@@ -27,13 +27,13 @@ public class HomeController extends HttpServlet {
 			pet.setImagePublicId(cloudinaryUtils.generateImageUrl(
 					pet,
 					url -> url.format("webp"),
-					transform -> transform.quality("auto").width(300).height(300).crop("fill")));
+					transform -> transform.quality("auto").width(300).height(300).crop("fit")));
 		}
 		for (final var pet : cats) {
 			pet.setImagePublicId(cloudinaryUtils.generateImageUrl(
 					pet,
 					url -> url.format("webp"),
-					transform -> transform.quality("auto").width(300).height(300).crop("fill")));
+					transform -> transform.quality("auto").width(300).height(300).crop("fit")));
 		}
 		final var props = new HashMap<String, Object>();
 		props.put("dogs", dogs);

@@ -43,7 +43,7 @@ public class ProductController extends HttpServlet {
 			pet.setImagePublicId(cloudinaryUtils.generateImageUrl(
 					pet,
 					url -> url.format("webp"),
-					transform -> transform.quality("auto").width(1000).crop("fill")));
+					transform -> transform.quality("auto").width(1000).crop("fit")));
 			props.put("pet", optional.get());
 			request.setAttribute("props", props);
 			request.getRequestDispatcher("/WEB-INF/views/Product.jsp").forward(request, response);

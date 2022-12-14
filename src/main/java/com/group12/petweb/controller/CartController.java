@@ -35,7 +35,7 @@ public class CartController extends HttpServlet {
 					cUtils.generateImageUrl(
 							item.getPet(),
 							url -> url.format("webp"),
-							transform -> transform.quality("auto").width(300).height(300).crop("fill")));
+							transform -> transform.quality("auto").width(300).height(300).crop("fit")));
 		}
 		request.setAttribute("props", props);
 		request.getRequestDispatcher("/WEB-INF/views/Cart.jsp").forward(request, response);

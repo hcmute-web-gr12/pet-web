@@ -35,7 +35,7 @@ public class AdminPetController extends HttpServlet {
 			pet.setImagePublicId(cloudinaryUtils.generateImageUrl(
 					pet,
 					url -> url.format("webp"),
-					transform -> transform.quality("auto").width(50).height(50).crop("fill")));
+					transform -> transform.quality("auto").width(50).height(50).crop("fit")));
 		}
 		final var total = petDao.countAll();
 		final var props = new HashMap<String, Object>();

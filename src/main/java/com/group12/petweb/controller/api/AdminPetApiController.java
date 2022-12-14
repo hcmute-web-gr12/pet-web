@@ -55,7 +55,7 @@ public class AdminPetApiController extends HttpServlet {
 					pet.setImagePublicId(cloudinaryUtils.generateImageUrl(
 							pet,
 							url -> url.format("webp"),
-							transform -> transform.width(300).height(300).crop("fill")));
+							transform -> transform.width(300).height(300).crop("fit")));
 					response.getWriter().print(new Gson().toJson(pet));
 				}
 			} catch (NumberFormatException ex) {
@@ -75,7 +75,7 @@ public class AdminPetApiController extends HttpServlet {
 			pet.setImagePublicId(cloudinaryUtils.generateImageUrl(
 					pet,
 					url -> url.format("webp"),
-					transform -> transform.quality("auto").width(50).height(50).crop("fill")));
+					transform -> transform.quality("auto").width(50).height(50).crop("fit")));
 		}
 		request.getSession(false).setAttribute("admin.pets", pets);
 		final var props = new HashMap<String, Object>();

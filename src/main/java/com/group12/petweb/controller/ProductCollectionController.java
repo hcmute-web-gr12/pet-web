@@ -49,7 +49,7 @@ public class ProductCollectionController extends HttpServlet {
 			pet.setImagePublicId(cloudinaryUtils.generateImageUrl(
 					pet,
 					url -> url.format("webp"),
-					transform -> transform.quality("auto").width(450).height(450).crop("fill")));
+					transform -> transform.quality("auto").width(450).height(450).crop("fit")));
 		}
 		final var props = new HashMap<String, Object>();
 		props.put("pets", pets);
