@@ -19,23 +19,9 @@
 
 <body>
 	<section class="flex flex-row">
-		<header class="flex flex-col justify-between p-4 border-r bg-white min-h-screen">
-			<div>
-				<p class="mb-2 font-bold text-2xl w-fit text-brand rounded-lg">Brand</p>
-				<c:import url="../templates/admin/Sidebar.jsp" />
-			</div>
-			<div class="sticky inset-x-0 bottom-0 border-t border-stone-100">
-				<a href="#" class="flex shrink-0 items-center bg-white p-4 hover:bg-gray-50">
-					<img alt="Profile picture" src="https://via.placeholder.com/70"
-						class="h-10 w-10 rounded-full object-cover" />
-
-					<div class="ml-1.5">
-						<p class="text-xs">
-							<strong class="block font-medium">Display Name</strong>
-						</p>
-					</div>
-				</a>
-			</div>
+		<header class="flex flex-col p-4 border-r bg-white min-h-screen">
+			<p class="mb-2 font-bold text-2xl w-fit text-brand rounded-lg">Brand</p>
+			<c:import url="../templates/admin/Sidebar.jsp" />
 		</header>
 		<main id="main-slot" class="p-4 w-full h-full">
 			<c:import url="${props.url}" />
